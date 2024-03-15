@@ -1,0 +1,8 @@
+.contentContainer{
+  flex: 1; /* Allow content container to grow and take up remaining vertical space */
+  width: 100%;
+  background-color: rgb(238, 222, 202);
+  padding-top: 100px;
+  display: flex;
+  justify-content: center;
+}
