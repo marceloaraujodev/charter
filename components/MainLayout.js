@@ -1,11 +1,12 @@
 import Nav from './Nav'
 import Content from './Content'
-import Footer from './Footer'
+import Footer from './Footer';
 
-export default function MainLayout({children}) {
+
+export default function MainLayout({children, router}) {
   return (
     <>
-      <Nav />
+      <Nav router={router} />
       <Content>{children}</Content>
       <Footer/>
     </>
