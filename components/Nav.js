@@ -3,7 +3,7 @@ import { useState } from 'react';
 import classes from './Nav.module.css';
 import Link from 'next/link';
 
-export default function Nav({ router }) {
+export default function Nav() {
   // const [navLink, setNavLink] = useState('#home');
   const [isActive, setIsActive] = useState();
 
@@ -17,7 +17,7 @@ export default function Nav({ router }) {
       {/* <div className={classes.logoContainer}>
         <p className={classes.logo}>FINALLY</p>
       </div> */}
-      <p className={classes.logo}>FINALLY</p>
+      <p className={classes.logo}>APHRODITE</p>
       <ul>
         <li>
           <Link

@@ -1,0 +1,36 @@
+/* postion absolute from the body wich has relative position */
+.container{
+  display: flex;
+  justify-content: center
+}
+.contentContainer{
+  padding: 100px 0;
+}
+.heroRow{
+  display: flex;
+  gap: 50px;
+}
+.left{
+  width: 500px;
+}
+.right{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 470px;
+}
+.title{
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #42ADF8;
+}
+.description{
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  color: #4a4b4b;
+}
+.img{
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,28 @@
+.container{
+  display: flex;
+  justify-content: space-around;
+  padding: 100px 0;
+  gap: 20px;
+}
+.contentContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  gap: 15px;
+}
+.name{
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+.profession{
+  font-weight: bold;
+}
+.ratingContainer{
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+.star{
+  color: rgb(228, 161, 27);
+}

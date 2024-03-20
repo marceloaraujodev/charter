@@ -1,0 +1,19 @@
+/* the main container controls everything inside the content.js its where you define the margin from the main image and from the footer */
+.mainContainer{
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  overflow-x: auto;
+}
+.contentContainer {
+  padding: 100px 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.section {
+  text-align: center;
+}

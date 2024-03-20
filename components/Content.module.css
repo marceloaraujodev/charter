@@ -1,23 +1,4 @@
-/* the main container controls everything inside the content.js its where you define the margin from the frontpage image and from the footer */
-.mainContainer{
-  margin-top: 20px;
-  margin-bottom: 100px;
-}
-.contentContainer {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
+.contentContainer{
+  width: 95%;
 
-.sectionContainer {
-  display: flex;
-  flex-direction: row;
-  margin-right: 10px;
-}
-
-.section {
-  width: 100%;
-  text-align: center;
 }

@@ -1,11 +1,14 @@
 import React from 'react'
-import classes from './Footer.module.css'
+import c from './Footer.module.css'
+
+
 
 export default function Footer() {
   return (
-    <footer className={classes.footer}>
-      footer content
-      <i className="bi bi-envelope"></i>
+    <footer className={c.footer}>
+      <i className={`bi bi-envelope ${c.icons}`}></i>
+      <i className={`bi bi-telephone ${c.icons}`}></i>
+      <i className={`bi bi-calendar-check ${c.icons}`}></i>
     </footer>
   )
 }
