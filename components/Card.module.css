@@ -1,0 +1,30 @@
+
+.cardTitle{
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #42ADF8;
+  padding-top: 10px;
+}
+.cardText{
+  text-overflow: ellipsis;
+}
+
+.btnCard{
+  background-color: white;
+  color: #42ADF8;
+  margin-bottom: 10px;
+  border: 1px solid #42ADF8;
+}
+.btnCard:hover{
+  border: 1px solid #42ADF8;
+  background-color: #42ADF8;
+  color: white;
+}
+.animation {
+  transition: box-shadow 0.3s ease-out, transform 0.3s linear;
+}
+.animation:hover{
+  box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.185);
+  transform: scale(1.01);
+}

@@ -1,31 +1,35 @@
 .nav{
   width: 100%;
-  background: linear-gradient(to bottom, rgba(66, 172, 248, 0.616) 0%, rgba(66, 172, 248, 0) 100%);
+  background: linear-gradient(to bottom, rgba(66, 172, 248, 0.952) 15%, rgba(66, 172, 248, 0) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 100px;
   height: 100px;
   z-index: 1000;
-  position: absolute;
   top: 0;
+  position: fixed;
 }
 .logo-container{
   position: relative;
 }
 .logo{
-  text-align: left;
-  position: absolute;
-  left: 0;
+  /* text-align: left;
   top: 50%;
   transform: translateY(-50%);
-  padding: 5px;
-  color: white;
+  margin-bottom: 0 ;*/
   font-size: 2rem;
+  font-weight: bold;
+  left: 0;
+  position: absolute;
+  color: white;
+  padding: 5px 0;
+  padding-left: 5px;
+  margin-bottom: 20px;
 }
 .nav ul{
   display: flex;
   list-style-type: none;
+  padding: 0;
 }
 
 .nav li{

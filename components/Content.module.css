@@ -1,11 +1,23 @@
-.contentContainer{
-  flex: 1; /* Allow content container to grow and take up remaining vertical space */
+/* the main container controls everything inside the content.js its where you define the margin from the frontpage image and from the footer */
+.mainContainer{
+  margin-top: 20px;
+  margin-bottom: 100px;
+}
+.contentContainer {
   width: 100%;
-  background-color: transparent;
-  padding-top: 100px;
+  height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
+  margin-top: 10px;
+}
+
+.sectionContainer {
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+}
+
+.section {
+  width: 100%;
+  text-align: center;
 }

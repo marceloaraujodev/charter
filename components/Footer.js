@@ -5,6 +5,7 @@ export default function Footer() {
   return (
     <footer className={classes.footer}>
       footer content
+      <i className="bi bi-envelope"></i>
     </footer>
   )
 }

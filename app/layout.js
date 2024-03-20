@@ -1,4 +1,5 @@
 import { Roboto, Source_Sans_3 } from 'next/font/google';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 
 // const inter = Inter({ subsets: ["latin"] });
