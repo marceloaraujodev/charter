@@ -2,10 +2,6 @@ import classes from './Card.module.css';
 
 export default function Card({ title, description, image }) {
   return (
-    // <div className={classes.cardContainer}>
-    //   <div className={classes.cardPhoto}>{image}</div>
-    //   <div className={classes.cartDescription}>{description}</div>
-    // </div>
     <div className={`card ${classes.animation}`}>
       {image}
       <div className={classes.cardBody}>

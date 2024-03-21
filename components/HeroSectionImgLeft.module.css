@@ -1,23 +1,26 @@
 /* postion absolute from the body wich has relative position */
 .container{
+
   display: flex;
   justify-content: center
 }
 .contentContainer{
   padding: 100px 0;
+  
 }
 .heroRow{
   display: flex;
   gap: 50px;
+
 }
 .left{
-  width: 500px;
+  /* width: 500px; */
 }
 .right{
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 470px;
+  /* width: 470px; */
 }
 .title{
   font-size: 2rem;

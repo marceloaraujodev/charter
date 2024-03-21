@@ -1,20 +1,21 @@
 .container{
+
   display: flex;
-  justify-content: center
+  justify-content: center;
 }
 .contentContainer{
   padding: 100px 0;
+  /* width: 90%; controls width of the content */
 }
 .heroRow{
   display: flex;
   gap: 50px;
- 
 }
 .left{
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 470px;
+  /* width: 470px; */
 }
 .right{
   width: 500px;
