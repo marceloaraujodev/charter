@@ -1,4 +1,5 @@
 .contentContainer{
   width: 95%;
+  max-width: 1444px;
   /* overflow: hidden; */
 }

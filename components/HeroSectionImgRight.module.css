@@ -1,5 +1,5 @@
 .container{
-
+  padding: 0 20px;
   display: flex;
   justify-content: center;
 }
@@ -15,11 +15,8 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  /* width: 470px; */
 }
-.right{
-  width: 500px;
-}
+
 .title{
   font-size: 2rem;
   margin-bottom: 20px;

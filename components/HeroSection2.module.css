@@ -5,14 +5,14 @@
   justify-content: center;
 }
 .contentContainer {
-  padding: 100px 0;
+  /* padding: 100px 0; */
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: space-between;
   /* gap: 20px; */
   margin-top: 10px;
-  background-color: blue;
+
 }
 
 .section {
