@@ -1,31 +1,34 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classes from './Nav.module.css';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Nav() {
-  // const [navLink, setNavLink] = useState('#home');
-  const [isActive, setIsActive] = useState();
+  const pathname = usePathname();
+  const [isActive, setIsActive] = useState('/');
+  console.log(pathname);
 
-  function handleClick(e) {
-    setIsActive(e.target.textContent)
+  useEffect(() => {
+    setIsActive(pathname);
+  }, []);
+
+  function handleClick(path) {
+    console.log(path);
+    setIsActive(path);
   }
 
   return (
-
     <nav className={classes.nav}>
-      {/* <div className={classes.logoContainer}>
-        <p className={classes.logo}>FINALLY</p>
-      </div> */}
       <p className={classes.logo}>APHRODITE</p>
       <ul>
         <li>
           <Link
             className={`${classes.menuLink} ${
-              isActive === 'HOME' ? classes.active : ''
+              isActive === '/' ? classes.active : ''
             }`}
             href="/"
-            onClick={handleClick}
+            onClick={() => handleClick('/')}
           >
             HOME
           </Link>
@@ -33,10 +36,10 @@ export default function Nav() {
         <li>
           <Link
             className={`${classes.menuLink} ${
-              isActive === 'FEATURES' ? classes.active : ''
+              isActive === '/features' ? classes.active : ''
             }`}
-            href="#features"
-            onClick={handleClick}
+            href="/features"
+            onClick={() => handleClick('/features')}
           >
             FEATURES
           </Link>
@@ -44,10 +47,10 @@ export default function Nav() {
         <li>
           <Link
             className={`${classes.menuLink} ${
-              isActive === 'GALLERY' ? classes.active : ''
+              isActive === '/gallery' ? classes.active : ''
             }`}
-            href={'#gallery'}
-            onClick={handleClick}
+            href={'/gallery'}
+            onClick={() => handleClick('/gallery')}
           >
             GALLERY
           </Link>
@@ -55,10 +58,10 @@ export default function Nav() {
         <li>
           <Link
             className={`${classes.menuLink} ${
-              isActive === 'REVIEWS' ? classes.active : ''
+              isActive === '/reviews' ? classes.active : ''
             }`}
-            href={'#reviews'}
-            onClick={handleClick}
+            href={'/reviews'}
+            onClick={() => handleClick('/reviews')}
           >
             REVIEWS
           </Link>
@@ -66,27 +69,26 @@ export default function Nav() {
         <li>
           <Link
             className={`${classes.menuLink} ${
-              isActive === 'MEET THE CREW' ? classes.active : ''
+              isActive === '/crew' ? classes.active : ''
             }`}
-            href={'#meet'}
-            onClick={handleClick}
+            href={'/crew'}
+            onClick={() => handleClick('/crew')}
           >
-            MEET THE CREW
+            CREW
           </Link>
         </li>
         <li>
           <Link
             className={`${classes.menuLink} ${
-              isActive === 'PRICING & AVAILABILITY' ? classes.active : ''
+              isActive === '/pricing' ? classes.active : ''
             }`}
-            href={'#pricing'}
-            onClick={handleClick}
+            href={'/pricing'}
+            onClick={() => handleClick('/pricing')}
           >
             PRICING & AVAILABILITY
           </Link>
         </li>
       </ul>
     </nav>
-
   );
 }

@@ -1,5 +1,7 @@
 // import SmoothScroll from '@/components/LenisLayout';
 import { Roboto, Source_Sans_3 } from 'next/font/google';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 
@@ -29,7 +31,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={sourceSans3.className}>
+      <Nav />
       {children}
+      <Footer />
       </body>
     </html>
   );

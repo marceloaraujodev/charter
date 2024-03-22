@@ -1,8 +1,6 @@
 import React from 'react'
 import c from './Footer.module.css'
 
-
-
 export default function Footer() {
   return (
     <footer className={c.footer}>

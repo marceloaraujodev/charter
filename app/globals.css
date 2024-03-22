@@ -27,3 +27,11 @@ body{
   font-family: var(--font-source-sans-3);
   font-size: 1rem;
 }
+.container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 100px 0;
+  gap: 20px;
+  height: 100vh;
+}
