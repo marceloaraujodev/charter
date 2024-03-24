@@ -1,12 +1,10 @@
-import Content from './IndexPage';
-import BackgroundImg from './BackgroundImg';
+import IndexPage from './IndexPage';
 
-export default function MainLayout({ children }) {
 
+export default function MainLayout() {
   return (
     <>
-        <BackgroundImg />
-        <Content>{children}</Content>
+      {/* <IndexPage/> */}
     </>
   );
 }

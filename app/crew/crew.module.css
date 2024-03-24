@@ -1,0 +1,44 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.contentContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  gap: 15px;
+  flex: 1;
+}
+
+.name{
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+.profession{
+  font-weight: bold;
+}
+.test{
+  flex: 1;
+  padding-top: 100px;
+}
+@media screen and (max-width: 375px) {
+  .container{
+    padding: 20px 0px;
+    gap: 15px;
+    width: 100%;
+    flex-direction: column;
+  }
+  .contentContainer {
+    gap: 10px;
+    width: 200px; 
+    flex-direction: column;
+  }
+  .photo img{
+    width: 100px;
+    height: 100px;
+  }
+}

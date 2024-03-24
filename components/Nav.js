@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 export default function Nav() {
   const pathname = usePathname();
   const [isActive, setIsActive] = useState('/');
-  console.log(pathname);
+  // console.log(pathname);
 
   useEffect(() => {
     setIsActive(pathname);

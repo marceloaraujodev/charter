@@ -1,15 +1,33 @@
-// import {useRouter} from 'next/router';
+'use client';
+import { useRef } from "react";
+import {
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import Image from 'next/image';
-import c from './page.module.css';
+import c from './crew.module.css';
 import nick from '../../public/images/crew/captain-nick.jpg';
 import yandri from '../../public/images/crew/captain-yandri.jpg';
 import james from '../../public/images/crew/captain-james.jpg';
+import BackgroundImg from '@/components/BackgroundImg';
 
-export default function CrewPage() {
 
+export default function crew() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true })
+  
   return (
-    <div className='container'>
-      <section className={c.contentContainer}>
+    <>
+    <BackgroundImg className={`crew` } />
+
+    <div className={c.container}>
+
+      <motion.section ref={ref} className={c.contentContainer} 
+        initial={{opacity: 0, y: 200}}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 200 }}
+      >
         <div className={c.photo}>
           <Image 
           src={nick} 
@@ -27,8 +45,13 @@ export default function CrewPage() {
             quae quaerat ad velit ab hic tenetur.
           </p>
         </div>
-      </section>
-      <section className={c.contentContainer}>
+      </motion.section>
+
+      <motion.section className={c.contentContainer}
+        initial={{opacity: 0, y: 200}}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 200 }}
+        transition={{ delay: 0.2 }}
+       >
         <div className={c.photo}>
           <Image 
           src={yandri} 
@@ -46,8 +69,13 @@ export default function CrewPage() {
             quae quaerat ad velit ab hic tenetur.
           </p>
         </div>
-      </section>
-      <section className={c.contentContainer}>
+      </motion.section>
+
+      <motion.section className={c.contentContainer}
+        initial={{opacity: 0, y: 200}}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 200 }}
+        transition={{ delay: 0.4 }}
+       >
         <div className={c.photo}>
           <Image 
           src={james} 
@@ -65,7 +93,10 @@ export default function CrewPage() {
             quae quaerat ad velit ab hic tenetur.
           </p>
         </div>
-      </section>
+      </motion.section>
     </div>
+
+
+    </>
   )
 }

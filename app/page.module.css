@@ -1,0 +1,22 @@
+.contentContainer{
+  width: 95%;
+  max-width: 1444px;
+  position: relative;
+}
+
+.luxury{
+  font-size: 20rem;
+  font-weight: bold;
+  position: absolute;
+  top: -40%;
+  left: 8%;
+  text-align: center;
+  color: white;
+  z-index: 5000;
+}
+
+@media screen and (max-width: 375px) {
+  .contentContainer{
+    width: 100%;
+  }
+}
