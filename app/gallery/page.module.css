@@ -1,0 +1,12 @@
+.test{
+  padding-top: 100px;
+
+}
+.photoGrid{
+  flex: 1;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.gridItem{
+  padding: 20px;
+}
