@@ -2,6 +2,7 @@
   width: 95%;
   max-width: 1444px;
   position: relative;
+  flex: 1;
 }
 
 .luxury{
@@ -17,6 +18,12 @@
 
 @media screen and (max-width: 375px) {
   .contentContainer{
+    padding-top: 50px;
+    background-color: pink;
     width: 100%;
+    flex: 1;
+  }
+  .luxury{
+    flex: 1;
   }
 }

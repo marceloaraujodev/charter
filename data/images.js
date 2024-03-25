@@ -1,17 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 
-const imageDir =  path.join(process.cwd(), '/public/images')
-console.log(imageDir)
-const files = fs.readdir(imageDir, (err, file) => {
-  console.log('run')
-});
-const ready = files.map((file) => {
-  // import file from imageDir
-  // console.log(`import ${file} from '/public/images/${file}`)
-  return `import ${file} from ${imageDir}/${file}`
+let yachtImages = {};
+
+const imageDir = path.join(__dirname, '..', 'public', 'images');
+const files = fs.readdirSync(imageDir);
+const outputFile = path.join(__dirname, '..', 'imageImports.js');
+const imports = files.map(file => {
+    const newName = path.basename(file, path.extname(file)).replace('-', '');
+    yachtImages[newName] = true; // Assigning true to indicate existence of the key
+    return `import ${newName} from '/public/images/${file}';`;
 });
 
-fs.writeFile(path.join(__dirname, './imagesReady.js'), ready)
+// Write the import statements and yachtImages object to the output file
+fs.writeFileSync(outputFile, `${imports.join('\n')}\n\nconst yachtImages = ${formatYachtImages(yachtImages)};\n\nexport default yachtImages;`);
 
-// console.log(files)
+// Function to format the yachtImages object as desired
+function formatYachtImages(yachtImages) {
+    return `{ ${Object.keys(yachtImages).join(', ')} }`;
+}
