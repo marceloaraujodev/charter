@@ -1,36 +1,36 @@
-import React from 'react'
+import React from 'react';
 import Image from 'next/image';
-import img6 from '../../public/images/yacht-6.JPG';
-import img82 from '../../public/images/yacht-82.JPG';
-import img81 from '../../public/images/yacht-51.JPG';
-import c from './page.module.css'
+import c from './page.module.css';
+import {promises as fs } from 'fs';
+import path from 'path';
 
-const images = Array.from({ length: 3}, (_, index) => ({
-  id: index + 1,
-  src: `/public/images/yacht-${index + 10}.JPG`,
-  imgName: `yacth-${index + 1}.JPG`
-}))
+async function Gallery() {
+  // const imageDir =  path.join(process.cwd(), '/public/images')
+  // console.log(imageDir)
+  // const files = await fs.readdir(imageDir, (err, file) => {
+  //   // console.log(file)
+  //   return files
+  // });
+  // files.map((file) => {
+  //   // import file from imageDir
+  //   console.log(`import ${file} from '/public/images/${file}`)
+  //   return `import ${file} from ${imageDir}/${file}`
+  // })
 
-console.log(images)
-
-export default function gallery() {
+  // console.log(files)
+ 
   return (
     <>
-    <h1 className={c.test}>gallery</h1>
-    <div className={c.photoGrid}>
-      {/* <div className={c.gridItem}><Image src={img82} width={400} alt='ts' /></div>
-      <div className={c.gridItem}><Image src={img81} width={400} alt='ts' /></div>
-      <div className={c.gridItem}><Image src={img82} width={400} alt='ts' /></div>
-      <div className={c.gridItem}><Image src={img81} width={400} alt='ts' /></div>
-      <div className={c.gridItem}><Image src={img82} width={400} alt='ts' /></div>
-      <div className={c.gridItem}><Image src={img81} width={400} alt='ts' /></div> */}
-      {images.map((image) => (
-        <div key={image.id} className={c.gridItem}>
-            <Image src={`/public/images/${image.imgName}`} width={400} height={400} alt={`Image ${image.id}`} />
+      <h1 className={c.test}>Gallery</h1>
+      {/* <div className={c.photoGrid}>
+        {images.map((image) => (
+          <div key={image} className={c.gridItem}>
+            <Image src={image} width={400} height={400} alt={image.split('/').pop()} />
           </div>
-      ))} 
-
-    </div>
+        ))}
+      </div> */}
     </>
-  )
+  );
 }
+
+export default Gallery;
