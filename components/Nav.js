@@ -20,8 +20,9 @@ export default function Nav() {
 
   return (
     <>
+      {/* <div className={c.container}> */}
       <nav className={c.nav}>
-        <p className={c.logo}>APHRODITE</p>
+        {/* <p className={c.logo}>APHRODITE</p> */}
         <ul>
           <li>
             <Link
@@ -89,8 +90,9 @@ export default function Nav() {
           </li>
         </ul>
       </nav>
+    {/* </div> */}
 
-      <div className={c.smallNav}>
+      {/* <div className={c.smallNav}>
         <div className={c.contentContainer}>
           <i className={`bi bi-list ${c.menuIcon}`}></i>
           <div className={c.menuItems}>
@@ -164,7 +166,8 @@ export default function Nav() {
             </ul>
           </div>
         </div>
-      </div>
+      </div> */}
+      
     </>
   );
 }

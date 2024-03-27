@@ -26,7 +26,7 @@ async function Gallery() {
 
   return (
     <>
-
+      <div className={c.container}>
       <div className={c.photoGrid}>
 
         {Object.keys(yachtImages).map((imageName, index) => 
@@ -34,20 +34,7 @@ async function Gallery() {
             <Image src={yachtImages[imageName]} width={300} alt={'gallery image'}/>
           </div>)
         )}
-  
-          {/* <div  className={c.gridItem}>
-            <Image src={yachtImages.yacht12} width={400} height={400} alt={'es'} />
-          </div>
-          <div  className={c.gridItem}>
-            <Image src={yachtImages.yacht12} width={400} height={400} alt={'es'} />
-          </div>
-          <div  className={c.gridItem}>
-            <Image src={yachtImages.yacht12} width={400} height={400} alt={'es'} />
-          </div>
-          <div  className={c.gridItem}>
-            <Image src={yachtImages.yacht12} width={400} height={400} alt={'es'} />
-          </div> */}
-
+      </div>
       </div>
     </>
   );

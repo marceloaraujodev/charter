@@ -14,21 +14,23 @@ font-family: var(--font-source-sans-3);
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  /* display: flex;
+  flex-direction: column; */
+  /* align-items: center; */
+  /* align-items: flex-start; */
   min-height: 100vh;
   position: relative;
+  
 }
 
-.container{
+/* .container{
   display: flex;
   justify-content: center;
   padding-top: 100px;
   gap: 20px;
   height: 100vh;
-  width: 100vw;
-}
+  width: 100%;
+} */
 
 @media screen and (max-width: 375px) {
   body{

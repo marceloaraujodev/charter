@@ -29,56 +29,55 @@ export default function IndexPage() {
   // useEffect(() => {
   //   setAnimateOnce({
   //     opacity: 1,
-  //     y: 400, 
+  //     y: 400,
   //     transition: {durantion: 0.2}
   //   })
   // }, [])
 
   return (
-    <> 
+    <>
+
+     
       <BackgroundImg className={`IndexPage`} />
 
-      <div className={c.contentContainer}>
+      <div className={c.container}>
+        <div className={c.contentContainer}>
+          <motion.div
+            className={c.luxury}
+            ref={textRef}
+            initial={{ opacity: 0, y: -200 }}
+            animate={{ opacity: 1, y: 400, transition: { durantion: 0.2 } }}
+            style={{ opacity: opacityText, y: yText }}
+            // animate={animateOnce}
+          >
+            LUXURY
+          </motion.div>
 
-        <motion.div
-          className={c.luxury}
-          ref={textRef}
-          initial={{ opacity: 0, y: -200}}
-          animate={{opacity: 1, y: 400, transition: {durantion: 0.2}}}
-          style={{ opacity: opacityText, y: yText}}
-          // animate={animateOnce}
-        >
-          LUXURY
-        </motion.div>
+          <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
+            <HeroSectionImgLeft
+              image={img82}
+              title="Unforgettable Destinations"
+              description="Embark on a journey to Miami, Florida Keys, or even the Bahamas on our Charter Yacht. Explore stunning coastlines, crystal-clear waters, and breathtaking sunsets in these iconic destinations."
+            />
+          </motion.div>
 
-        
-        <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
-          <HeroSectionImgLeft
-            image={img82}
-            title="Unforgettable Destinations"
-            description="Embark on a journey to Miami, Florida Keys, or even the Bahamas on our Charter Yacht. Explore stunning coastlines, crystal-clear waters, and breathtaking sunsets in these iconic destinations."
-          />
-        </motion.div>
+          <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
+            <HeroSectionImgRight
+              image={img6}
+              title="Luxurious Yacht Charter"
+              description="Indulge in the ultimate experience of luxury and relaxation with our Charter Yacht. Our yacht is equipped with top-notch amenities and a professional crew to cater to your every need."
+            />
+          </motion.div>
 
-        <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
-          <HeroSectionImgRight
-            image={img6}
-            title="Luxurious Yacht Charter"
-            description="Indulge in the ultimate experience of luxury and relaxation with our Charter Yacht. Our yacht is equipped with top-notch amenities and a professional crew to cater to your every need."
-          />
-        </motion.div>
-
-        <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
-          <HeroSectionImgLeft
-            image={img81}
-            title="Entertainment Extravaganza"
-            description="Unwind in style in our entertainment area, boasting a lavish jacuzzi where you can soak away your worries under the sun-kissed sky. Feel the thrill as you zip across the waves on our two high-performance jet skis, offering an exhilarating ride amidst the azure waters."
-          />
-        </motion.div>
-
-
+          <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
+            <HeroSectionImgLeft
+              image={img81}
+              title="Entertainment Extravaganza"
+              description="Unwind in style in our entertainment area, boasting a lavish jacuzzi where you can soak away your worries under the sun-kissed sky. Feel the thrill as you zip across the waves on our two high-performance jet skis, offering an exhilarating ride amidst the azure waters."
+            />
+          </motion.div>
+        </div>
       </div>
     </>
   );
 }
-

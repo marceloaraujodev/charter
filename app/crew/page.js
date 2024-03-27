@@ -20,10 +20,11 @@ export default function crew() {
   
   return (
     <>
-    <BackgroundImg className={`crew` } />
+    {/* <BackgroundImg className={`crew` } /> */}
 
     <div className={c.container}>
 
+      <div className={c.containerInner}>
       <motion.section ref={ref} className={c.contentContainer} 
         initial={{opacity: 0, y: 200}}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 200 }}
@@ -95,7 +96,7 @@ export default function crew() {
         </div>
       </motion.section>
     </div>
-
+    </div>
 
     </>
   )

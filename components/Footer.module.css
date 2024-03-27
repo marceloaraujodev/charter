@@ -7,6 +7,8 @@
   height: 150px;
   width: 100vw;
   background-color: #DDBEA7;
+  /* position: fixed;
+  bottom: 0; */
 }
 .icons{
   padding: 0 10px;

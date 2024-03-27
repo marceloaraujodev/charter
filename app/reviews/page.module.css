@@ -2,11 +2,15 @@
 
 .container{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  padding: 100px 0;
-  gap: 20px;
+  height: 100vh;
   flex: 1;
+}
+.containerInner{
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
 }
 .contentContainer{
   display: flex;
