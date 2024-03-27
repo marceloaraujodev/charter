@@ -1,10 +1,8 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import HeroSectionImgLeft from '../components/HeroSectionImgLeft';
 import HeroSectionImgRight from '../components/HeroSectionImgRight';
-import Reviews from '../components/Reviews';
-import HeroSection2 from '../components/HeroSection2';
 import c from './page.module.css';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import img6 from '../public/images/yacht-6.JPG';
@@ -16,26 +14,39 @@ export default function IndexPage() {
   const textRef = useRef();
   const { scrollYProgress, scrollY } = useScroll();
 
-  const yText = useTransform(scrollY, [1, 500], [0, 600]);
-  const opacityText = useTransform(scrollY, [0, 500], [1, 0]);
+  const yText = useTransform(scrollY, [1, 400], [400, 980]);
+  const opacityText = useTransform(scrollY, [0, 400], [1, 0]);
 
   const animationConfig = {
     initial: { opacity: 0 },
     whileInView: { opacity: 1, transition: { duration: 1.7 } },
   };
 
+  // let animationOnce = {}
+
+  // const [animateOnce, setAnimateOnce] = useState(animationOnce.initial);
+
+  // useEffect(() => {
+  //   setAnimateOnce({
+  //     opacity: 1,
+  //     y: 400, 
+  //     transition: {durantion: 0.2}
+  //   })
+  // }, [])
+
   return (
     <> 
       <BackgroundImg className={`IndexPage`} />
 
       <div className={c.contentContainer}>
+
         <motion.div
           className={c.luxury}
           ref={textRef}
-          initial={{ opacity: 1, y: -600 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          style={{ opacity: opacityText, y: yText }}
+          initial={{ opacity: 0, y: -200}}
+          animate={{opacity: 1, y: 400}}
+          style={{ opacity: opacityText, y: yText}}
+          // animate={animateOnce}
         >
           LUXURY
         </motion.div>
@@ -65,19 +76,9 @@ export default function IndexPage() {
           />
         </motion.div>
 
-        <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
-          <Reviews />
-        </motion.div>
+
       </div>
     </>
   );
 }
 
-{
-  /* <motion.div
-        {...animationConfig}
-        style={{ y: scrollYProgress }}
-      >
-        <HeroSection2 />
-      </motion.div> */
-}

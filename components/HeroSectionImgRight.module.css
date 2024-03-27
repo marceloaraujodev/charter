@@ -2,19 +2,24 @@
   padding: 0 20px;
   display: flex;
   justify-content: center;
+  overflow: hidden;
+  background-color: #ffedd6;
 }
+
 .contentContainer{
   padding: 100px 0;
-  /* width: 90%; controls width of the content */
+  max-width: 1444px;
 }
 .heroRow{
   display: flex;
-  gap: 50px;
+  justify-content: space-between;
+  padding: 0 80px;
 }
 .left{
   display: flex;
   justify-content: center;
   flex-direction: column;
+  width: 40%;
 }
 
 .title{
