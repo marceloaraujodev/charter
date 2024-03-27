@@ -44,7 +44,7 @@ export default function IndexPage() {
           className={c.luxury}
           ref={textRef}
           initial={{ opacity: 0, y: -200}}
-          animate={{opacity: 1, y: 400}}
+          animate={{opacity: 1, y: 400, transition: {durantion: 0.2}}}
           style={{ opacity: opacityText, y: yText}}
           // animate={animateOnce}
         >
