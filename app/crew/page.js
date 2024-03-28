@@ -18,9 +18,9 @@ export default function crew() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true })
   
+  // {/* <BackgroundImg className={`crew` } /> */}
   return (
     <>
-    {/* <BackgroundImg className={`crew` } /> */}
 
     <div className={c.container}>
 
@@ -41,7 +41,7 @@ export default function crew() {
         <div className={c.profession}>Captain</div>
         <div className={c.descriptionContainer}>
           <p className="px-xl-3">
-            <i className="fas fa-quote-left pe-2"></i>Lorem ipsum dolor sit
+            Lorem ipsum dolor sit
             amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur
             quae quaerat ad velit ab hic tenetur.
           </p>
@@ -97,6 +97,92 @@ export default function crew() {
       </motion.section>
     </div>
     </div>
+
+    {/* <div className={c.container}>
+      <div className={c.containerInner}>
+        <motion.section
+          className={c.contentContainer}
+          ref={ref}
+          initial={{ opacity: 0, y: 200 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 200 }}
+        >
+          <div className={c.photo}>
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+              className="rounded-circle shadow-1-strong"
+              width="150"
+              height="150"
+            />
+          </div>
+          <div className={c.name}>Maria Smantha</div>
+          <div className={c.profession}>Web Developer</div>
+          <div className={c.descriptionContainer}>
+            <p className="px-xl-3">
+              <i className="fas fa-quote-left pe-2"></i>Lorem ipsum dolor sit
+              amet, consectetur adipisicing elit. Quod eos id officiis hic
+              tenetur quae quaerat ad velit ab hic tenetur.
+            </p>
+          </div>
+
+
+        </motion.section>
+
+        <motion.section
+          className={c.contentContainer}
+          ref={ref}
+          initial={{ opacity: 0, y: 200 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 200 }}
+          transition={{ delay: 0.2 }}
+        >
+          <div className={c.photo}>
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+              className="rounded-circle shadow-1-strong"
+              width="150"
+              height="150"
+            />
+          </div>
+          <div className={c.name}>Maria Smantha</div>
+          <div className={c.profession}>Web Developer</div>
+          <div className={c.descriptionContainer}>
+            <p className="px-xl-3">
+              <i className="fas fa-quote-left pe-2"></i>Lorem ipsum dolor sit
+              amet, consectetur adipisicing elit. Quod eos id officiis hic
+              tenetur quae quaerat ad velit ab hic tenetur.
+            </p>
+          </div>
+
+
+        </motion.section>
+
+        <motion.section
+          className={c.contentContainer}
+          ref={ref}
+          initial={{ opacity: 0, y: 200 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 200 }}
+          transition={{ delay: 0.4 }}
+        >
+          <div className={c.photo}>
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+              className="rounded-circle shadow-1-strong"
+              width="150"
+              height="150"
+            />
+          </div>
+          <div className={c.name}>Maria Smantha</div>
+          <div className={c.profession}>Web Developer</div>
+          <div className={c.descriptionContainer}>
+            <p className="px-xl-3">
+              <i className="fas fa-quote-left pe-2"></i>Lorem ipsum dolor sit
+              amet, consectetur adipisicing elit. Quod eos id officiis hic
+              tenetur quae quaerat ad velit ab hic tenetur.
+            </p>
+          </div>
+
+        </motion.section>
+      </div>
+    </div> */}
 
     </>
   )

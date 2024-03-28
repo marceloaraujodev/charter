@@ -1,9 +1,10 @@
 .container{
-  padding: 0 20px;
+  /* padding: 0 20px; */
   display: flex;
   justify-content: center;
   overflow: hidden;
   background-color: #ffedd6;
+  width: 100%;
 }
 
 .contentContainer{

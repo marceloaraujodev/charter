@@ -1,7 +1,7 @@
-.container {
+.containerOuter {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
   flex: 1;
   height: 100vh;
   padding: 100px 0;
@@ -14,14 +14,26 @@
   align-items: center;
   flex: 1;
 }
-.title {
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
+.containerOuter h1{
+  color: #42ADF8;
+  font-weight: bold;
 }
-.title h2 {
-  width: 50%;
-  background-color: aqua;
-  text-align: center;
+.containerOuter h4{
   padding: 15px 0;
+  font-weight: 600;
+}
+.containerOuter p{
+  padding: 20px 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.containerOuter button{
+  background-color: #42ADF8;
+  border: 1px solid #42ADF8;
+  color: white;
+}
+.containerOuter button:hover{
+  background-color: white;
+  color: #42ADF8;
+  border: 1px solid #42ADF8;
 }

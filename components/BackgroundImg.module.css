@@ -1,5 +1,5 @@
 .imageContainer{
-  width: 100vw;
+  width: 100%;
   height: 1080px;
   background-position: center;
   background-size: cover;
@@ -11,6 +11,9 @@
 .crew{
   height: 600px;
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, rgba(66, 173, 248, 1) 100%), url('../public/images/yacht-15.JPG');
+}
+.view{
+  background-image: url('../public/images/yacht-3.JPG');
 }
 
 @media screen and (max-width: 375px) {

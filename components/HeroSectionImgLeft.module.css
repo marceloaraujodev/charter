@@ -1,9 +1,10 @@
 /* postion absolute from the body wich has relative position */
 .container{
-  padding:0 20px;
+  /* padding:0 20px; */
   display: flex;
   justify-content: center;
   background-color: #e1f2fd;
+  width: 100%;
   /* overflow: hidden; */
 }
 .contentContainer{

@@ -18,24 +18,48 @@
   line-height: 13rem;
   vertical-align: top;
   overflow: hidden;
-  
 }
 .luxury::first-letter{
   margin-left: -25px;
 }
+.confortContainer{
+  position: relative;
+}
+.confort{
+  font-size: 20rem;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  /* top: -1080px; */
+  width: 100%;
+  text-align: center;
+  color: white;
+  z-index: 5000;
+  /* background-color: lightcoral; */
+  line-height: 14.3rem;
+  vertical-align: bottom;
+  overflow: hidden;
+}
+.confort::first-letter{
+  margin-left: -25px;
+}
 
-@media screen and (max-width: 375px) {
-  .contentContainer{
-    padding-top: 0;
-    /* background-color: pink; */
-    width: 100%;
-    flex: 1;
-  }
+
+
+@media screen and (min-width: 768px) {
   .luxury{
-    flex: 1;
-    font-size: 60px;
-    top: -30%;
-    left: 20%;
-    color: blue;
+    font-size: 12rem;
+  }
+  .confort{
+    font-size: 10rem;
+  }
+}
+
+@media screen and (min-width: 1259px) {
+  .luxury{
+    font-size: 18rem;
+  }
+  .confort{
+    font-size: 18rem;
   }
 }

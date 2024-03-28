@@ -78,7 +78,7 @@
 }
 
 
-@media screen and (max-width: 780px) {
+/* @media screen and (max-width: 780px) {
   .nav{
     display: none;
   }
@@ -94,7 +94,7 @@
     font-size: 2rem;
     left: 10px;
     top: 10px;
-    color: black;
+    color: white;
     position: absolute;
   }
   .menuItems{
@@ -103,8 +103,6 @@
     left: 10px;
     background-color: beige;
     border-radius: 5px;
-    /* adds or removes links block */
-    /* display: none;  */ 
   }
   .menuItems ul{
     padding: 0;
@@ -120,5 +118,5 @@
     color: black;
   }
 }
-
+ */
 

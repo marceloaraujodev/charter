@@ -12,10 +12,23 @@ import BackgroundImg from '../components/BackgroundImg';
 
 export default function IndexPage() {
   const textRef = useRef();
+  const confortRef = useRef();
   const { scrollYProgress, scrollY } = useScroll();
+  // console.log(scrollY)
 
   const yText = useTransform(scrollY, [1, 400], [400, 980]);
   const opacityText = useTransform(scrollY, [0, 400], [1, 0]);
+
+  const yConfort = useTransform(
+    scrollY,
+    [900, 1200, 1500, 1600, 2000],
+    [0, 250, 250, 250, 870]
+  );
+  const opacityConfort = useTransform(
+    scrollY,
+    [760, 1500, 1600, 2100],
+    [0, 1, 1, 0]
+  );
 
   const animationConfig = {
     initial: { opacity: 0 },
@@ -23,7 +36,6 @@ export default function IndexPage() {
   };
 
   // let animationOnce = {}
-
   // const [animateOnce, setAnimateOnce] = useState(animationOnce.initial);
 
   // useEffect(() => {
@@ -36,8 +48,6 @@ export default function IndexPage() {
 
   return (
     <>
-
-     
       <BackgroundImg className={`IndexPage`} />
 
       <div className={c.container}>
@@ -60,6 +70,17 @@ export default function IndexPage() {
               description="Embark on a journey to Miami, Florida Keys, or even the Bahamas on our Charter Yacht. Explore stunning coastlines, crystal-clear waters, and breathtaking sunsets in these iconic destinations."
             />
           </motion.div>
+
+          <div className={c.confortContainer}>
+            <motion.div
+              className={c.confort}
+              style={{ opacity: opacityConfort, y: yConfort }}
+              ref={confortRef}
+            >
+              CONFORT
+            </motion.div>
+          </div>
+          <BackgroundImg className={`view`} />
 
           <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
             <HeroSectionImgRight
