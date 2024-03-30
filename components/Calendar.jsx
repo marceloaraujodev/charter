@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -7,26 +8,37 @@ import interactionPlugin from '@fullcalendar/interaction';
 import c from './Calendar.module.css';
 
 
-export default function Calendar() {
-  const [eventDetails, setEventDetails] = useState();
 
+export default function Calendar() {
+   const [eventDetails, setEventDetails] = useState({title: 'test'});
+
+  //   useEffect(() => {
+  //   console.log('test')
+  //   console.log(eventDetails)
+  // }, [])
 
   // when you click you recieve a object that contains view, date...
   function handleDateClick(arg){ 
+    setEventDetails({title: 'test'})
+    console.log('test')
     const calendarApi = arg.view.calendar;
    // create new event
-    const newEvent = {
+    const newEvent = { 
       title: 'test',
+      description: 'todo xxxxx',
       start: arg.dateStr,
       end: '2024-03-30'
     }
-    calendarApi.addEvent(newEvent)
-    setEventDetails(newEvent);
+    const result = calendarApi.addEvent(newEvent)
+    setEventDetails(newEvent)
+    console.log(result)
+    // setEventDetails(newEvent);
   }
 
-  function handleEventAdd(info){
-    console.log(info)
-    info.event.setProp('content', renderEventContent(info.event))
+  function handleEventAdd(event){
+    console.log(event)
+    // console.log(info)
+    // info.event.setProp('content', renderEventContent(info.event))
   }
   
   function renderEventContent(eventInfo){
@@ -35,7 +47,7 @@ export default function Calendar() {
       <>
       <b>{eventInfo.title}</b>
       <p>{eventInfo.start}</p>
-      <p>{eventInfo.end}</p>
+      <p>{eventInfo.description}</p>
       </>
     )
   }
@@ -47,19 +59,21 @@ export default function Calendar() {
       <div className={c.contentContainer}>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          // initialview={'dayGridMonth'}
+          initialview={'dayGridMonth'}
           weekends={true}
           headerToolbar={{
-            start: 'today prev,next', // will normally be on the left. if RTL, will be on the right
+            start: 'today prev,next', 
             center: 'title',
-            end: 'prevYear nextYear', // will normally be on the right. if RTL, will be on the left
+            end: 'prevYear nextYear', 
             }}
           selectable
           dateClick={handleDateClick}
           eventAdd={handleEventAdd}
-          // eventContent={() => renderEventContent(eventDetails)}
+          displayEventTime={true}
+          eventContent={() => renderEventContent(eventDetails)}
         />
       </div>
     </div>
+
   );
 }
