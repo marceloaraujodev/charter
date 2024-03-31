@@ -5,106 +5,138 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import {v4 as uuidv4 } from 'uuid';
 import Modal from './Modal';
 import c from './Calendar.module.css';
 
-
-
 export default function Calendar() {
-  const [eventDetails, setEventDetails] = useState({ title: 'test' });
+  const [eventDetails, setEventDetails] = useState({ title: 'test' }); // for testing
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [events, setEvents] = useState([]);
   const [formData, setFormData] = useState({
-    start: '', 
-    end: '', 
-    title: '', 
-    description:'',
-    });
+    id: '',
+    start: '',
+    end: '',
+    title: '',
+    description: '',
+  });
   const [showModal, setShowModal] = useState(false);
-  const [events, setEvents] = useState();
   const calendarApiRef = useRef();
 
   // when you click you recieve a object that contains view, date...
   function handleDateClick(arg) {
+    setShowModal(true);
+    setEvents([...events, formData])
     // console.log(arg)
-    setEventDetails({ title: 'test' });
-    const calendarApi = arg.view.calendar;
-    // create new event
+    // setEventDetails({ title: 'test' });
+    // const calendarApi = arg.view.calendar;
+    // // create new event
+    // const newEvent = {
+    //   title: 'test',
+    //   description: 'todo xxxxx',
+    //   start: arg.dateStr,
+    //   end: '2024-03-30',
+    // };
+    // setEventDetails(newEvent);
+    // calendarApi.addEvent(newEvent);
+  }
+
+  function handleFormSubmit(formData) {
+    // when submitting for the first time
+    const eventId = uuidv4(); 
     const newEvent = {
-      title: 'test',
-      description: 'todo xxxxx',
-      start: arg.dateStr,
-      end: '2024-03-30',
-    };
-    setEventDetails(newEvent);
-    const result = calendarApi.addEvent(newEvent);
-    // console.log(result);
+      id: eventId,
+      start: formData.start,
+      end: formData.end,
+      title: formData.title,
+      description: formData.description,
+    }
+    setShowModal(false);
+    setEvents([...events, newEvent]);
   }
-
-  function handleFormSubmit (formData){
-    // console.log(formData)
-    // setFormData(formData)
-    setShowModal(false)
-    addEvent(formData)
-  }
-
-  function addEvent(data) {
-    
-    setEvents({...events, data})
-    // console.log(data)
-    const calendarApi = calendarApiRef.current.calendar;
-    calendarApi.addEvent(data)
-  }
-
-  function renderEventContent(eventInfo) {
-    console.log(eventInfo)
-    
+ 
+  // displays content inside event
+  function renderEventContent() {
     return (
       <>
-        <b>{eventInfo.title}</b>
-        <p>{eventInfo.start}</p>
-        <p>{eventInfo.end}</p>
-        <p>{eventInfo.description}</p>
+        {events.map((event, index) => (
+          <div key={index}>
+                <b>{event.title}</b>
+                <p key={index}>{event.description}</p>
+          </div>
+        ))}
       </>
     );
   }
-  
+
   // // button to show the modal when clicked
-  function add(){
-      // alert('clicked the custom button!');
-      setShowModal(true)
+  function displayModal() {
+    setFormData({
+      id: '',
+      start: '',
+      end: '',
+      title: '',
+      description: '',
+    });
+    setShowModal(true);
+  }
+
+  function updateEvent(){
+
+  }
+
+  // compare id & set clicked event to be the one that was clicked.
+  function eventClick(eventClickInfo){
+    console.log(eventClickInfo.event.id)
+    const clickId = eventClickInfo.event.id;
+    const clickedEvent = events.find(event => event.id === clickId);
+    setSelectedEvent(clickedEvent)
+    setShowModal(true)
+
+  }
+
+  function closeModal(){
+    setShowModal(false);
   }
 
   return (
     <>
-    <div className={c.container}>
-      <div className={c.contentContainer}>
-       <FullCalendar
-          ref={calendarApiRef}
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          weekends={true}
-          headerToolbar={{
-            start: 'add prev,next',
-            center: 'title',
-            end: 'prevYear nextYear',
-          }}
-          customButtons={{
-            add: {
-              text: 'Add',
-              click: add,
-            },
-          }}
-          selectable
-          dateClick={handleDateClick}
-          displayEventTime={true}
-          eventContent={() => renderEventContent(eventDetails)}
-          events={events}
-          
-        />
+      <div className={c.container}>
+        <div className={c.contentContainer}>
+          <FullCalendar
+            ref={calendarApiRef}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            weekends={true}
+            headerToolbar={{
+              start: 'add prev,next',
+              center: 'title',
+              end: 'prevYear nextYear',
+            }}
+            customButtons={{
+              add: {
+                text: 'Add',
+                click: displayModal,
+              },
+            }}
+            selectable
+            // dateClick={handleDateClick}
+            displayEventTime={true}
+            eventContent={renderEventContent}
+            events={events}
+            eventClick={eventClick}
+            editable={true}
 
+          />
+        </div>
       </div>
-    </div>
-    {showModal && (
-      <Modal formData={formData} setFormData={setFormData} onSubmit={handleFormSubmit} />
-    )}
+      {showModal && (
+        <Modal
+          formData={formData}
+          setFormData={setFormData}
+          onSubmit={handleFormSubmit}
+          onClick={closeModal}
+        />
+      )}
     </>
   );
 }

@@ -1,6 +1,6 @@
 import c from './Modal.module.css'
 
-export default function Modal({formData, setFormData, onSubmit}) {
+export default function Modal({formData, setFormData, onSubmit, onClick}) {
 
   function handleInput(e){
     const { name, value } = e.target;
@@ -13,7 +13,10 @@ export default function Modal({formData, setFormData, onSubmit}) {
   function handleSubmit(e){
     e.preventDefault();
     onSubmit(formData)
-  
+  }
+
+  function handleCloseModal(){
+    onClick(false)
   }
 
   return (
@@ -29,6 +32,7 @@ export default function Modal({formData, setFormData, onSubmit}) {
           <label name='description' type='text'>Description</label>
           <textarea type='text' name='description' value={formData.description} onChange={handleInput}/>
           <button type='submit'>Submit</button>
+          <button onClick={handleCloseModal}>Close</button>
         </form>
       </div>
     </dialog>
