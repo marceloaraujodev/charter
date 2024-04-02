@@ -1,6 +1,6 @@
 import c from './Modal.module.css'
 
-export default function Modal({formData, setFormData, onSubmit, onClick}) {
+export default function Modal({formData, setFormData, onSubmit, onCloseModal, editEvent,  onEditSubmit, onDelete}) {
 
   function handleInput(e){
     const { name, value } = e.target;
@@ -12,17 +12,27 @@ export default function Modal({formData, setFormData, onSubmit, onClick}) {
 
   function handleSubmit(e){
     e.preventDefault();
-    onSubmit(formData)
+      onSubmit(formData)
   }
 
   function handleCloseModal(){
-    onClick(false)
+    onCloseModal(false)
   }
+
+function handleEditClick(e){
+  e.preventDefault();
+  console.log('enter')
+  onEditSubmit(); // calls editEventFunction on Calendar
+}
+
+function handleDeleteEvent(){
+  onDelete();
+}
 
   return (
     <dialog open className={c.modal}>
       <div className={c.modalContent}>
-        <form className={c.form} onSubmit={handleSubmit}>
+        <form className={c.form}  onSubmit={editEvent ? handleEditClick : handleSubmit}>
           <label name='start'>Start Date</label>
           <input name='start' type='date' value={formData.date} onChange={handleInput}/>
           <label name='end'>End Date</label>
@@ -31,8 +41,9 @@ export default function Modal({formData, setFormData, onSubmit, onClick}) {
           <input name='title' type='text' value={formData.title} onChange={handleInput}/>
           <label name='description' type='text'>Description</label>
           <textarea type='text' name='description' value={formData.description} onChange={handleInput}/>
-          <button type='submit'>Submit</button>
+          {editEvent ? <button type='submit'>Edit</button> : <button type='submit' >Submit</button>}
           <button onClick={handleCloseModal}>Close</button>
+          <button onClick={handleDeleteEvent}>Delete Event</button>
         </form>
       </div>
     </dialog>
