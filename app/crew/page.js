@@ -40,7 +40,7 @@ export default function crew() {
         <div className={c.name}>Nick</div>
         <div className={c.profession}>Captain</div>
         <div className={c.descriptionContainer}>
-          <p className="px-xl-3">
+          <p className="">
             Lorem ipsum dolor sit
             amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur
             quae quaerat ad velit ab hic tenetur.

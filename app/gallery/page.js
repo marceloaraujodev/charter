@@ -1,41 +1,38 @@
-import React from 'react';
+// import {useState} from 'react';
+'use client'
 import Image from 'next/image';
 import c from './page.module.css';
-import {promises as fs } from 'fs';
-import path from 'path';
 import yachtImages from '@/imageImports';
+import { useState } from 'react';
+import ModalImage from '@/components/GalleryModal';
 
-async function Gallery() {
+function Gallery() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const maxLoops = 5;
-  let loopCount = 0;
-  
-  
-  for (const [key] of Object.entries(yachtImages)){
-    // console.log(key)
-    loopCount ++;
-
-    if(loopCount >= maxLoops){
-      break;
-    }
-  }
-
-  // const t = Object.keys(yachtImages);
-  // console.log(t)
-  // console.log(`${yachtImages.yacht10}`)
+  const onClose = () => setIsOpen(false);
 
   return (
     <>
       <div className={c.container}>
-      <div className={c.photoGrid}>
-
-        {Object.keys(yachtImages).map((imageName, index) => 
-          (<div key={index} className={c.gridItem}>
-            <Image src={yachtImages[imageName]} width={300} alt={'gallery image'}/>
-          </div>)
-        )}
+        <div className={c.photoGrid}>
+          {Object.keys(yachtImages).map((imageName, index) => (
+            <div key={index} className={c.gridItem}>
+              <a href='#' onClick={() => { 
+                setSelectedImage(yachtImages[imageName]); 
+                setIsOpen(true); 
+                }}>
+                <Image
+                  src={yachtImages[imageName]}
+                  width={300}
+                  alt={'gallery image'}
+              />
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
-      </div>
+      {isOpen && <ModalImage isOpen={isOpen} selectedImage={selectedImage} onClose={onClose} />}
     </>
   );
 }

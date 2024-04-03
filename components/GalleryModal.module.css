@@ -1,0 +1,28 @@
+.modalContainer{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.349);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.modalContent{
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.btnClose{
+  position: absolute;
+  top: -40px; /* Adjust for desired top margin */
+  right: 0; /* Adjust for desired right margin */
+  font-size: 2rem;
+  background-color: transparent;
+  border: none;
+  color: white;
+  z-index: 50;
+}

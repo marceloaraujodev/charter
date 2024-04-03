@@ -4,7 +4,8 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
-import Calendar from '@/components/Calendar';
+
+import GalleryModal from '@/components/GalleryModal';
 
 // const inter = Inter({ subsets: ["latin"] });
 // const madimiOne = MadimiOne({
@@ -33,10 +34,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={sourceSans3.className}>
-      <Calendar />
-      {/* <Nav /> */}
-      {/* {children} */}
-      {/* <Footer /> */}
+      
+      <Nav />
+      {children}
+      <Footer />
       </body>
     </html>
   );
