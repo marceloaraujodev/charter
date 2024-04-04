@@ -3,7 +3,7 @@
   max-width: 1000px;
 }
 .photoGrid{
-  padding-top: 120px;
+  padding-top: 150px;
   flex: 1;
   display: grid;
   justify-content: center;
@@ -17,11 +17,14 @@
   justify-content: center;
   padding: 15px 8px;
   width: auto;
-  
 }
 .gridItem:hover{
   opacity: .6;
   transition: 0.5s;
+}
+.x{
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.322);
+  border-radius: 10px;
 }
 .blurredImage{
   filter: blur(1px);

@@ -89,9 +89,9 @@ import yacht86 from '/public/images/yacht-86.JPG';
 import yacht87 from '/public/images/yacht-87.JPG';
 import yacht88 from '/public/images/yacht-88.JPG';
 import yacht89 from '/public/images/yacht-89.JPG';
-import yacht9 from '/public/images/yacht-9.JPG';
+// import yacht9 from '/public/images/yacht-9.JPG';
 import yacht90 from '/public/images/yacht-90.JPG';
 
-const yachtImages = {  main, yacht1, yacht10, yacht11, yacht12, yacht13, yacht14, yacht15, yacht16, yacht17, yacht18, yacht19, yacht2, yacht20, yacht21, yacht22, yacht23, yacht24, yacht25, yacht26, yacht27, yacht28, yacht29, yacht3, yacht30, yacht31, yacht32, yacht33, yacht34, yacht35, yacht36, yacht37, yacht38, yacht39, yacht4, yacht40, yacht41, yacht42, yacht43, yacht44, yacht45, yacht46, yacht47, yacht48, yacht49, yacht5, yacht50, yacht51, yacht52, yacht53, yacht54, yacht55, yacht56, yacht57, yacht58, yacht59, yacht6, yacht60, yacht61, yacht62, yacht63, yacht64, yacht65, yacht66, yacht67, yacht68, yacht69, yacht7, yacht70, yacht71, yacht72, yacht73, yacht74, yacht75, yacht76, yacht77, yacht78, yacht79, yacht8, yacht80, yacht81, yacht82, yacht83, yacht84, yacht85, yacht86, yacht87, yacht88, yacht89, yacht9, yacht90 };
+const yachtImages = {  main, yacht1, yacht10, yacht11, yacht12, yacht13, yacht14, yacht15, yacht16, yacht17, yacht18, yacht19, yacht2, yacht20, yacht21, yacht22, yacht23, yacht24, yacht25, yacht26, yacht27, yacht28, yacht29, yacht3, yacht30, yacht31, yacht32, yacht33, yacht34, yacht35, yacht36, yacht37, yacht38, yacht39, yacht4, yacht40, yacht41, yacht42, yacht43, yacht44, yacht45, yacht46, yacht47, yacht48, yacht49, yacht5, yacht50, yacht51, yacht52, yacht53, yacht54, yacht55, yacht56, yacht57, yacht58, yacht59, yacht6, yacht60, yacht61, yacht62, yacht63, yacht64, yacht65, yacht66, yacht67, yacht68, yacht69, yacht7, yacht70, yacht71, yacht72, yacht73, yacht74, yacht75, yacht76, yacht77, yacht78, yacht79, yacht8, yacht80, yacht81, yacht82, yacht83, yacht84, yacht85, yacht86, yacht87, yacht88, yacht89, yacht90 };
 
 export default yachtImages;
