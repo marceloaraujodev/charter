@@ -9,9 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 import Modal from './Modal';
 import c from './Calendar.module.css';
 
-
-
-
 export default function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [events, setEvents] = useState([]);
@@ -25,31 +22,18 @@ export default function Calendar() {
   });
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [eventsCount, setEventsCount] = useState(0);
   const calendarApiRef = useRef();
 
   useEffect(() => {
     if (selectedEvent){
       setIsEditing(true);
     }
+    if(events.length > 0){
+
+    }
   }, [selectedEvent])
 
-  // when you click you recieve a object that contains view, date...
-  function handleDateClick(arg) {
-    setShowModal(true);
-    // setEvents([...events, formData]);
-    // console.log(arg)
-    // setEventDetails({ title: 'test' });
-    // const calendarApi = arg.view.calendar;
-    // // create new event
-    // const newEvent = {
-    //   title: 'test',
-    //   description: 'todo xxxxx',
-    //   start: arg.dateStr,
-    //   end: '2024-03-30',
-    // };
-    // setEventDetails(newEvent);
-    // calendarApi.addEvent(newEvent);
-  }
 
   function handleFormSubmit(formData) {
     // when submitting for the first time
@@ -63,18 +47,10 @@ export default function Calendar() {
     };
     setShowModal(false);
     setEvents([...events, newEvent]);
-    addEvent(newEvent);
-  }
-
-  function addEvent(event) {
-    // console.log(event);
-    // events.fiter(newEvent => {if(newEvent.id !== event.id) // add newEvent to events})
   }
 
   // // button to show the modal when clicked
   function displayModal() {
-    console.log(events.length === 0 ? 'yes' : 'no')
-
     // test have to set it to empty string
     const eventId = uuidv4();
     const newEvent = {
@@ -151,13 +127,10 @@ export default function Calendar() {
               },
             }}
             selectable
-            // dateClick={handleDateClick}
             displayEventTime={true}
-            // eventContent={renderEventContent}
             events={events}
             eventClick={eventClick}
             editable={true}
-            eventAdd={addEvent}
           />
         </div>
       </div>

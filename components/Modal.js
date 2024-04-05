@@ -10,7 +10,6 @@ export default function Modal({
   onDelete,
 }) {
   
-
   function handleInput(e){
     const { name, value } = e.target;
     setFormData({
@@ -52,7 +51,7 @@ function handleDeleteEvent(){
           <textarea type='text' name='description' value={formData.description} onChange={handleInput}/>
           {editEvent ? <button type='submit'>Edit</button> : <button type='submit' >Submit</button>}
           <button onClick={handleCloseModal}>Close</button>
-          <button onClick={handleDeleteEvent}>Delete Event</button>
+          {editEvent ? <button onClick={handleDeleteEvent}>Delete Event</button> : ''}
         </form>
       </div>
     </dialog>
