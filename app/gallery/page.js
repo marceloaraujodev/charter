@@ -9,13 +9,13 @@ import { initializeApp } from "firebase/app";
 import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAPPvRPTN95o-egb8URn1JTh-qoqMdMK7M",
-  authDomain: "charter-8fd79.firebaseapp.com",
-  projectId: "charter-8fd79",
-  storageBucket: "charter-8fd79.appspot.com",
-  messagingSenderId: "677978965813",
-  appId: "1:677978965813:web:a6fb3e527489db51a9ae7c",
-  measurementId: "G-P28GW84F4F"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
 /* 
@@ -31,6 +31,8 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 const storage = getStorage()
+
+
 
 
 function Gallery() {
@@ -78,7 +80,7 @@ function Gallery() {
                   width={300}
                   height={200}
                   alt={'gallery image'}
-                  style={{objectFit: "cover", maxHeight: '169px'}}
+                  style={{objectFit: "cover", maxHeight: '169px' , height: 'auto'}}
               />
               </div>
               </a>

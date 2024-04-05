@@ -52,7 +52,6 @@ export default function Calendar() {
   }
 
   function handleFormSubmit(formData) {
-    console.log('enter handleFormSubmit Function')
     // when submitting for the first time
     const eventId = uuidv4();
     const newEvent = {
@@ -74,14 +73,16 @@ export default function Calendar() {
 
   // // button to show the modal when clicked
   function displayModal() {
+    console.log(events.length === 0 ? 'yes' : 'no')
+
     // test have to set it to empty string
     const eventId = uuidv4();
     const newEvent = {
       id: eventId,
-      start: '2024-04-04',
-      end: '2024-04-04',
-      title: 'test2 event',
-      description: 'descrition',
+      start: '',
+      end: '',
+      title: '',
+      description: '',
     };
     
     setFormData(newEvent);
@@ -123,10 +124,9 @@ export default function Calendar() {
   }
 
   function deleteEvent(){
-    console.log(selectedEvent.title)
     // creates array that excludes the item
     const updatedEvents = events.filter(event => event.id !== selectedEvent.id)
-    console.log(updatedEvents)
+    // console.log(updatedEvents)
     // update the state
     setEvents(updatedEvents);
   }

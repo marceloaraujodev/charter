@@ -1,6 +1,15 @@
 import c from './Modal.module.css'
 
-export default function Modal({formData, setFormData, onSubmit, onCloseModal, editEvent,  onEditSubmit, onDelete}) {
+export default function Modal({
+  formData, 
+  setFormData, 
+  onSubmit, 
+  onCloseModal, 
+  editEvent,  
+  onEditSubmit, 
+  onDelete,
+}) {
+  
 
   function handleInput(e){
     const { name, value } = e.target;
