@@ -29,7 +29,6 @@ export default function Modal({
 
 function handleEditClick(e){
   e.preventDefault();
-  console.log('enter')
   onEditSubmit(); // calls editEventFunction on Calendar
 }
 
