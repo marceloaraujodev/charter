@@ -11,6 +11,10 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 22px;
   margin: 0 20px;
+  min-height: 100vh;
+}
+.loading{
+  text-align: center;
 }
 .gridItem{
   display: flex;
