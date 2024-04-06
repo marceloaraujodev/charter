@@ -19,11 +19,15 @@ export default function IndexPage() {
   const yText = useTransform(scrollY, [1, 400], [400, 980]);
   const opacityText = useTransform(scrollY, [0, 400], [1, 0]);
 
-  const yConfort = 
-  useTransform(scrollY, [900, 1200, 1500, 1600, 2000], [0, 250, 250, 250, 913]
+  const yConfort = useTransform(
+    scrollY,
+    [900, 1200, 1500, 1600, 2000],
+    [0, 250, 250, 250, 913]
   );
-  const opacityConfort = 
-  useTransform(scrollY,[760, 1300, 1600, 2160],[0, 1, 1, 0]
+  const opacityConfort = useTransform(
+    scrollY,
+    [760, 1300, 1600, 2160],
+    [0, 1, 1, 0]
   );
 
   const animationConfig = {

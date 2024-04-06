@@ -1,6 +1,5 @@
 .contentContainer{
   width: 100%;
-  /* max-width: 1444px; */
   flex: 1;
 }
 
@@ -14,7 +13,6 @@
   text-align: center;
   color: white;
   z-index: 5000;
-  /* background-color: lightcoral; */
   line-height: 13rem;
   vertical-align: top;
   overflow: hidden;
@@ -30,12 +28,10 @@
   font-weight: bold;
   position: absolute;
   top: 0;
-  /* top: -1080px; */
   width: 100%;
   text-align: center;
   color: white;
   z-index: 5000;
-  /* background-color: lightcoral; */
   line-height: 14.3rem;
   vertical-align: bottom;
   overflow: hidden;
@@ -44,9 +40,25 @@
   margin-left: -25px;
 }
 
+@media screen and (max-width: 1259px) {
+  .luxury{
+    font-size: 18rem;
+  }
+  .confort{
+    font-size: 18rem;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .luxury{
+    font-size: 16rem;
+  }
+  .confort{
+    font-size: 13rem;
+  }
+}
 
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
   .luxury{
     font-size: 12rem;
   }
@@ -54,12 +66,20 @@
     font-size: 10rem;
   }
 }
-
-@media screen and (min-width: 1259px) {
+@media screen and (max-width: 500px) {
   .luxury{
-    font-size: 18rem;
+    visibility: hidden;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
   }
   .confort{
-    font-size: 18rem;
+    visibility: hidden;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
   }
+
 }
+
+

@@ -1,6 +1,10 @@
-.nav{
+.nav {
   width: 100vw;
-  background: linear-gradient(to bottom, rgba(66, 172, 248, 0.952) 15%, rgba(66, 172, 248, 0) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(66, 172, 248, 0.952) 15%,
+    rgba(66, 172, 248, 0) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,10 +13,10 @@
   top: 0;
   position: fixed;
 }
-.logo-container{
+.logo-container {
   position: relative;
 }
-.logo{
+.logo {
   font-size: 2rem;
   font-weight: bold;
   left: 8px;
@@ -22,13 +26,13 @@
   padding-left: 5px;
   margin-bottom: 20px;
 }
-.nav ul{
+.nav ul {
   display: flex;
   list-style-type: none;
   padding: 0;
 }
 
-.nav li{
+.nav li {
   margin: 0 20px;
   font-size: 1rem;
   font-weight: 700;
@@ -37,31 +41,31 @@
 .menuLink {
   text-decoration: none;
   color: white;
-  position: relative; 
+  position: relative;
 }
 
 .menuLink:after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -2px;
-  left: 50%; 
-  width: 0; 
+  left: 50%;
+  width: 0;
   height: 2px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.952);
   transition: width 0.3s ease-out, left 0.3s ease-out; /* Transition width and left properties */
 }
 
 .menuLink:hover:after {
-  left: 0; 
-  width: 100%; 
+  left: 0;
+  width: 100%;
 }
 .active {
-  position: relative; 
+  position: relative;
 }
 
-.active:after{
-  content: "";
-  position: absolute; 
+.active:after {
+  content: '';
+  position: absolute;
   bottom: -2px;
   left: 0;
   width: 100%;
@@ -71,52 +75,149 @@
 
 .active:before,
 .active:after {
-  transition: none; 
+  transition: none;
 }
-.smallNav{
+.smallNav {
+  display: none;
+}
+.smallMenuIcon {
   display: none;
 }
 
-
-/* @media screen and (max-width: 780px) {
-  .nav{
+@media screen and (max-width: 1200px) {
+  .wideMenu {
     display: none;
   }
-  .smallNav{
-    background: linear-gradient(to bottom, rgba(66, 172, 248, 0.952) 20%, rgba(66, 172, 248, 0) 100%);
-    width: 100%;
-    height: 100px;
-    position: relative;
-
+  .wideMenu li {
+    display: none;
   }
 
-  .menuIcon{
+  .smallMenuIcon {
+    display: inline-block;
     font-size: 2rem;
-    left: 10px;
-    top: 10px;
-    color: white;
+    font-weight: bold;
+    left: 8px;
     position: absolute;
+    color: rgb(255, 255, 255);
+    padding: 5px 0;
+    margin-bottom: 20px;
   }
-  .menuItems{
+  .smallNav {
+    display: none;
+    width: 250px;
+    height: auto;
     position: absolute;
-    top: 60px;
-    left: 10px;
-    background-color: beige;
-    border-radius: 5px;
+    padding: 10px 0;
+    padding-left: 3px;
+    left: 8px;
+    top: 50px;
+    margin-top: 10px;
+    background-color: rgba(255, 255, 255, 0.904);
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.267);
   }
-  .menuItems ul{
-    padding: 0;
+  .smallNavActive {
+    display: block;
+    animation-name: displaySmallScreenMenu;
+    animation-duration: 1s;
   }
-  .menuItems li{
-    list-style-type: none;
-    padding: 10px 20px;
+  @keyframes displaySmallScreenMenu {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
-  .menuItems li a{
-    color: black;
+  .logo {
+    right: 8%;
+    left: auto;
   }
-  .active{
-    color: black;
+  .smallMenu {
+    display: flex;
+    flex-direction: column;
+  }
+  .smallMenu li {
+    margin: 0;
+    padding: 15px 5px;
+    font-size: 1.1rem;
+  }
+  .menuLink {
+    color: #179fff;
+  }
+  .menuLink:after {
+    background-color: #42adf8;
+  }
+
+  .active:after {
+    background-color: #42adf8;
   }
 }
- */
+@media screen and (max-width: 450px) {
+  .wideMenu {
+    display: none;
+  }
+  .wideMenu li {
+    display: none;
+  }
 
+  .smallMenuIcon {
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: bold;
+    left: 8px;
+    position: absolute;
+    color: rgb(255, 255, 255);
+    padding: 5px 0;
+    margin-bottom: 20px;
+  }
+  .smallNav {
+    display: none;
+    width: 250px;
+    height: auto;
+    position: absolute;
+    padding: 10px 0;
+    padding-left: 3px;
+    left: 8px;
+    top: 50px;
+    margin-top: 10px;
+    background-color: rgba(255, 255, 255, 0.774);
+    border-radius: 10px;
+  }
+  .smallNavActive {
+    display: block;
+    animation-name: displaySmallScreenMenu;
+    animation-duration: 2s;
+  }
+  @keyframes displaySmallScreenMenu {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .logo {
+    right: 8%;
+    left: auto;
+  }
+  .smallMenu {
+    display: flex;
+    flex-direction: column;
+  }
+  .smallMenu li {
+    margin: 0;
+    padding: 10px 5px;
+    font-size: 0.9rem;
+  }
+  .menuLink {
+    color: #179fff;
+  }
+  .menuLink:after {
+    background-color: #42adf8;
+  }
+
+  .active:after {
+    background-color: #42adf8;
+  }
+}

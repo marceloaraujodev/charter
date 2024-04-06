@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation';
 export default function Nav() {
   const pathname = usePathname();
   const [isActive, setIsActive] = useState('/');
+  const [isSmallNavActive, setIsSmallNavActive] = useState(false);
+  
   // console.log(pathname);
 
   useEffect(() => {
@@ -18,12 +20,16 @@ export default function Nav() {
     setIsActive(path);
   }
 
+  function toogleSmallScreenNav() {
+    setIsSmallNavActive(!isSmallNavActive)
+  }
+
   return (
     <>
-      {/* <div className={c.container}> */}
+      <div className={c.container}>
       <nav className={c.nav}>
-        {/* <p className={c.logo}>APHRODITE</p> */}
-        <ul>
+        <div className={c.logo}>APHRODITE</div>
+        <ul className={c.wideMenu}>
           <li>
             <Link
               className={`${c.menuLink} ${isActive === '/' ? c.active : ''}`}
@@ -89,84 +95,79 @@ export default function Nav() {
             </Link>
           </li>
         </ul>
-      </nav>
-    {/* </div> */}
-
-      {/* <div className={c.smallNav}>
-        <div className={c.contentContainer}>
-          <i className={`bi bi-list ${c.menuIcon}`}></i>
-          <div className={c.menuItems}>
-            <ul>
-              <li>
-                <Link
-                  className={`${c.menuLink} ${
-                    isActive === '/' ? c.active : ''
-                  }`}
-                  href="/"
-                  onClick={() => handleClick('/')}
-                >
-                  HOME
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${c.menuLink} ${
-                    isActive === '/features' ? c.active : ''
-                  }`}
-                  href="/features"
-                  onClick={() => handleClick('/features')}
-                >
-                  FEATURES
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${c.menuLink} ${
-                    isActive === '/gallery' ? c.active : ''
-                  }`}
-                  href={'/gallery'}
-                  onClick={() => handleClick('/gallery')}
-                >
-                  GALLERY
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${c.menuLink} ${
-                    isActive === '/reviews' ? c.active : ''
-                  }`}
-                  href={'/reviews'}
-                  onClick={() => handleClick('/reviews')}
-                >
-                  REVIEWS
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${c.menuLink} ${
-                    isActive === '/crew' ? c.active : ''
-                  }`}
-                  href={'/crew'}
-                  onClick={() => handleClick('/crew')}
-                >
-                  CREW
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className={`${c.menuLink} ${
-                    isActive === '/pricing' ? c.active : ''
-                  }`}
-                  href={'/pricing'}
-                  onClick={() => handleClick('/pricing')}
-                >
-                  PRICING & AVAILABILITY
-                </Link>
-              </li>
-            </ul>
-          </div>
+        <i className={`bi bi-list ${c.smallMenuIcon}`} onClick={toogleSmallScreenNav}></i>
+        <div className={`${c.smallNav} ${isSmallNavActive ? c.smallNavActive : ''}`} >
+        <ul className={c.smallMenu}>
+          <li>
+            <Link
+              className={`${c.menuLink} ${isActive === '/' ? c.active : ''}`}
+              href="/"
+              onClick={() => handleClick('/')}
+            >
+              HOME
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={`${c.menuLink} ${
+                isActive === '/features' ? c.active : ''
+              }`}
+              href="/features"
+              onClick={() => handleClick('/features')}
+            >
+              FEATURES
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={`${c.menuLink} ${
+                isActive === '/gallery' ? c.active : ''
+              }`}
+              href={'/gallery'}
+              onClick={() => handleClick('/gallery')}
+            >
+              GALLERY
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={`${c.menuLink} ${
+                isActive === '/reviews' ? c.active : ''
+              }`}
+              href={'/reviews'}
+              onClick={() => handleClick('/reviews')}
+            >
+              REVIEWS
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={`${c.menuLink} ${
+                isActive === '/crew' ? c.active : ''
+              }`}
+              href={'/crew'}
+              onClick={() => handleClick('/crew')}
+            >
+              CREW
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={`${c.menuLink} ${
+                isActive === '/pricing' ? c.active : ''
+              }`}
+              href={'/pricing'}
+              onClick={() => handleClick('/pricing')}
+            >
+              PRICING & AVAILABILITY
+            </Link>
+          </li>
+        </ul>
         </div>
-      </div> */}
+      </nav>
+    </div>
+
+
       
     </>
   );
