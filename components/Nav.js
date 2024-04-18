@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 
 export default function Nav() {
   const pathname = usePathname();
-  const [isActive, setIsActive] = useState('/');
+  const [isActive, setIsActive] = useState('/'); // underline
   const [isSmallNavActive, setIsSmallNavActive] = useState(false);
   
   // console.log(pathname);
@@ -18,6 +18,7 @@ export default function Nav() {
   function handleClick(path) {
     console.log(path);
     setIsActive(path);
+    setIsSmallNavActive(!isSmallNavActive)
   }
 
   function toogleSmallScreenNav() {
