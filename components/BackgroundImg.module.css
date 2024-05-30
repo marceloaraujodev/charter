@@ -16,7 +16,7 @@
   background-image: url('../public/images/yacht-3.JPG');
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 600px) {
   .imageContainer{
     width: 100%;
     height: 200px;
