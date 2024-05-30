@@ -77,7 +77,7 @@ export default function IndexPage() {
               style={{ opacity: opacityConfort, y: yConfort }}
               ref={confortRef}
             >
-              CONFORT
+              COMFORT
             </motion.div>
           </div>
           <BackgroundImg className={`view`} />
