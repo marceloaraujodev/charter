@@ -41,6 +41,15 @@ body {
   width: 100%;
 } */
 
+.fc .fc-toolbar-title {
+  font-size: 1em;
+  margin: 0px;
+}
+
+.fc .fc-button {
+  padding: 0.2em 0.35em;
+}
+
 @media screen and (max-width: 375px) {
   body{
     /* background-color: blue; */

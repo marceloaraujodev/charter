@@ -1,14 +1,13 @@
 'use client';
-
 import { useRef, useState, useEffect } from 'react';
 import HeroSectionImgLeft from '../components/HeroSectionImgLeft';
 import HeroSectionImgRight from '../components/HeroSectionImgRight';
-import c from './page.module.css';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import img6 from '../public/images/yacht-6.JPG';
 import img82 from '../public/images/yacht-82.JPG';
 import img81 from '../public/images/yacht-51.JPG';
 import BackgroundImg from '../components/BackgroundImg';
+import c from './page.module.css';
 
 export default function IndexPage() {
   const textRef = useRef();
