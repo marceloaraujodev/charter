@@ -7,7 +7,11 @@ import img6 from '../public/images/yacht-6.JPG';
 import img82 from '../public/images/yacht-82.JPG';
 import img81 from '../public/images/yacht-51.JPG';
 import BackgroundImg from '../components/BackgroundImg';
+import Card from '@/components/Card';
+import Description from '@/components/Description';
+import Blocks from '@/components/Blocks';
 import c from './page.module.css';
+import HeroSection2 from '@/components/HeroSection2';
 
 export default function IndexPage() {
   const textRef = useRef();
@@ -28,7 +32,6 @@ export default function IndexPage() {
     [760, 1300, 1600, 2160],
     [0, 1, 1, 0]
   );
-
   const animationConfig = {
     initial: { opacity: 0 },
     whileInView: { opacity: 1, transition: { duration: 1.7 } },
@@ -45,10 +48,12 @@ export default function IndexPage() {
   //   })
   // }, [])
 
+
+
   return (
     <>
-      <BackgroundImg className={`IndexPage`} />
 
+      <BackgroundImg className={`IndexPage`} />
       <div className={c.container}>
         <div className={c.contentContainer}>
           <motion.div
@@ -61,14 +66,18 @@ export default function IndexPage() {
           >
             LUXURY
           </motion.div>
-
-          <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
+          <Description 
+            title='Corporate Charters & Events'
+            description='Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more.'
+            image={img82}
+          />
+          {/* <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
             <HeroSectionImgLeft
               image={img82}
               title="Unforgettable Destinations"
               description="Embark on a journey to Miami, Florida Keys, or even the Bahamas on our Charter Yacht. Explore stunning coastlines, crystal-clear waters, and breathtaking sunsets in these iconic destinations."
             />
-          </motion.div>
+          </motion.div> */}
 
           <div className={c.confortContainer}>
             <motion.div
@@ -80,22 +89,20 @@ export default function IndexPage() {
             </motion.div>
           </div>
           <BackgroundImg className={`view`} />
+          <Description 
+            title='Corporate Charters & Events'
+            description='Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more.'
+            image={img82}
+          />
 
-          <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
-            <HeroSectionImgRight
-              image={img6}
-              title="Luxurious Yacht Charter"
-              description="Indulge in the ultimate experience of luxury and relaxation with our Charter Yacht. Our yacht is equipped with top-notch amenities and a professional crew to cater to your every need."
-            />
-          </motion.div>
+          <Blocks />
+          <Description 
+            title='Corporate Charters & Events'
+            description='Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more.'
+            image={img82}
+          />
 
-          <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
-            <HeroSectionImgLeft
-              image={img81}
-              title="Entertainment Extravaganza"
-              description="Unwind in style in our entertainment area, boasting a lavish jacuzzi where you can soak away your worries under the sun-kissed sky. Feel the thrill as you zip across the waves on our two high-performance jet skis, offering an exhilarating ride amidst the azure waters."
-            />
-          </motion.div>
+          <HeroSection2 />
         </div>
       </div>
     </>

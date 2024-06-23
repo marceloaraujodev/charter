@@ -28,7 +28,7 @@
 }
 .x{
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.322);
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 .blurredImage{
   filter: blur(1px);

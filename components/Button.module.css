@@ -1,0 +1,15 @@
+.btn{
+  background-color: #2582ce;
+  border: 1px solid  #2582ce;
+  color: white;
+  padding: 5px 0;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 20px;
+  transition: all .4s ease;
+  width: 180px;
+}
+
+.btn:hover{
+  transform: scale(1.07);
+}

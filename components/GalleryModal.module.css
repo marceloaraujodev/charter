@@ -21,9 +21,9 @@
 .x{
   position: relative;
 }
-.modalImg{
+/* .modalImg{
   border-radius: 10px;
-}
+} */
 .btnClose{
   position: absolute;
   top: -40px; 

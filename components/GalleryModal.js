@@ -36,8 +36,7 @@ export default function ModalImage({isOpen, selectedImage, onClose, initialIndex
         setCurrentIndex(prevIndex => prevIndex -1);
         setSrcObject(imgArray[currentIndex -1])
       }
-    }
-    
+    } 
   }
 
   return (

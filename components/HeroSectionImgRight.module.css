@@ -3,18 +3,18 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
-  background-color: #ffedd6;
+  background-color: #e1f2fd;
   width: 100%;
 }
 
 .contentContainer{
   padding: 100px 0;
-  max-width: 1444px;
+  max-width: 1000px;
 }
 .heroRow{
   display: flex;
   justify-content: space-between;
-  padding: 0 80px;
+
 }
 .left{
   display: flex;
@@ -35,7 +35,6 @@
   color: #4a4b4b;
 }
 .img{
-  border-radius: 10px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
