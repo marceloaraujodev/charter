@@ -56,7 +56,7 @@ function handleDeleteEvent(){
           <input name='title' type='text' value={formData.title} onChange={handleInput}/>
           <label name='description' type='text'>Description</label>
           <textarea type='text' name='description' value={formData.description} onChange={handleInput}/>
-          {editEvent ? <button type='submit'>Edit</button> : <button type='submit' >Submit</button>}
+          {editEvent ? <button type='submit'>Save</button> : <button type='submit' >Submit</button>}
           <button onClick={handleCloseModal}>Close</button>
           {editEvent ? <button onClick={handleDeleteEvent}>Delete Event</button> : ''}
         </form>

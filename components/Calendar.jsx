@@ -7,6 +7,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { v4 as uuidv4 } from 'uuid';
 import Modal from './Modal';
+
 import c from './Calendar.module.css';
 
 export default function Calendar() {

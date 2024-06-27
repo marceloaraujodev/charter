@@ -62,17 +62,19 @@ export default function Nav() {
               GALLERY
             </Link>
           </li>
-          <li>
+
+          {/* <li>
             <Link
               className={`${c.menuLink} ${
                 isActive === '/reviews' ? c.active : ''
               }`}
               href={'/reviews'}
               onClick={() => handleClick('/reviews')}
-            >
+             >
               REVIEWS
             </Link>
-          </li>
+          </li> */}
+
           <li>
             <Link
               className={`${c.menuLink} ${

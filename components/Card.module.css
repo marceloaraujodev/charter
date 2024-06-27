@@ -1,21 +1,25 @@
 .cardBody{
   background-color: #e1f2fd;
+  padding: 20px 0;
+  color: #03227067;
+  font-weight: 400;
 }
 .cardTitle{
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
   letter-spacing: 1px;
   color: #42ADF8;
   padding-top: 10px;
 }
 .cardText{
   text-overflow: ellipsis;
+  padding: 15px 0;
 }
 
 .btnCard{
   background-color: white;
   color: #42ADF8;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   border: 1px solid #42ADF8;
 }
 .btnCard:hover{
