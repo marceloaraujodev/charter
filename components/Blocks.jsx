@@ -16,7 +16,6 @@ export default function Blocks() {
             src={image6}
             width='auto'
             height='auto'
-            objectFit='cover'
               />
           </div>
         <div className={c.right}>
@@ -40,7 +39,6 @@ export default function Blocks() {
             src={img81}
             width='auto'
             height='auto'
-            objectFit='cover'
               />
         </div>
       </div>

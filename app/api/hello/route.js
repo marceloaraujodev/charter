@@ -11,5 +11,5 @@ import { NextResponse } from "next/server";
 
 // Name the function with the method! 
 export async function GET(req, res) {
-  return NextResponse.json('testing')
+  return NextResponse.json('hello')
 }
