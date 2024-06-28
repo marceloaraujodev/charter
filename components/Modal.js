@@ -9,13 +9,28 @@ export default function Modal({
   onEditSubmit, 
   onDelete,
 }) {
+
+  function formatDate(dateString) {
+    const [year, month, day] = dateString.split('-');
+    return `${day}-${month}-${year}`;
+  }
   
   function handleInput(e){
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    })
+
+    // changes date format to dd/mm/yyyy
+    if(name === 'start' || name === 'end'){
+      const formatedDate = formatDate(value);
+      setFormData({
+        ...formData,
+        [name]: formatedDate
+      });
+    }else{
+      setFormData({
+        ...formData,
+        [name]: value
+      })
+    }
   }
 
   function handleSubmit(e){

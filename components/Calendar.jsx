@@ -1,14 +1,14 @@
 'use client';
 import React from 'react';
-import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { v4 as uuidv4 } from 'uuid';
 import Modal from './Modal';
-
 import c from './Calendar.module.css';
+
 
 export default function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -38,9 +38,7 @@ export default function Calendar() {
 
   function handleFormSubmit(formData) {
     // when submitting for the first time
-    const eventId = uuidv4();
     const newEvent = {
-      id: eventId,
       start: formData.start,
       end: formData.end,
       title: formData.title,
@@ -48,14 +46,13 @@ export default function Calendar() {
     };
     setShowModal(false);
     setEvents([...events, newEvent]);
+    console.log(newEvent);
   }
 
   // // button to show the modal when clicked
   function displayModal() {
     // test have to set it to empty string
-    const eventId = uuidv4();
     const newEvent = {
-      id: eventId,
       start: '',
       end: '',
       title: '',
