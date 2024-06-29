@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const TaskSchema = new mongoose.Schema({
+  eventId: String,
   start: String,
   end: String,
   title: String,
@@ -10,6 +11,6 @@ const TaskSchema = new mongoose.Schema({
   timestamps: true
 });
 
-const Task = mongoose.model('Task', TaskSchema);
+const Task = mongoose.models?.Task || mongoose.model('Task', TaskSchema);
 
 export default Task;
