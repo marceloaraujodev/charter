@@ -40,9 +40,8 @@ export async function PUT(req, res){
   const data = await req.json();
   console.log(data)
 
-
   const updatedEvent = {
-    start: data.start + ' ' + data.time,
+    start: data.start,
     end: data.end,
     time: data.time,
     title: data.title,
