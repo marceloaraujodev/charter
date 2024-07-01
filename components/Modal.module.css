@@ -87,7 +87,7 @@
   padding: 5px;
 }
 
-.public input[type='checkbox']{
+.publicView input[type='checkbox']{
   height: 10px;
   width: 20px;
 }

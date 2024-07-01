@@ -18,28 +18,30 @@ export default function Modal({
   // }
 
   function handleInput(e) {
-    const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
-
-    setFormData({
-      ...formData,
-      [name]: newValue,
-    });
+      const { name, value, type, checked } = e.target;
+      const newValue = type === 'checkbox' ? checked : value;
+  
+      setFormData({
+        ...formData,
+        [name]: newValue,
+      });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit(formData);
+    if(editEvent){
+      console.log('editing')
+      onEditSubmit(); // calls editEventTask on Calendar
+    }else{
+      console.log('creating')
+      onSubmit(formData);
+    }
   }
+
 
   function handleCloseModal(e) {
     e.preventDefault();
     onCloseModal(false);
-  }
-
-  function handleEditClick(e) {
-    e.preventDefault();
-    onEditSubmit(); // calls editEventFunction on Calendar
   }
 
   function handleDeleteEvent() {
@@ -47,7 +49,7 @@ export default function Modal({
   }
 
   function handleOpenEditor(){
-    onEdit()
+    onEdit() // calls open editor
   }
 
   return (
@@ -56,11 +58,12 @@ export default function Modal({
               <div className={c.modalContent}>
               <form
                 className={c.form}
-                onSubmit={editEvent ? handleEditClick : handleSubmit}>
+                // onSubmit={editEvent ? handleEditClick : handleSubmit}>
+                onSubmit={handleSubmit}>
                 <div className={c.cont}>
                   <div className={c.dates}>
                     <label name='start'>Start Date</label>
-                    <input name='start' type='date' value={formData.start} onChange={handleInput}/>
+                    <input name='start' required type='date' value={formData.start} onChange={handleInput}/>
                   </div>
                   <div className={c.dates}>
                     <label name='end'>End Date</label>
@@ -73,14 +76,14 @@ export default function Modal({
                     <label name='time'>Time</label>
                     <input name='time' type='time' value={formData.time} onChange={handleInput}/>
                   </div>
-                  <div className={`${c.dates} ${c.public}`}>
-                    <label name='public'>Public</label>
-                    <input name='public' type='checkbox' checked={formData.public} onChange={handleInput}/>
+                  <div className={`${c.dates} ${c.publicView}`}>
+                    <label name='publicView'>PublicView</label>
+                    <input name='publicView' type='checkbox' checked={formData.publicView} onChange={handleInput}/>
                   </div>
                </div>
       
                 <label name='title'>Title</label>
-                <input name='title' type='text' value={formData.title} onChange={handleInput}/>
+                <input name='title' required type='text' value={formData.title} onChange={handleInput}/>
                 <label name='description' type='text'>Description</label>
                 <textarea type='text' name='description' value={formData.description} onChange={handleInput}/>
                 {editEvent ? <button type='submit'>Save | Edit</button> : <button type='submit' >Submit</button>}
@@ -205,8 +208,6 @@ export default function Modal({
         </div>
       </div> 
       )}
-
-
 
     </dialog>
   );

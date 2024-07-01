@@ -10,13 +10,9 @@ import Modal from './Modal';
 import { v4 as uuidv4 } from 'uuid';
 import c from './Calendar.module.css';
 
-
-
 function formatDateToYMD(date) {
   return date.toISOString().split('T')[0];
 }
-
-// _def.extendedProps its where calendar holds the eventId 
 
 export default function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -29,52 +25,93 @@ export default function Calendar() {
     time: '',
     title: '',
     description: '',
-    public: false,
+    publicView: false,
   });
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const calendarApiRef = useRef();
 
   useEffect(() => {
-    if (selectedEvent){
-      // setIsEditing(true);
-    }
-    if(events.length > 0){
+    // if (selectedEvent) {
+    //   // setIsEditing(true);
+    // }
+    // if (events.length > 0) {
+    // }
+    loadTasks();
+    console.log('run')
+    // console.log(events)
+  }, []);
 
-    }
-    loadTasks()
-  }, [selectedEvent])
-
-  async function loadTasks(){
+  // Populate tasks
+  async function loadTasks() {
     try {
-     const res = await axios.get('http://localhost:3000/api/calendar');
-    //  console.log(res.data.tasks);
-     const currentTasks = res.data.tasks;
-     setEvents(currentTasks)
-      
+      const res = await axios.get('http://localhost:3000/api/calendar');
+      //  console.log(res.data.tasks);
+      const currentTasks = res.data.tasks;
+      setEvents(currentTasks);
     } catch (error) {
       console.log(error);
     }
   }
 
-  // form submission | event created
-  function handleFormSubmit(formData) {
+  // create event
+  function createEventTask(formData) {
     // when submitting for the first time
     const eventId = uuidv4();
 
     const newEvent = {
       eventId,
-      start: formData.time ? formData.start + ' ' + formData.time : formData.start,
+      start: formData.time
+        ? formData.start + ' ' + formData.time
+        : formData.start,
       end: formData.end,
       time: formData.time,
       title: formData.title,
       description: formData.description,
-      public: formData.public, 
+      publicView: formData.publicView,
     };
     setShowModal(false);
     setEvents([...events, newEvent]);
-    console.log(newEvent);
-    axios.post('http://localhost:3000/api/calendar', newEvent)
+    // console.log(newEvent);
+    axios.post('http://localhost:3000/api/calendar', newEvent);
+  }
+
+  // edit event is triggered when you save it.
+  async function editEventTask() {
+
+    try {
+      const eventId = selectedEvent._def.extendedProps.eventId;
+      const indexToUpdate = events.findIndex(event => event.eventId === eventId);
+      
+      if(indexToUpdate !== -1){
+        // copy task array
+        const updatedEvents = [...events];
+        
+        // update the task at index position, thi will be the obj to update
+        updatedEvents[indexToUpdate] = {
+          // spread other props into this obj or overwrite existing
+          ...updatedEvents[indexToUpdate],
+          start: formData.start,
+          end: formData.end,
+          title: formData.title,
+          description: formData.description,
+          publicView: formData.publicView,
+        }
+        console.log('this is the updatedEvetns', updatedEvents[indexToUpdate]);
+
+        setEvents(updatedEvents)
+        await axios.put(`http://localhost:3000/api/calendar/`, updatedEvents[indexToUpdate]);
+        setSelectedEvent(null);
+        setIsEditing(false);
+        setShowModal(false);
+      }else {
+        console.error(`Event with eventId ${eventId} not found.`);
+      }
+      // reloads tasks
+      await loadTasks()
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // // button to show the modal when clicked
@@ -88,14 +125,14 @@ export default function Calendar() {
       time: '',
       title: '',
       description: '',
-      public: false,
+      publicView: false,
     };
-    
+
     setFormData(newEvent);
     // setFormData(formData);
-    setEditEvent(false)
+    setEditEvent(false);
     setShowModal(true);
-    setIsEditing(true)
+    setIsEditing(true);
   }
 
   // when clicked opens modal and loads info from event
@@ -103,15 +140,18 @@ export default function Calendar() {
     // setEditEvent(true);
     setShowModal(true);
     setSelectedEvent(eventClickInfo.event);
-    console.log(eventClickInfo.event)
+    // console.log(eventClickInfo.event)
     const clickedEvent = eventClickInfo.event;
     const title = clickedEvent.title;
-    const description = clickedEvent.extendedProps?.description; 
-    const startDate = formatDateToYMD(clickedEvent._instance.range.start); 
-    const endDate = formatDateToYMD(clickedEvent._instance.range.end || clickedEvent._instance.range.start); 
+    const description = clickedEvent.extendedProps?.description;
+    const startDate = formatDateToYMD(clickedEvent._instance.range.start);
+    const endDate = formatDateToYMD(
+      clickedEvent._instance.range.end || clickedEvent._instance.range.start
+    );
     const eventId = clickedEvent.extendedProps?.eventId;
     const time = clickedEvent.extendedProps?.time;
-  
+    const publicView = clickedEvent.extendedProps?.publicView;
+    // console.log(eventId)
 
     setFormData({
       eventId,
@@ -119,56 +159,31 @@ export default function Calendar() {
       end: endDate,
       time,
       title,
-      description
-    })
-  
-    // console.log('Clicked Event Details:', { title, description, startDate, endDate, eventId });
-  }
-
-  // edit event is triggered when you save it.
-  function editEventFunction() {
-    const updatedEvents = events.map(event => {
-      // console.log('selectedEvent:', selectedEvent._def.extendedProps?.eventId);
-      // console.log('eventId:', event.eventId );
-      if (event.eventId === selectedEvent._def.extendedProps?.eventId) {
-        return {
-          ...event,
-          start: formData.start,
-          end: formData.end,
-          time: formData.time,
-          title: formData.title,
-          description: formData.description,
-          public: formData.public,
-        };
-      }
-      return event;
+      description,
+      publicView,
     });
-    
-    // console.log('event should be edited:', editedEvent )
-    setEvents(updatedEvents);
-    // setSelectedEvent(null);
-    setIsEditing(false);
-    setShowModal(false);
+    console.log('Clicked Event Details:', { title, description, startDate, endDate, eventId });
   }
 
   function closeModal() {
     setShowModal(false);
     setEditEvent(false);
-    setIsEditing(false)
+    setIsEditing(false);
+    setSelectedEvent(null);
   }
 
-  async function deleteEvent(){
-    alert('Are you sure you want to delete this event?')
+  async function deleteEvent() {
+    alert('Are you sure you want to delete this event?');
     try {
       const eventId = selectedEvent._def.extendedProps?.eventId;
       await axios.delete('http://localhost:3000/api/calendar', {
-        headers: { 'eventId': eventId }, // Custom header for eventId
+        headers: { eventId: eventId }, // Custom header for eventId
       });
-      
+
       // creates array that excludes the item
-      const updatedEvents = events.filter(event => {
+      const updatedEvents = events.filter((event) => {
         return event.eventId !== eventId;
-      })
+      });
       // // update the state
       setEvents(updatedEvents);
       // even though url doesnt change in browser its still sent here below
@@ -176,11 +191,10 @@ export default function Calendar() {
     } catch (error) {
       console.log(error);
     }
-    
   }
 
-  function openEditor(){
-    setEditEvent(true)
+  function openEditor() {
+    setEditEvent(true);
     setIsEditing(true);
   }
 
@@ -215,16 +229,16 @@ export default function Calendar() {
         <Modal
           formData={formData}
           setFormData={setFormData}
-          onSubmit={handleFormSubmit}
+          onSubmit={createEventTask}
+          onEditSubmit={editEventTask}
           onCloseModal={closeModal}
           editEvent={editEvent}
-          onEditSubmit={editEventFunction}
           onDelete={deleteEvent}
           isEditing={isEditing}
           onEdit={openEditor}
+          showModal={showModal}
         />
       )}
     </>
   );
 }
-

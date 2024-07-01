@@ -6,10 +6,23 @@ import Task from "@/app/models/task";
 
 mongooseConnect();
 
+// populate all items on the page
+export async function GET(req, res){
+
+  //{private: false} to show only public calendar
+  const tasks = await Task.find({});
+  // console.log(tasks);
+  
+  return NextResponse.json({
+    message: 'success',
+    tasks
+  })
+}
+
 // adds task
 export async function POST(req, res){
   const data = await req.json();
-  console.log(data);
+  // console.log(data);
 
   const newTask = new Task(data);
 
@@ -21,16 +34,27 @@ export async function POST(req, res){
   })
 }
 
-// populate all items on the page
-export async function GET(req, res){
+// edit / save task
+export async function PUT(req, res){
+  console.log('enter');
+  const data = await req.json();
+  console.log(data)
 
-  //{private: false} to show only public calendar
-  const tasks = await Task.find({});
-  // console.log(tasks);
-  
+
+  const updatedEvent = {
+    start: data.start + ' ' + data.time,
+    end: data.end,
+    time: data.time,
+    title: data.title,
+    description: data.description,
+    publicView: data.publicView,
+  }
+
+  const newUpdatedEvent = await Task.findOneAndUpdate({eventId:data.eventId}, updatedEvent, { new: true});
+  console.log(newUpdatedEvent)
   return NextResponse.json({
-    message: 'success',
-    tasks
+    message: 'success', 
+    newUpdatedEvent
   })
 }
 
