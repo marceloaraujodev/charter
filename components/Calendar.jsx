@@ -14,6 +14,8 @@ function formatDateToYMD(date) {
   return date.toISOString().split('T')[0];
 }
 
+const url = 'https://charter-ebon.vercel.app'
+
 export default function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [events, setEvents] = useState([]);
@@ -45,7 +47,7 @@ export default function Calendar() {
   // Populate tasks
   async function loadTasks() {
     try {
-      const res = await axios.get('http://localhost:3000/api/calendar');
+      const res = await axios.get(`${url}/calendar`);
       //  console.log(res.data.tasks);
       const currentTasks = res.data.tasks;
       setEvents(currentTasks);
@@ -73,7 +75,7 @@ export default function Calendar() {
     setShowModal(false);
     setEvents([...events, newEvent]);
     // console.log(newEvent);
-    axios.post('http://localhost:3000/api/calendar', newEvent);
+    axios.post(`${url}/calendar`, newEvent);
   }
 
   // edit event is triggered when you save it.
@@ -100,7 +102,7 @@ export default function Calendar() {
         console.log('this is the updatedEvetns', updatedEvents[indexToUpdate]);
 
         setEvents(updatedEvents)
-        await axios.put(`http://localhost:3000/api/calendar/`, updatedEvents[indexToUpdate]);
+        await axios.put(`${url}/calendar`, updatedEvents[indexToUpdate]);
         setSelectedEvent(null);
         setIsEditing(false);
         setShowModal(false);
@@ -176,7 +178,7 @@ export default function Calendar() {
     alert('Are you sure you want to delete this event?');
     try {
       const eventId = selectedEvent._def.extendedProps?.eventId;
-      await axios.delete('http://localhost:3000/api/calendar', {
+      await axios.delete(`${url}/calendar`, {
         headers: { eventId: eventId }, // Custom header for eventId
       });
 
