@@ -89,12 +89,12 @@ export default function Nav() {
           <li>
             <Link
               className={`${c.menuLink} ${
-                isActive === '/pricing' ? c.active : ''
+                isActive === '/calendar' ? c.active : ''
               }`}
-              href={'/pricing'}
-              onClick={() => handleClick('/pricing')}
+              href={'/calendar'}
+              onClick={() => handleClick('/calendar')}
             >
-              PRICING & AVAILABILITY
+              PRICE & AVAILABILITY
             </Link>
           </li>
         </ul>
@@ -157,12 +157,12 @@ export default function Nav() {
           <li>
             <Link
               className={`${c.menuLink} ${
-                isActive === '/pricing' ? c.active : ''
+                isActive === '/calendar' ? c.active : ''
               }`}
-              href={'/pricing'}
-              onClick={() => handleClick('/pricing')}
+              href={'/calendar'}
+              onClick={() => handleClick('/calendar')}
             >
-              PRICING & AVAILABILITY
+              PRICE & AVAILABILITY
             </Link>
           </li>
         </ul>

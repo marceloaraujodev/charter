@@ -2,10 +2,15 @@ import mongoose from "mongoose";
 
 const TaskSchema = new mongoose.Schema({
   eventId: String,
-  start: String,
+  start: {
+    type: String,
+    required: true
+  },
   end: String,
+  time: String,
   title: String,
-  description: String
+  description: String,
+  publicView: Boolean,
 },
 {
   timestamps: true
