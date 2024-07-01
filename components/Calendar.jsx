@@ -26,8 +26,10 @@ export default function Calendar() {
     eventId: '',
     start: '',
     end: '',
+    time: '',
     title: '',
     description: '',
+    public: false,
   });
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -35,27 +37,43 @@ export default function Calendar() {
 
   useEffect(() => {
     if (selectedEvent){
-      setIsEditing(true);
+      // setIsEditing(true);
     }
     if(events.length > 0){
 
     }
+    loadTasks()
   }, [selectedEvent])
+
+  async function loadTasks(){
+    try {
+     const res = await axios.get('http://localhost:3000/api/calendar');
+    //  console.log(res.data.tasks);
+     const currentTasks = res.data.tasks;
+     setEvents(currentTasks)
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // form submission | event created
   function handleFormSubmit(formData) {
     // when submitting for the first time
     const eventId = uuidv4();
+
     const newEvent = {
       eventId,
-      start: formData.start,
+      start: formData.time ? formData.start + ' ' + formData.time : formData.start,
       end: formData.end,
+      time: formData.time,
       title: formData.title,
       description: formData.description,
+      public: formData.public, 
     };
     setShowModal(false);
     setEvents([...events, newEvent]);
-    // console.log(newEvent);
+    console.log(newEvent);
     axios.post('http://localhost:3000/api/calendar', newEvent)
   }
 
@@ -67,33 +85,39 @@ export default function Calendar() {
       eventId,
       start: '',
       end: '',
+      time: '',
       title: '',
       description: '',
+      public: false,
     };
     
     setFormData(newEvent);
     // setFormData(formData);
     setEditEvent(false)
     setShowModal(true);
+    setIsEditing(true)
   }
 
   // when clicked opens modal and loads info from event
   async function eventClick(eventClickInfo) {
-    setEditEvent(true);
+    // setEditEvent(true);
     setShowModal(true);
     setSelectedEvent(eventClickInfo.event);
-    // console.log(eventClickInfo.event)
+    console.log(eventClickInfo.event)
     const clickedEvent = eventClickInfo.event;
     const title = clickedEvent.title;
     const description = clickedEvent.extendedProps?.description; 
     const startDate = formatDateToYMD(clickedEvent._instance.range.start); 
     const endDate = formatDateToYMD(clickedEvent._instance.range.end || clickedEvent._instance.range.start); 
     const eventId = clickedEvent.extendedProps?.eventId;
+    const time = clickedEvent.extendedProps?.time;
+  
 
     setFormData({
       eventId,
       start: startDate,
       end: endDate,
+      time,
       title,
       description
     })
@@ -111,8 +135,10 @@ export default function Calendar() {
           ...event,
           start: formData.start,
           end: formData.end,
+          time: formData.time,
           title: formData.title,
           description: formData.description,
+          public: formData.public,
         };
       }
       return event;
@@ -131,16 +157,31 @@ export default function Calendar() {
     setIsEditing(false)
   }
 
-  function deleteEvent(){
-    // creates array that excludes the item
-    const eventId = selectedEvent._def.extendedProps?.eventId;
-    // const updatedEvents = events.filter(event => {
-    //   return event.eventId !== eventId;
-    // })
- 
-    // // update the state
-    // setEvents(updatedEvents);
-    axios.delete('http://localhost:3000/api/calendar', eventId)
+  async function deleteEvent(){
+    alert('Are you sure you want to delete this event?')
+    try {
+      const eventId = selectedEvent._def.extendedProps?.eventId;
+      await axios.delete('http://localhost:3000/api/calendar', {
+        headers: { 'eventId': eventId }, // Custom header for eventId
+      });
+      
+      // creates array that excludes the item
+      const updatedEvents = events.filter(event => {
+        return event.eventId !== eventId;
+      })
+      // // update the state
+      setEvents(updatedEvents);
+      // even though url doesnt change in browser its still sent here below
+      closeModal();
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+
+  function openEditor(){
+    setEditEvent(true)
+    setIsEditing(true);
   }
 
   return (
@@ -179,19 +220,11 @@ export default function Calendar() {
           editEvent={editEvent}
           onEditSubmit={editEventFunction}
           onDelete={deleteEvent}
+          isEditing={isEditing}
+          onEdit={openEditor}
         />
       )}
     </>
   );
 }
 
-/* 
-modal is open,
-  sets the selected event to the event it was clicked using calender methods
-  useEffect is used to monitor the selectedEvent variable
-  sets isEditing to true
-user edits content
-  this need a state to know the user is editing so you can trigger a useEffect
-user clicks edit button this is what triggers the function to call editEventFunction
-submits data from the edit function
-*/

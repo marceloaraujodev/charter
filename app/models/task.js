@@ -4,8 +4,10 @@ const TaskSchema = new mongoose.Schema({
   eventId: String,
   start: String,
   end: String,
+  time: String,
   title: String,
-  description: String
+  description: String,
+  public: Boolean,
 },
 {
   timestamps: true
