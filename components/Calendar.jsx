@@ -47,7 +47,7 @@ export default function Calendar() {
   // Populate tasks
   async function loadTasks() {
     try {
-      const res = await axios.get(`${url}/calendar`);
+      const res = await axios.get(`${url}/api/calendar`);
       //  console.log(res.data.tasks);
       const currentTasks = res.data.tasks;
       setEvents(currentTasks);
@@ -75,7 +75,7 @@ export default function Calendar() {
     setShowModal(false);
     setEvents([...events, newEvent]);
     // console.log(newEvent);
-    axios.post(`${url}/calendar`, newEvent);
+    axios.post(`${url}/api/calendar`, newEvent);
   }
 
   // edit event is triggered when you save it.
@@ -102,7 +102,7 @@ export default function Calendar() {
         console.log('this is the updatedEvetns', updatedEvents[indexToUpdate]);
 
         setEvents(updatedEvents)
-        await axios.put(`${url}/calendar`, updatedEvents[indexToUpdate]);
+        await axios.put(`${url}/api/calendar`, updatedEvents[indexToUpdate]);
         setSelectedEvent(null);
         setIsEditing(false);
         setShowModal(false);
@@ -178,7 +178,7 @@ export default function Calendar() {
     alert('Are you sure you want to delete this event?');
     try {
       const eventId = selectedEvent._def.extendedProps?.eventId;
-      await axios.delete(`${url}/calendar`, {
+      await axios.delete(`${url}/api/calendar`, {
         headers: { eventId: eventId }, // Custom header for eventId
       });
 
