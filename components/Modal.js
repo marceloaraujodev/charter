@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import Button from './Button';
 import c from './Modal.module.css';
 
 export default function Modal({
@@ -11,6 +13,7 @@ export default function Modal({
   isEditing,
   onEdit,
 }) {
+  const [showConfirm, setShowConfirm] = useState(false);
   // // date format
   // function formatDate(dateString) {
   //   const [year, month, day] = dateString.split('-');
@@ -44,13 +47,24 @@ export default function Modal({
     onCloseModal(false);
   }
 
-  function handleDeleteEvent() {
-    onDelete();
+  function handleDeleteEvent(confirm) {
+    console.log(confirm)
+    if(confirm === 'yes'){
+      onDelete();
+    }else{
+      setShowConfirm(false)
+    }
   }
 
   function handleOpenEditor(){
     onEdit() // calls open editor
   }
+
+  // opens dialog for delete confirmation
+  function handleDeleteWarning(){
+    setShowConfirm(true)
+  }
+
 
   return (
     <dialog open className={c.modal}>
@@ -95,7 +109,7 @@ export default function Modal({
       )  }
 
       {!isEditing && (
-               <div className={c.taskBlockContainer}>
+      <div className={c.taskBlockContainer}>
         <div className={c.taskBlockHeader}>
           <svg
             onClick={handleOpenEditor}
@@ -112,7 +126,7 @@ export default function Modal({
             />
           </svg>
           <svg
-            onClick={handleDeleteEvent}
+            onClick={handleDeleteWarning}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -206,9 +220,16 @@ export default function Modal({
             <div className={c.taskDescription}>{formData.description}</div>
           </div>
         </div>
+        {showConfirm && <div className={c.confirmDelete}>
+          <p>Are you sure you want to delete this task?</p>
+          <div className={c.btnContainer}>
+            <Button onClick={() => handleDeleteEvent('yes')} classname={c.btn}>Yes</Button> 
+            <Button onClick={() => handleDeleteEvent('no')} classname={c.btn}>No</Button>
+          </div>
+        </div>}
+
       </div> 
       )}
-
     </dialog>
   );
 }

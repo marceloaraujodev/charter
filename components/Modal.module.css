@@ -100,6 +100,7 @@
   padding: 20px;
   padding-bottom: 50px;
   color: rgb(158, 158, 158);
+  position: relative;
 }
 .taskBlockContainer svg{
   width: 20px;
@@ -131,7 +132,27 @@
 .taskDescription{
   width: 100%;
 }
-
+.confirmDelete{
+  border: 1px solid rgb(116, 116, 116);
+  border-radius: 5px;
+  position: absolute;
+  width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(255, 255, 255);
+  box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  text-align: center;
+}
+.btnContainer{
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.btn{
+  width: 90px;
+}
 @media screen and (min-width: 600px){
   .modalContent {
     width: 60%;
