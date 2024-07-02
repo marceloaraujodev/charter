@@ -14,8 +14,7 @@ function formatDateToYMD(date) {
   return date.toISOString().split('T')[0];
 }
 
-const url = 'https://charter-ebon.vercel.app';
-
+const url = 'https://charter-ebon.vercel.app'
 
 export default function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -35,13 +34,8 @@ export default function Calendar() {
   const calendarApiRef = useRef();
 
   useEffect(() => {
-    // if (selectedEvent) {
-    //   // setIsEditing(true);
-    // }
-    // if (events.length > 0) {
-    // }
     loadTasks();
-    console.log('run')
+    // console.log('run')
     // console.log(events)
   }, []);
 
@@ -64,9 +58,8 @@ export default function Calendar() {
 
     const newEvent = {
       eventId,
-      start: formData.time
-        ? formData.start + ' ' + formData.time
-        : formData.start,
+      // formData.time ? formData.start + ' ' + formData.time : formData.start
+      start: formData.time ? formData.start + ' ' + formData.time : formData.start,
       end: formData.end,
       time: formData.time,
       title: formData.title,
@@ -75,6 +68,7 @@ export default function Calendar() {
     };
     setShowModal(false);
     setEvents([...events, newEvent]);
+    setIsEditing(false);
     // console.log(newEvent);
     axios.post(`${url}/api/calendar`, newEvent);
   }
@@ -85,7 +79,7 @@ export default function Calendar() {
     try {
       const eventId = selectedEvent._def.extendedProps.eventId;
       const indexToUpdate = events.findIndex(event => event.eventId === eventId);
-      
+      console.log(eventId)
       if(indexToUpdate !== -1){
         // copy task array
         const updatedEvents = [...events];
@@ -93,9 +87,11 @@ export default function Calendar() {
         // update the task at index position, thi will be the obj to update
         updatedEvents[indexToUpdate] = {
           // spread other props into this obj or overwrite existing
+          
           ...updatedEvents[indexToUpdate],
-          start: formData.start,
+          start: formData.time ? formData.start + ' ' + formData.time : formData.start,
           end: formData.end,
+          time: formData.time,
           title: formData.title,
           description: formData.description,
           publicView: formData.publicView,
@@ -103,10 +99,12 @@ export default function Calendar() {
         console.log('this is the updatedEvetns', updatedEvents[indexToUpdate]);
 
         setEvents(updatedEvents)
+        // setEvents(prev => [...prev, updatedEvents])
         await axios.put(`${url}/api/calendar`, updatedEvents[indexToUpdate]);
         setSelectedEvent(null);
         setIsEditing(false);
         setShowModal(false);
+        setEditEvent(false);
       }else {
         console.error(`Event with eventId ${eventId} not found.`);
       }
@@ -165,7 +163,7 @@ export default function Calendar() {
       description,
       publicView,
     });
-    console.log('Clicked Event Details:', { title, description, startDate, endDate, eventId });
+    // console.log('Clicked Event Details:', { title, description, startDate, endDate, eventId });
   }
 
   function closeModal() {
@@ -176,7 +174,7 @@ export default function Calendar() {
   }
 
   async function deleteEvent() {
-    alert('Are you sure you want to delete this event?');
+    // alert('Are you sure you want to delete this event?');
     try {
       const eventId = selectedEvent._def.extendedProps?.eventId;
       await axios.delete(`${url}/api/calendar`, {
