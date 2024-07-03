@@ -64,7 +64,7 @@ function Gallery() {
 
   return (
     <>
-      <div className={c.container}>
+      <div className='container'>
         <div className={c.photoGrid}>
           {imagesUrl ? imagesUrl.map((imgURL, index) => (
             <div key={index} className={c.gridItem}>

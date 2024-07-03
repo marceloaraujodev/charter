@@ -4,7 +4,7 @@ export default function features() {
   return (
 
 
-    <div className={c.container}>
+    <div className='container'>
      <div className={c.contentContainer}>
 
         <div className={c.featuresColumn}>

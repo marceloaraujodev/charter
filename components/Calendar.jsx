@@ -8,13 +8,15 @@ import interactionPlugin from '@fullcalendar/interaction';
 import axios from 'axios';
 import Modal from './Modal';
 import { v4 as uuidv4 } from 'uuid';
+import Button from './Button';
 import c from './Calendar.module.css';
 
 function formatDateToYMD(date) {
   return date.toISOString().split('T')[0];
 }
 
-const url = 'https://charter-ebon.vercel.app'
+// const url = 'https://charter-ebon.vercel.app'
+const url = 'http://localhost:3000'
 
 export default function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -31,6 +33,7 @@ export default function Calendar() {
   });
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [viewIndex, setViewIndex] = useState(1)
   const calendarApiRef = useRef();
 
   useEffect(() => {
@@ -199,25 +202,41 @@ export default function Calendar() {
     setIsEditing(true);
   }
 
+  function toogleView(){
+    console.log('click')
+    const view = ['dayGridMonth', 'dayGridWeek', 'timeGridDay'];
+    // const view = ['0', '1', '2'];
+    setViewIndex((viewIndex +1) % view.length)
+    const calendarApi = calendarApiRef.current.getApi();
+    console.log(view[viewIndex])
+    calendarApi.changeView(view[viewIndex])
+  }
+
   return (
     <>
       <div className={c.container}>
         <div className={c.contentContainer}>
+          <div className={c.btnContainer}>
+          <Button classname={c.btn} onClick={displayModal}>Add</Button>
+          <Button classname={c.btn} onClick={toogleView}>Toogle View</Button>
+          </div>
           <FullCalendar
             ref={calendarApiRef}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            // initialView='dayGridWeek'
+            contentHeight={570}
             weekends={true}
             headerToolbar={{
-              start: 'add prev,next',
+              start: 'prev,next',
               center: 'title',
               end: 'prevYear nextYear',
             }}
-            customButtons={{
-              add: {
-                text: 'Add',
-                click: displayModal,
-              },
-            }}
+            // customButtons={{
+            //   add: {
+            //     text: 'Add',
+            //     click: displayModal,
+            //   }
+            // }}
             selectable
             displayEventTime={true}
             events={events}
