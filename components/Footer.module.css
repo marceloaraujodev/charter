@@ -11,6 +11,10 @@
   /* position: fixed;
   bottom: 0; */
 }
+.footer a{
+  color: white;
+  text-decoration: none;
+}
 .icons{
   padding: 0 10px;
   font-size: 1.3rem;

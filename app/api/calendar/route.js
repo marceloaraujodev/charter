@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { NextResponse, NextRequest } from "next/server";
 import { mongooseConnect } from "@/app/lib/mongooseConnect";
 import Task from "@/app/models/task";
