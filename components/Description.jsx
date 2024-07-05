@@ -46,8 +46,8 @@ export default function Description({title, description, image}) {
                   className={c.img}
                   src={image}
                   alt="Hero Section Image"
-                  width={500}
-                  height={300}
+                  width='auto'
+                  height='auto'
           />
         </motion.div>
       </div>

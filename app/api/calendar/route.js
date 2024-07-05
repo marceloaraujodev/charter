@@ -1,5 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { mongooseConnect } from "@/app/lib/mongooseConnect";
+// import { getSession } from "next-auth/react";
+import { getServerSession } from 'next-auth/next';
 import Task from "@/app/models/task";
 
 
@@ -7,15 +9,28 @@ mongooseConnect();
 
 // populate all items on the page
 export async function GET(req, res){
+  const session = await getServerSession({ req, res });
+  console.log('this should be sessions', session)
 
-  //{private: false} to show only public calendar
-  const tasks = await Task.find({});
-  // console.log(tasks);
-  
-  return NextResponse.json({
-    message: 'success',
-    tasks
-  })
+  // if user logged in gets all the calendar
+  if(session?.user?.email){
+    const tasks = await Task.find();
+    // console.log(tasks);
+    
+    return NextResponse.json({
+      message: 'success',
+      tasks
+    })
+
+  }else{
+    const tasks = await Task.find({publicView: true});
+    
+    return NextResponse.json({
+      message: 'success',
+      tasks
+    })
+
+  }
 }
 
 // adds task

@@ -16,6 +16,7 @@ export default function Blocks() {
             src={image6}
             width='auto'
             height='auto'
+            alt='blockImg'
               />
           </div>
         <div className={c.right}>
@@ -39,6 +40,7 @@ export default function Blocks() {
             src={img81}
             width='auto'
             height='auto'
+            alt='blockImg'
               />
         </div>
       </div>

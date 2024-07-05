@@ -35,22 +35,9 @@ export default function IndexPage() {
     whileInView: { opacity: 1, transition: { duration: 1.7 } },
   };
 
-  // let animationOnce = {}
-  // const [animateOnce, setAnimateOnce] = useState(animationOnce.initial);
-
-  // useEffect(() => {
-  //   setAnimateOnce({
-  //     opacity: 1,
-  //     y: 400,
-  //     transition: {durantion: 0.2}
-  //   })
-  // }, [])
-
-
 
   return (
     <>
-
       <BackgroundImg className={`IndexPage`} />
       <div className={c.container}>
         <div className={c.contentContainer}>

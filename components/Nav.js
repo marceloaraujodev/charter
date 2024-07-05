@@ -12,8 +12,11 @@ export default function Nav() {
   // console.log(pathname);
 
   useEffect(() => {
+    if(isActive === '/auth/login'){
+      setIsActive(null)
+    }
     setIsActive(pathname);
-  }, []);
+  }, [pathname]);
 
   function handleClick(path) {
     console.log(path);

@@ -9,6 +9,7 @@ import axios from 'axios';
 import Modal from './Modal';
 import { v4 as uuidv4 } from 'uuid';
 import Button from './Button';
+import { signIn, signOut, useSession } from "next-auth/react"
 import c from './Calendar.module.css';
 
 function formatDateToYMD(date) {
@@ -35,12 +36,17 @@ export default function Calendar() {
   const [isEditing, setIsEditing] = useState(false);
   const [viewIndex, setViewIndex] = useState(1)
   const calendarApiRef = useRef();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     loadTasks();
     // console.log('run')
     // console.log(events)
   }, []);
+
+  if(session){
+
+  }
 
   // Populate tasks
   async function loadTasks() {
