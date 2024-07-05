@@ -39,6 +39,8 @@
   margin-top: 5px;
 }
 .right img{
+  height: 300px;
+  width: 500px;
   max-width: 100%;
   transition: all .4s ease;
   object-fit: cover;

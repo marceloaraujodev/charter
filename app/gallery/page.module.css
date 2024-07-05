@@ -12,6 +12,7 @@
   gap: 22px;
   margin: 0 20px;
   min-height: 100vh;
+  margin-bottom: 80px;
 }
 .loading{
   text-align: center;

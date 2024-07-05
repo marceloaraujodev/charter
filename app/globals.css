@@ -14,13 +14,20 @@ font-family: var(--font-source-sans-3);
 }
 
 body {
-  /* display: flex;
-  flex-direction: column; */
-  /* align-items: center; */
-  /* align-items: flex-start; */
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+  box-sizing: border-box;
+
   position: relative;
   
+}
+.container{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 .fc .fc-button-primary {
   background-color: #42ADF8;
@@ -32,15 +39,6 @@ body {
   color: #42ADF8;
 }
 
-/* .container{
-  display: flex;
-  justify-content: center;
-  padding-top: 100px;
-  gap: 20px;
-  height: 100vh;
-  width: 100%;
-} */
-
 .fc .fc-toolbar-title {
   font-size: 1em;
   margin: 0px;
@@ -50,7 +48,7 @@ body {
   padding: 0.2em 0.35em;
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 600px) {
   body{
     /* background-color: blue; */
     min-height: auto;
@@ -58,5 +56,6 @@ body {
   .container{
     align-items: center;
   }
+
 }
 

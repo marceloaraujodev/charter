@@ -22,7 +22,7 @@ export default function crew() {
   return (
     <>
 
-    <div className={c.container}>
+    <div className='container'>
 
       <div className={c.containerInner}>
       <motion.section ref={ref} className={c.contentContainer} 

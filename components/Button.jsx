@@ -1,8 +1,13 @@
 import React from 'react';
 import c from './Button.module.css';
 
-export default function Button({onClick, children, classname}) {
+export default function Button({onClick, children, className, type = 'button'}) {
   return (
-    <button className={`${c.btn} ${classname}`} onClick={onClick}>{children}</button>
+    <button 
+      className={`${c.btn} ${className}`} 
+      onClick={onClick}
+      type={type}
+     >{children}
+    </button>
   )
 }

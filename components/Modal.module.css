@@ -153,7 +153,7 @@
 .btn{
   width: 90px;
 }
-@media screen and (min-width: 600px){
+@media screen and (max-width: 600px){
   .modalContent {
     width: 60%;
     min-width: auto; /* Remove the min-width when a specific width is set */
@@ -162,5 +162,8 @@
   }
   .form{
     width: 70%;
+  }
+  .taskBlockContainer {
+    width: 90%;
   }
 }

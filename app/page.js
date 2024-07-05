@@ -1,7 +1,5 @@
 'use client';
 import { useRef, useState, useEffect } from 'react';
-import HeroSectionImgLeft from '../components/HeroSectionImgLeft';
-import HeroSectionImgRight from '../components/HeroSectionImgRight';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import img6 from '../public/images/yacht-6.JPG';
 import img82 from '../public/images/yacht-82.JPG';
@@ -37,22 +35,9 @@ export default function IndexPage() {
     whileInView: { opacity: 1, transition: { duration: 1.7 } },
   };
 
-  // let animationOnce = {}
-  // const [animateOnce, setAnimateOnce] = useState(animationOnce.initial);
-
-  // useEffect(() => {
-  //   setAnimateOnce({
-  //     opacity: 1,
-  //     y: 400,
-  //     transition: {durantion: 0.2}
-  //   })
-  // }, [])
-
-
 
   return (
     <>
-
       <BackgroundImg className={`IndexPage`} />
       <div className={c.container}>
         <div className={c.contentContainer}>
@@ -71,13 +56,6 @@ export default function IndexPage() {
             description='Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more.'
             image={img82}
           />
-          {/* <motion.div {...animationConfig} style={{ y: scrollYProgress }}>
-            <HeroSectionImgLeft
-              image={img82}
-              title="Unforgettable Destinations"
-              description="Embark on a journey to Miami, Florida Keys, or even the Bahamas on our Charter Yacht. Explore stunning coastlines, crystal-clear waters, and breathtaking sunsets in these iconic destinations."
-            />
-          </motion.div> */}
 
           <div className={c.confortContainer}>
             <motion.div
