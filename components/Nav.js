@@ -19,7 +19,7 @@ export default function Nav() {
   }, [pathname]);
 
   function handleClick(path) {
-    console.log(path);
+    // console.log(path);
     setIsActive(path);
     setIsSmallNavActive(!isSmallNavActive)
   }
