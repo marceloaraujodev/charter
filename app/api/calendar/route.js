@@ -10,7 +10,7 @@ mongooseConnect();
 // populate all items on the page
 export async function GET(req, res){
   const session = await getServerSession({ req, res });
-  console.log('this should be sessions', session)
+  console.log('this should be session, if null you need to login', session)
 
   // if user logged in gets all the calendar
   if(session?.user?.email){
