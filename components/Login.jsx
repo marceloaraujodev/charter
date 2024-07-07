@@ -42,7 +42,7 @@ export default function loginPage() {
     console.log(res)
     if(res.ok){
       console.log('authenticated')
-      router.push('/calendar')
+      router.push('/dashboard')
     }else{
       console.log('wrong user or pass') 
     }

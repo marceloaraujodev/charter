@@ -27,7 +27,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  margin-top: 100px;
 }
 .fc .fc-button-primary {
   background-color: #42ADF8;
