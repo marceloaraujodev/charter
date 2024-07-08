@@ -1,22 +1,26 @@
-.container{
-  flex: 1;
-  display: flex;
-  /* justify-content: center;
-  align-items: center; */
-  margin-top: 100px;
-}
 
+.nav{
+  padding: 10px;
+}
 .nav svg{
   height: 30px;
 }
-.row{
+.col{
   display: flex;
   align-items: center;
   gap: 5px;
   margin-bottom: 10px;
   cursor: pointer;
 }
-.rowRight{
-  padding: 10px;
-  width: 100%;
+
+@media screen and (max-width: 768px){
+  .nav{
+    padding: 5px;
+  }
+  .nav svg{
+    height: 25px;
+  }
+  .col span{
+    display: none;
+  }
 }
