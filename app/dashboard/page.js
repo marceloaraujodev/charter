@@ -3,6 +3,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Nav from '@/app/dashboard/nav/Nav';
 import Calendar from '@/components/Calendar';
+import Services from './services/Services';
 import { signOut } from 'next-auth/react';
 import c from './Dashboard.module.css'
 
@@ -24,6 +25,7 @@ export default function page() {
       <Nav setView={setView} />
       <div className={c.rowRight}>
       {view === 'dashboard' && <Calendar />}
+      {view === 'services' && <Services />}
     </div>
     </div>
   )
