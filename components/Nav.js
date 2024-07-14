@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 export default function Nav() {
   const pathname = usePathname();
   const [isActive, setIsActive] = useState('/'); // underline
-  const [isSmallNavActive, setIsSmallNavActive] = useState(false);
+  const [isSmallNavActive, setIsSmallNavActive] = useState(false); // closes menu and sets underline
   
   // console.log(pathname);
 

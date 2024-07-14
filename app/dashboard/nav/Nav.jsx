@@ -1,17 +1,10 @@
-'use client'
-import Calendar from '@/components/Calendar';
-import { signOut } from 'next-auth/react';
 import c from './Nav.module.css';
 
-function handleClick(){
 
-}
-
-export default function Nav({ show }) {
+export default function Nav({ setView }) {
   return (
-    <div className={c.container}>
       <nav className={c.nav}>
-        <div className={c.row}>
+        <div className={c.col}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -25,9 +18,9 @@ export default function Nav({ show }) {
               d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
             />
           </svg>
-          <span>DashBoard</span>
+          <span onClick={() => setView('dashboard')} >DashBoard</span>
         </div>
-        <div className={c.row}>
+        <div className={c.col}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -42,10 +35,10 @@ export default function Nav({ show }) {
             />
           </svg>
 
-          <span>Sevices</span>
+          <span onClick={() => setView('services')}>Sevices</span>
         </div>
 
-        <div className={c.row} onClick={signOut}>
+        <div className={c.col} onClick={() => setView('signout')}>
           <svg
             className={c.click}
             xmlns="http://www.w3.org/2000/svg"
@@ -63,9 +56,5 @@ export default function Nav({ show }) {
           <span>Logout</span>
         </div>
       </nav>
-      <div className={c.rowRight}>
-        <Calendar /> 
-      </div>
-    </div>
   );
 }

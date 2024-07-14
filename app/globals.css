@@ -38,12 +38,22 @@ body {
   border: 1px solid #42ADF8;
   color: #42ADF8;
 }
-
 .fc .fc-toolbar-title {
   font-size: 1em;
   margin: 0px;
 }
-
+.fc-col-header-cell-cushion {
+  color: rgb(105, 105, 105);
+  text-decoration: none;
+  font-weight: 400;
+}
+.fc .fc-daygrid-day-number {
+  padding: 2px;
+}
+.fc-daygrid-day-number{
+  text-decoration: none;
+  color: gray;
+}
 .fc .fc-button {
   padding: 0.2em 0.35em;
 }

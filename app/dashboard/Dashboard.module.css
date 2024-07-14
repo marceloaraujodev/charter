@@ -1,17 +1,20 @@
-/* .container{
+.container{
+  flex: 1;
   display: flex;
-  justify-content: center;
-  margin: 100px auto;
-  z-index: 1;
-  width: 100%;
+  /* justify-content: center;
+  align-items: center; */
+  margin-top: 100px;
 }
-.contentContainer{
-  width: 95%;
-} */
-.btnContainer{
+.row{
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
   margin-bottom: 10px;
+  cursor: pointer;
+}
+.rowRight{
+  padding: 10px 20px;
+  width: 100%;
 }
 .btn{
   width: 130px;
@@ -26,5 +29,7 @@
     width: 100px;
     font-size: 0.9rem;
   }
+  .rowRight{
+    padding: 5px 8px;
+  }
 }
-
