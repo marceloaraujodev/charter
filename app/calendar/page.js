@@ -18,7 +18,7 @@ export default function Pricing() {
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className="btn btn-primary px-5 mb-5"
+              className={`btn btn-primary px-5 mb-5 ${c.btnPricing}`}
               type="button"
             >
               Book now!

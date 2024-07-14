@@ -13,7 +13,7 @@
 .left img{
   object-fit: cover;
   height: 300px;
-  width: 100%;
+  max-width: 100%;
 }
 .right{
   padding: 40px 30px;

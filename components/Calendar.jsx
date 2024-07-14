@@ -223,8 +223,8 @@ export default function Calendar() {
       <div className={c.container}>
         <div className={c.contentContainer}>
           <div className={c.btnContainer}>
-          <Button classname={c.btn} onClick={displayModal}>Add</Button>
-          <Button classname={c.btn} onClick={toogleView}>Toogle View</Button>
+          <Button className={c.btn} onClick={displayModal}>Add</Button>
+          <Button className={c.btn} onClick={toogleView}>Toogle View</Button>
           </div>
           <FullCalendar
             ref={calendarApiRef}

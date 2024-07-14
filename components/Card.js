@@ -5,11 +5,12 @@ import c from './Card.module.css';
 export default function Card({ title, description, image }) {
   return (
     <div className={` ${c.animation}`}>
-      <Image src={image} 
+      <Image
+        src={image}
         className={c.img}
-        width='auto'
-        height='auto'
-        alt='cardImg'
+        width="auto"
+        height="auto"
+        alt="cardImg"
       />
       <div className={c.cardBody}>
         <h5 className={c.cardTitle}>{title}</h5>

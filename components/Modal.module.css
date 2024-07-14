@@ -20,9 +20,7 @@
   padding: 10px;
   border-radius: 8px;
   background-color: #d3ebfc;
-  min-width: 90%; /* Set default min-width for small screens */
-  min-height: 50%;
-
+  width: 600px;
   display: flex;
   justify-content: center;
   overflow-y: auto;
@@ -155,13 +153,13 @@
 }
 @media screen and (max-width: 600px){
   .modalContent {
-    width: 60%;
+    width: 90%;
     min-width: auto; /* Remove the min-width when a specific width is set */
     max-width: 600px; /* Set max-width for larger screens */
     padding: 20px;
   }
   .form{
-    width: 70%;
+    width: 95%;
   }
   .taskBlockContainer {
     width: 90%;
