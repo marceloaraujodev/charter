@@ -8,7 +8,7 @@ export default function features() {
      <div className={c.contentContainer}>
 
         <div className={c.featuresColumn}>
-          <h3>WaterToys Included</h3>
+          <h3>WaterToys </h3>
           <p>15ft Walker Bay Venture tender with a 75hp 2 stroke motor</p>
           <p>Water skis, tube</p>
           <p>Jet skis -available for $175/hr.</p>
