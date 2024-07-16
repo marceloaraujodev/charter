@@ -92,56 +92,11 @@
     display: none;
   }
 
-  .smallMenuIcon {
-    display: inline-block;
-    font-size: 2rem;
-    font-weight: bold;
-    left: 8px;
-    position: absolute;
-    color: rgb(255, 255, 255);
-    padding: 5px 0;
-    margin-bottom: 20px;
-  }
-  .smallNav {
-    display: none;
-    width: 250px;
-    height: auto;
-    position: absolute;
-    padding: 10px 0;
-    padding-left: 3px;
-    left: 8px;
-    top: 50px;
-    margin-top: 10px;
-    background-color: rgba(255, 255, 255, 0.904);
-    border-radius: 10px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.267);
-  }
-  .smallNavActive {
-    display: block;
-    animation-name: displaySmallScreenMenu;
-    animation-duration: 1s;
-  }
-  @keyframes displaySmallScreenMenu {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
   .logo {
     right: 8%;
     left: auto;
   }
-  .smallMenu {
-    display: flex;
-    flex-direction: column;
-  }
-  .smallMenu li {
-    margin: 0;
-    padding: 15px 5px;
-    font-size: 1.1rem;
-  }
+
   .menuLink {
     color: #179fff;
   }
@@ -181,7 +136,7 @@
     left: 8px;
     top: 50px;
     margin-top: 10px;
-    background-color: rgba(255, 255, 255, 0.774);
+    background-color: white;
     border-radius: 10px;
   }
   .smallNavActive {

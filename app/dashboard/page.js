@@ -5,6 +5,7 @@ import Nav from '@/app/dashboard/nav/Nav';
 import Calendar from '@/components/Calendar';
 import Services from './services/Services';
 import { signOut } from 'next-auth/react';
+import CheckList from './checklist/CheckList';
 import c from './Dashboard.module.css'
 
 export default function page() {
@@ -26,6 +27,7 @@ export default function page() {
       <div className={c.rowRight}>
       {view === 'dashboard' && <Calendar />}
       {view === 'services' && <Services />}
+      {view === 'checklist' && <CheckList />}
     </div>
     </div>
   )
