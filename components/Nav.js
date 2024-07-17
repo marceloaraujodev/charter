@@ -34,6 +34,7 @@ export default function Nav() {
       <nav className={c.nav}>
         <div className={c.logo}>APHRODITE</div>
         <ul className={c.wideMenu}>
+          
           <li>
             <Link
               className={`${c.menuLink} ${isActive === '/' ? c.active : ''}`}
@@ -104,6 +105,7 @@ export default function Nav() {
         <i className={`bi bi-list ${c.smallMenuIcon}`} onClick={toogleSmallScreenNav}></i>
         <div className={`${c.smallNav} ${isSmallNavActive ? c.smallNavActive : ''}`} >
         <ul className={c.smallMenu}>
+          <li><span className={c.close} onClick={toogleSmallScreenNav}>X</span></li>
           <li>
             <Link
               className={`${c.menuLink} ${isActive === '/' ? c.active : ''}`}

@@ -53,7 +53,7 @@ export default function loginPage() {
   }
 
   return (
-    <div className='container'>
+    <div className={c.container}>
       <form className={c.containerInner} onSubmit={handleSubmit}>
         <label htmlFor='email'>Email</label>
         <input onChange={handleInput} type='email' id='email' value={email} placeholder='email'/>

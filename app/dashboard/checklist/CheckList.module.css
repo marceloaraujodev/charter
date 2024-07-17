@@ -1,24 +1,29 @@
-.btnContainer{
-  margin-bottom: 10px;
+
+.container{
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  max-width: 100%;
 }
 .taskContainer{
-  /* border: 3px solid green; */
   padding-top: 20px;
-  padding-left: 15px;
+  padding-left: 15px; 
 }
 .task{
   position: relative;
   width: 100%;
   margin-bottom: 10px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
 .task input[type="checkbox"] {
   display: none;
 }
 
 .task label{
-  border: 1px solid rgb(190, 190, 190);;
+  border: 1px solid rgb(190, 190, 190);
   position: absolute;
   left: 0px;
   top: 50%;
@@ -56,4 +61,55 @@
 }
 .taskTitle {
   margin-left: 30px;
+  /* margin-right: 10px; */
+  max-width: 80%;
+}
+.btnContainer{
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.btnDel{
+  background-color: rgb(255, 70, 70);
+  border: 1px solid rgb(255, 70, 70);
+}
+.saved{
+  color: rgba(3, 198, 3, 0.742);
+  font-weight: 600;
+}
+
+@media screen and (max-width: 600px){
+  .container{
+    max-width: 100%;
+    padding: 2px;
+    /* background-color: salmon; */
+  }
+  .container h2{
+    text-align: center;
+    color: rgb(117, 117, 117);
+  }
+  .taskContainer{
+    padding-left: 5px; 
+    max-width: 100%;
+  }
+  .checkedTasks{
+    max-width: 95%;
+  }
+  .task{
+    overflow: hidden;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    background-color: white;
+    padding-right: 4px;
+  }
+  .taskTitle {
+    width: 65%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+  }
+  .btnDel{
+    width: 60px;
+    font-size: 0.9rem;
+  }
 }

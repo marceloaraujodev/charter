@@ -41,7 +41,6 @@ export default function Modal({
     }
   }
 
-
   function handleCloseModal(e) {
     e.preventDefault();
     onCloseModal(false);
@@ -100,10 +99,11 @@ export default function Modal({
                 <input name='title' required type='text' value={formData.title} onChange={handleInput}/>
                 <label name='description' type='text'>Description</label>
                 <textarea type='text' name='description' value={formData.description} onChange={handleInput}/>
-                {editEvent ? <button type='submit'>Save | Edit</button> : <button type='submit' >Submit</button>}
-                <button onClick={handleCloseModal}>Close</button>
-                {editEvent ? <button onClick={handleDeleteEvent}>Delete Event</button> : ''}
-      
+                <div className={c.btnContainer}>
+                  <Button onClick={handleCloseModal}>Close</Button>
+                  {editEvent ? <Button onClick={handleDeleteEvent}>Delete Event</Button> : ''}
+                  {editEvent ? <Button type='submit'>Save | Edit</Button> : <Button type='submit' >Submit</Button>}
+                </div>
               </form>
             </div>
       )  }

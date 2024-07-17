@@ -17,9 +17,9 @@ export default function page() {
     }
   }, [view])
 
-  function displayModal() {
-    setShowModal(true);
-  }
+  // function displayModal() {
+  //   setShowModal(true);
+  // }
 
   return (
     <div className={c.container}>

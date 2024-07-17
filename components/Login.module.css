@@ -1,8 +1,17 @@
+/* paddding to at 150 because if I do 200 100 from the nav and 100 as the bottom the linear gradient creates the ilution of the space being more that it it */
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-top: 150px;
+}
 .containerInner{
   /* border: 2px solid red; */
   display: flex;
   flex-direction: column;
   width: 300px;
+
 }
 .containerInner label{
   color: #032270;

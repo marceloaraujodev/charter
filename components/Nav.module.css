@@ -83,6 +83,9 @@
 .smallMenuIcon {
   display: none;
 }
+.close{
+  display: none;
+}
 
 @media screen and (max-width: 1200px) {
   .wideMenu {
@@ -128,21 +131,27 @@
   }
   .smallNav {
     display: none;
-    width: 250px;
-    height: auto;
+    width: 200px;
+    height: 100vh;
     position: absolute;
     padding: 10px 0;
     padding-left: 3px;
-    left: 8px;
-    top: 50px;
-    margin-top: 10px;
+    left: 0px;
+    top: 0;
     background-color: white;
-    border-radius: 10px;
+    /* border-right: 2px solid #42ADF8; */
   }
   .smallNavActive {
     display: block;
     animation-name: displaySmallScreenMenu;
-    animation-duration: 2s;
+    animation-duration: .5s;
+  }
+  .close{
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
   }
   @keyframes displaySmallScreenMenu {
     from {
