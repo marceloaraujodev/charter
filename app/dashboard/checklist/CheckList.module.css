@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   max-width: 100%;
+  gap: 10px;
 }
 .taskContainer{
   padding-top: 20px;
@@ -78,6 +79,23 @@
   color: rgba(3, 198, 3, 0.742);
   font-weight: 600;
 }
+.titleContainer{
+  margin: 0 auto;
+  padding: 20px 0;
+}
+.listTitle{
+  color: #032270;
+  font-weight: 700;
+}
+.listTitle::after{
+  content: '';
+  display: block;
+  background-color: red;
+  width: 80%;
+  height: 2px;
+  margin: 0 auto;
+  margin-top: 5px;
+}
 
 @media screen and (max-width: 600px){
   .container{
@@ -85,10 +103,7 @@
     padding: 2px;
     /* background-color: salmon; */
   }
-  .container h2{
-    text-align: center;
-    color: rgb(117, 117, 117);
-  }
+
   .taskContainer{
     padding-left: 5px; 
     max-width: 100%;
@@ -111,5 +126,8 @@
   .btnDel{
     width: 60px;
     font-size: 0.9rem;
+  }
+  .listTitle{
+    color: #032270;
   }
 }

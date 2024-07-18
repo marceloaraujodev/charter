@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 
 const CheckListSchema = new mongoose.Schema({
-  list: [String]
+  type: String,
+  list: [{
+    id: String,
+    title: String,
+  }]
 }, {
   timestamps: true
 });

@@ -1,5 +1,5 @@
 'use client';
-import Calendar from '@/components/Calendar';
+import Calendar from '@/app/components/Calendar';
 import { motion } from 'framer-motion';
 import c from './page.module.css';
 

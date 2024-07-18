@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import image6 from '../public/images/yacht-6.JPG';
+import image6 from '@/public/images/yacht-6.JPG';
 import Button from './Button';
 import c from './Description.module.css';
 
