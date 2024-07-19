@@ -1,0 +1,41 @@
+.form{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  color: rgb(146, 146, 146);
+}
+.form input{
+  border-radius: 2px;
+  border: 1px solid gray;
+}
+.form input::placeholder{
+  color: rgb(146, 146, 146);
+}
+.form input:focus{
+  outline: none
+}
+.select{
+  color: rgb(146, 146, 146);
+}
+.select:focus{
+  outline: none;
+}
+.select option:focus{
+  outline: none;
+}
+
+.row{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.btnContainer{
+  width: 100%;
+}
+.btnContainer button{
+  max-width: 100%;
+  width: 100%;
+  margin-top: 10px;
+}
+/* .btnSubmit{
+} */

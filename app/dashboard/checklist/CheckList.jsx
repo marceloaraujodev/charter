@@ -6,12 +6,12 @@ import { useSession } from 'next-auth/react';
 import c from './CheckList.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
-// figure it out how to get the crew to display captains or stews list and if  none of them display all.
+// figure it out how to get the user to display captains or stews list and if  none of them display all.
 
 // maybe create a page for the lists if the user is a admin.
 
-function upperCase(crew) {
-  return crew.charAt(0).toUpperCase() + crew.slice(1)
+function upperCase(user) {
+  return user.charAt(0).toUpperCase() + user.slice(1)
 }
 
 export default function CheckList() {
@@ -22,9 +22,12 @@ export default function CheckList() {
   const [saved, setSaved] = useState(false);
   const [newTaskAdded, setNewTaskAdded] = useState(false);
   const { data: session } = useSession();
+  const [user, setUser] = useState(session.user.role); // get user from session
+
+  // setUser(session.user.user); 
 
   // this will come from session
-const crew = 'captains';
+// const user = 'captains';
 
   // populates tasks on mount
   useEffect(() => {
@@ -42,7 +45,7 @@ const crew = 'captains';
   // get tasks from server
   async function getTasks() {
     try {
-      const response = await axios.get(`/api/checklist?type=${crew}`);
+      const response = await axios.get(`/api/checklist?type=${user}`);
       if(response.data.data){
         const currentTasks = response.data.data.list;
         setTasks(currentTasks);
@@ -89,7 +92,7 @@ const crew = 'captains';
   async function saveItem() {
     console.log('enter')
     try {
-      const data = { type: crew, list: tasks}
+      const data = { type: user, list: tasks}
       // console.log('saveItem data variable', data)
   
       // do axios call to backend to save checked tasks
@@ -127,24 +130,40 @@ const crew = 'captains';
     const item = tasks[index];
     setTasks((prev) => prev.filter((_, i) => i !== index));
     // console.log(item);
-    axios.put(`/api/checklist`, { item, type: crew });
+    axios.put(`/api/checklist`, { item, type: user });
+  }
+
+  function handleList(listView){
+    console.log('click')
+    if(listView === 'captains'){
+      setUser('captains');
+    }else if(listView === 'stew'){
+      setUser('stew');
+    }
   }
 
   return (
     <>
       <div className={c.container}>
+        {user === 'admin' && (
+          <div className={c.lists}>
+            <span onClick={() => handleList('captains')}>Captains Checklist</span>
+            <span onClick={() => handleList('stew')}>Stew Checklist</span>
+          </div>
+        )}
         {showModal && (
           <CheckListModal onSubmit={submitTask} onCloseModal={closeModal} />
         )}
-        {crew === 'captains' ? (
+        {user === 'captains' &&         (
           <div className={c.titleContainer}>
-            <h2 className={c.listTitle}>{upperCase(crew)} - Post Charter</h2>
+            <h2 className={c.listTitle}>{upperCase(user)} - Post Charter</h2>
           </div>
-        ) : (
+        )}
+        {user ==='stew' && (
           <div className={c.titleContainer}>
             <h2 className={c.listTitle}>Stew</h2>
           </div>
-        )}
+        ) }
         <div className={c.btnContainer}>
           <Button onClick={addTask}>Add New</Button>
           <Button onClick={() => setRemove(!remove)}>
@@ -181,9 +200,9 @@ const crew = 'captains';
 
         {!!checkedTasks.length && (
           <>
-            <div className={c.titleContainer}>
+            {/* <div className={c.titleContainer}>
               <h2 className={c.listTitle}>Checked Items</h2>
-            </div>
+            </div> */}
             <div className={c.taskContainer}>
               <div className={c.checkedTasks}>
                 {checkedTasks.map((checkedTask, index) => {
@@ -204,7 +223,8 @@ const crew = 'captains';
               {saved ? (
                 <p className={c.saved}>Check List Saved</p>
               ) : tasks.length === 0 ? (
-                <div className={c.btnContainer}>
+                <div className={`${c.btnContainer} ${c.saveBtn}`}>
+                  <p>Please make sure you save your List!</p>
                   <Button onClick={saveCheckedList}>Save</Button>
                 </div>
               ) : null}

@@ -62,14 +62,22 @@
 }
 .taskTitle {
   margin-left: 30px;
-  /* margin-right: 10px; */
   max-width: 80%;
 }
 .btnContainer{
   margin-bottom: 10px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
+}
+.btnContainer.saveBtn{
+  align-items: center;
+  flex-direction: column;
+}
+.btnContainer p{
+  color: red;
+  font-weight: 600;
 }
 .btnDel{
   background-color: rgb(255, 70, 70);
@@ -78,6 +86,15 @@
 .saved{
   color: rgba(3, 198, 3, 0.742);
   font-weight: 600;
+}
+.lists{
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #032270;
+  cursor: pointer;
 }
 .titleContainer{
   margin: 0 auto;

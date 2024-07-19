@@ -7,6 +7,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import Services from './services/Services';
 import CheckList from './checklist/CheckList';
 import Login from '../components/Login';
+import Settings from './settings/Settings';
 import c from './Dashboard.module.css';
 
 export default function page() {
@@ -34,6 +35,7 @@ export default function page() {
             {view === 'dashboard' && <Calendar />}
             {view === 'services' && <Services />}
             {view === 'checklist' && <CheckList />}
+            {view === 'settings' && <Settings />}
           </div>
         </div>
       ) : (
