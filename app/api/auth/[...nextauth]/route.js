@@ -21,6 +21,8 @@ export const authOptions = {
             try {
               const user = await User.findOne({ email }).select('+password');
     
+              console.log('This is User:------------',user)
+
               if (!user) {
                 console.log("User not found");
                 return null;
@@ -42,10 +44,23 @@ export const authOptions = {
           }
         })
       ],
+      callbacks:{
+        async jwt({token, user}){
+          if(user){
+            token.role = user.role;
+          }
+          return token;
+        },
+        async session({session, token}){
+          if(token){
+            session.user.role = token.role;
+          }
+          return session;
+        }
+      },
       session: {
         jwt: true, // Use JSON Web Tokens (JWT) for session management
-        maxAge: 1 * 60 * 60, // 24 hours (in seconds)
-        // updateAge: 60 * 60, // 1 hour (in seconds) - Refresh session on access within an hour
+        maxAge: 24 * 60 * 60, // 24 hours (in seconds)
       },
       pages: {
         signIn: '/auth/login' // Custom sign-in page

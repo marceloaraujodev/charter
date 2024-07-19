@@ -10,7 +10,7 @@ mongooseConnect();
 // populate all items on the page
 export async function GET(req, res){
   const session = await getServerSession({ req, res });
-  console.log('this should be session, if null you need to login', session)
+  // console.log('this should be session, if null you need to login', session)
 
   // if user logged in gets all the calendar
   if(session?.user?.email){
@@ -52,7 +52,7 @@ export async function POST(req, res){
 export async function PUT(req, res){
   console.log('enter');
   const data = await req.json();
-  console.log(data)
+  // console.log(data)
 
   const updatedEvent = {
     start: data.start,

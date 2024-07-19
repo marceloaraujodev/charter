@@ -2,25 +2,17 @@ import { useState, useEffect } from 'react';
 import Button from '@/app/components/Button';
 import CheckListModal from '@/app/components/CheckListModal';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 import c from './CheckList.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
-// install id generator for tasks
-// change code on handlecheckbox to account for object instead of array changes
+// figure it out how to get the crew to display captains or stews list and if  none of them display all.
 
-// this will come from session
-const crew = 'captains';
+// maybe create a page for the lists if the user is a admin.
 
-/* tasks
-        {  
-      id: 'task 1',
-      title: 'Task 1',
-     },
-      {
-        id: 'task 2',
-        title: 'Task 2',
-       }
-*/
+function upperCase(crew) {
+  return crew.charAt(0).toUpperCase() + crew.slice(1)
+}
 
 export default function CheckList() {
   const [tasks, setTasks] = useState([]);
@@ -28,23 +20,37 @@ export default function CheckList() {
   const [showModal, setShowModal] = useState(false);
   const [remove, setRemove] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [newTaskAdded, setNewTaskAdded] = useState(false);
+  const { data: session } = useSession();
 
-  // useEffect(() => {
-  //   getTasks();
-  // }, []);
+  // this will come from session
+const crew = 'captains';
+
+  // populates tasks on mount
+  useEffect(() => {
+    getTasks();
+  }, []);
+
+  // save tasks to server & if tasks are added saves it 
+  useEffect(() => {
+    if(newTaskAdded){
+      saveItem();
+      setNewTaskAdded(false);
+    }
+  }, [tasks, newTaskAdded]);
 
   // get tasks from server
   async function getTasks() {
     try {
       const response = await axios.get(`/api/checklist?type=${crew}`);
-      setTasks(response.data.data.list);
-      console.log(response.data.data.list);
-      return 
+      if(response.data.data){
+        const currentTasks = response.data.data.list;
+        setTasks(currentTasks);
+      }
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
   }
-
 
   // checked items functionality
   function handleCheckBox(e) {
@@ -63,6 +69,7 @@ export default function CheckList() {
     }
   }
 
+  // display modal when addTask button is clicked
   function addTask() {
     setShowModal(true);
   }
@@ -71,45 +78,56 @@ export default function CheckList() {
     setShowModal(false);
   }
 
-  // creates new task and submits it to the tasks array
-  function submitTask(task) {
+  // creates new task after add new button -> Add is clicked
+  async function submitTask(task) {
     const newTask = { id: uuidv4(), title: task };
-    setTasks([...tasks, newTask]);
+    setTasks((prev) => [...prev, newTask]);
     closeModal();
-    console.log(newTask);
-  }
-
-  function deleteTask(index) {
-    setTasks((prev) => prev.filter((_, i) => i !== index));
+    setNewTaskAdded(true);
   }
 
   async function saveItem() {
-    console.log(tasks)
-    const data = { type: crew, list: tasks}
-    // do axios call to backend to save checked tasks
-    const res = await axios.post('/api/checklist', data);
-
-    if (res.status === 200) {
-      console.log('Task saved successfully');
-    } else {
-      console.error('Error saving task');
+    console.log('enter')
+    try {
+      const data = { type: crew, list: tasks}
+      // console.log('saveItem data variable', data)
+  
+      // do axios call to backend to save checked tasks
+      const res = await axios.post('/api/checklist', data);
+  
+      if (res.status === 200) {
+        console.log('Task saved successfully');
+      } else {
+        console.error('Error saving task');
+      }
+      
+    } catch (error) {
+      console.error('Error saving tasks:', error);
     }
   }
 
   async function saveCheckedList() {
     // do axios call to backend to save checked tasks
-    const res = await axios.post('/api/checklist', checkedTasks);
+    const res = await axios.post('/api/checklist?type=checked', { list: checkedTasks, action: 'checked', type: 'Finished List'});
 
     if (res.status === 200) {
       console.log('Task saved successfully');
       setSaved(true);
       setTimeout(() => {
         setSaved(false);
+        setCheckedTasks([]);
       }, 4000);
     } else {
       console.error('Error saving task');
       setSaved(false);
     }
+  }
+
+  function deleteTask(index) {
+    const item = tasks[index];
+    setTasks((prev) => prev.filter((_, i) => i !== index));
+    // console.log(item);
+    axios.put(`/api/checklist`, { item, type: crew });
   }
 
   return (
@@ -120,7 +138,7 @@ export default function CheckList() {
         )}
         {crew === 'captains' ? (
           <div className={c.titleContainer}>
-            <h2 className={c.listTitle}>Captains - Post Charter</h2>
+            <h2 className={c.listTitle}>{upperCase(crew)} - Post Charter</h2>
           </div>
         ) : (
           <div className={c.titleContainer}>
@@ -159,9 +177,6 @@ export default function CheckList() {
               </div>
             );
           })}
-          { tasks.length > 0 && <div className={c.btnContainer}>
-            <Button onClick={saveItem}>Save</Button>
-          </div>}
         </div>
 
         {!!checkedTasks.length && (

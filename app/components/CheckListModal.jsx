@@ -25,8 +25,8 @@ export default function CheckListModal({onCloseModal, onSubmit}) {
           <label htmlFor="item">New Item:</label>
           <textarea className={c.textarea} type="text" placeholder="Enter item" value={item} onChange={(e) => setItem(e.target.value)} />
           <div className={m.btnContainer}>
-            <Button className={c.btn} onClick={handleCloseModal}>Close</Button>
             <Button className={c.btn} type="submit">Add</Button>
+            <Button className={c.btn} onClick={handleCloseModal}>Close</Button>
           </div>
         </form>
       </div>100px !important;

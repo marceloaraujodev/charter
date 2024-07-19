@@ -15,6 +15,8 @@ export default function loginPage() {
   const router = useRouter();
   const { data: session } = useSession();
 
+  // console.log(session)
+
   function handleInput(e) {
     if (e.target.id === 'email') {
       setEmail(e.target.value);
@@ -49,7 +51,8 @@ export default function loginPage() {
   }
 
   if (session) {
-    console.log(session);
+    // console.log(session);
+    // console.log('User role:', session.user.role);
   }
 
   return (
