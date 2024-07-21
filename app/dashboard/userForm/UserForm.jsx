@@ -40,13 +40,8 @@ export default function UserForm({user, submitType}) {
         type,
       };
       console.log(user);
-      if(submitType === 'register') {
-        const res = await axios.post(`http://localhost:3000/api/register`, user);
-      }else if(submitType === 'edit') {
-        const res = await axios.put(`http://localhost:3000/api/users`, user);
-        console.log(res.status);
-      }
-      const res = submitType === 'register' ? (await axios.post('http://localhost:3000/api/register', user)) : (await axios.put('http://localhost:3000/api/users, user'));
+      
+      const res = submitType === 'register' ? (await axios.post('http://localhost:3000/api/register', user)) : (await axios.put('http://localhost:3000/api/users', user));
 
 
       if (res.status === 200) {

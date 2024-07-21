@@ -22,7 +22,7 @@ export default function CheckList() {
   const [saved, setSaved] = useState(false);
   const [newTaskAdded, setNewTaskAdded] = useState(false);
   const { data: session } = useSession();
-  const [user, setUser] = useState(session.user.user); // get user from session
+  const [user, setUser] = useState(session?.user?.role); // get user from session
 
   // setUser(session.user.user); 
   console.log(session)
@@ -33,7 +33,7 @@ export default function CheckList() {
   // populates tasks on mount
   useEffect(() => {
     getTasks();
-  }, []);
+  }, [user]);
 
   // save tasks to server & if tasks are added saves it 
   useEffect(() => {
@@ -155,9 +155,9 @@ export default function CheckList() {
         {showModal && (
           <CheckListModal onSubmit={submitTask} onCloseModal={closeModal} />
         )}
-        {user === 'captain' &&         (
+        {user === 'captain' && (
           <div className={c.titleContainer}>
-            <h2 className={c.listTitle}>{upperCase(user)} - Post Charter</h2>
+            <h2 className={c.listTitle}>Captain - Post Charter</h2>
           </div>
         )}
         {user ==='stew' && (

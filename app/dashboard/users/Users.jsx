@@ -12,6 +12,7 @@ export default function Users() {
   const { data: session } = useSession();
 
   // console.log(session)
+  // console.log(session.user.email);
 
   useEffect(() => {
     getUsers();
@@ -24,7 +25,7 @@ export default function Users() {
       });
   
       setUsers(res.data.users);
-      
+    
     } catch (error) {
       console.log(error)
     }
@@ -34,6 +35,17 @@ export default function Users() {
     // console.log(user)
     setSelectedUser(user);
     setIsEditing(true);
+    getUsers();
+
+  }
+
+  async function handleDelete(id){
+    console.log(id)
+
+      const res = await axios.delete(`http://localhost:3000/api/users?id=${id}`)
+      console.log(`http://localhost:3000/api/users?id=${id}`)
+      getUsers();
+      console.log(res)
   }
 
   return (
@@ -46,7 +58,11 @@ export default function Users() {
               <div className={c.userName}>{user.name}</div>
               <div className={c.btnContainer}>
                 <Button color='primary' className={c.btn} onClick={() => handleEdit(user)}>Edit</Button> 
-                <Button color="red" className={c.btn}>Delete</Button>
+                <Button 
+                  color="red" 
+                  className={c.btn}
+                  onClick={() => handleDelete(user._id)}
+                >Delete</Button>
               </div>
             </div>
           )

@@ -1,5 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { mongooseConnect } from '@/app/lib/mongooseConnect';
+import hashPassword from '@/app/utils/hashPassword';
 
 import User from '@/app/models/user';
 
@@ -36,6 +37,11 @@ export async function PUT(req, res){
   const data = await req.json();
   console.log(data)
 
+  const hashedPassword = await hashPassword(data.password);
+  data.password = hashedPassword;
+
+  console.log('should display new pass hashed', data);
+
   const user = await User.findOneAndUpdate({email: data.email}, data, { new: true });
 
   return NextResponse.json({
@@ -62,4 +68,18 @@ export async function PUT(req, res){
   //     message:'server error',
   //   }, { status: 500 })
   // }
+}
+
+export async function DELETE(req, res){
+  const url = new URL(req.url);
+  console.log(url)
+  const searchParams = url.searchParams;
+  const id = searchParams.get('id');
+  console.log(id)
+
+  await User.findOneAndDelete({_id: id});
+
+  return NextResponse.json({
+    message:'success',
+  })
 }
