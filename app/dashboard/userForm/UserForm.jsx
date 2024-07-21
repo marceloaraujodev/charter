@@ -4,7 +4,7 @@ import axios from 'axios';
 import c from './UserForm.module.css';
 
 // handle if is a edit or create new user by receiving a prop
-export default function UserForm({user, submitType}) {
+export default function UserForm({user, submitType, onEditDone}) {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -49,7 +49,6 @@ export default function UserForm({user, submitType}) {
       
       const res = submitType === 'register' ? (await axios.post('http://localhost:3000/api/register', user)) : (await axios.put('http://localhost:3000/api/users', user));
 
-
       if (res.status === 200) {
         console.log('success');
         setName('');
@@ -58,6 +57,7 @@ export default function UserForm({user, submitType}) {
         setPassword('');
         setPhone('');
         setType('');
+        onEditDone();
       } else {
         console.log('error');
         alert('Failed to register');

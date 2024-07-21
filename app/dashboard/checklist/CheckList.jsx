@@ -14,7 +14,7 @@ function upperCase(user) {
   return user.charAt(0).toUpperCase() + user.slice(1)
 }
 
-export default function CheckList() {
+export default function CheckList({listView, setListView}) {
   const [tasks, setTasks] = useState([]);
   const [checkedTasks, setCheckedTasks] = useState([]); // 'task 1';
   const [showModal, setShowModal] = useState(false);
@@ -22,18 +22,17 @@ export default function CheckList() {
   const [saved, setSaved] = useState(false);
   const [newTaskAdded, setNewTaskAdded] = useState(false);
   const { data: session } = useSession();
-  const [user, setUser] = useState(session?.user?.role); // get user from session
+  const [user, setUser] = useState(session?.user?.role); 
+  // const [displayList, setDisplayList] = useState(false);
 
   // setUser(session.user.user); 
-  console.log(session)
-
-  // this will come from session
-// const user = 'captain';
+  // console.log(session)
 
   // populates tasks on mount
   useEffect(() => {
     getTasks();
-  }, [user]);
+    console.log('run')
+  }, [listView]);
 
   // save tasks to server & if tasks are added saves it 
   useEffect(() => {
@@ -46,10 +45,14 @@ export default function CheckList() {
   // get tasks from server
   async function getTasks() {
     try {
-      const response = await axios.get(`/api/checklist?type=${user}`);
+      const response = await axios.get(`/api/checklist?type=${listView}`);
+      console.log(response.data.data);
       if(response.data.data){
         const currentTasks = response.data.data.list;
         setTasks(currentTasks);
+      }else if(!response.data.data){
+        console.log('no tasks')
+        setTasks([]);
       }
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -134,19 +137,14 @@ export default function CheckList() {
     axios.put(`/api/checklist`, { item, type: user });
   }
 
-  function handleList(listView){
-    console.log('click')
-    if(listView === 'captain'){
-      setUser('captain');
-    }else if(listView === 'stew'){
-      setUser('stew');
-    }
+  function handleList(role){
+    setListView(role);
   }
 
   return (
     <>
       <div className={c.container}>
-        {user === 'admin' && (
+        {listView === 'admin' && (
           <div className={c.lists}>
             <span onClick={() => handleList('captain')}>Captain Checklist</span>
             <span onClick={() => handleList('stew')}>Stew Checklist</span>
@@ -155,12 +153,12 @@ export default function CheckList() {
         {showModal && (
           <CheckListModal onSubmit={submitTask} onCloseModal={closeModal} />
         )}
-        {user === 'captain' && (
+        {listView === 'captain' && (
           <div className={c.titleContainer}>
             <h2 className={c.listTitle}>Captain - Post Charter</h2>
           </div>
         )}
-        {user ==='stew' && (
+        {listView ==='stew' && (
           <div className={c.titleContainer}>
             <h2 className={c.listTitle}>Stew</h2>
           </div>
@@ -173,7 +171,8 @@ export default function CheckList() {
         </div>
 
         <div className={c.taskContainer}>
-          {tasks.map((task, index) => {
+          
+        {listView === 'captain' || listView === 'stew' ? tasks.map((task, index) => {
             return (
               <div className={c.task} key={index}>
                 <input
@@ -196,7 +195,8 @@ export default function CheckList() {
                 )}
               </div>
             );
-          })}
+          }) : null}
+
         </div>
 
         {!!checkedTasks.length && (
@@ -236,3 +236,4 @@ export default function CheckList() {
     </>
   );
 }
+

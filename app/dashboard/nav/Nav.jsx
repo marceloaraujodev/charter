@@ -1,6 +1,6 @@
 import c from './Nav.module.css';
 
-export default function Nav({ setView }) {
+export default function Nav({ setView, resetView }) {
   return (
     <nav className={c.nav}>
       <div className={c.col} onClick={() => setView('dashboard')}>
@@ -39,7 +39,10 @@ export default function Nav({ setView }) {
         <span>Sevices</span>
       </div>
 
-      <div className={c.col} onClick={() => setView('checklist')}>
+      <div className={c.col} onClick={() => {
+        setView('checklist')
+        resetView();
+      }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -57,6 +60,7 @@ export default function Nav({ setView }) {
 
         <span>Checklist</span>
       </div>
+
       <div className={c.col} onClick={() => setView('settings')}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

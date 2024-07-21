@@ -11,15 +11,12 @@ import Settings from './settings/Settings';
 import c from './Dashboard.module.css';
 
 export default function page() {
-  const [view, setView] = useState('dashboard');
   const { data: session } = useSession();
+  const [view, setView] = useState('dashboard');
+  const [listView, setListView] = useState(session?.user?.role);
 
   // // console.log(session.user.role)
-  // console.log(session);
-  // if(session.user.role === 'admin' || session.user.role === 'captain' || session.user.role === 'stew'){
-
-  // }
-
+ 
   useEffect(() => {
     if (view === 'signout') {
       signOut();
@@ -30,11 +27,11 @@ export default function page() {
     <>
       {session ? (
         <div className={c.container}>
-          <Nav setView={setView} />
+          <Nav setView={setView} resetView={() => setListView(session?.user?.role)}/>
           <div className={c.rowRight}>
             {view === 'dashboard' && <Calendar />}
             {view === 'services' && <Services />}
-            {view === 'checklist' && <CheckList />}
+            {view === 'checklist' && <CheckList setListView={setListView} listView={listView}/>}
             {view === 'settings' && <Settings />}
           </div>
         </div>

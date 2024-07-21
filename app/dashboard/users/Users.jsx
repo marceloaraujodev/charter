@@ -48,6 +48,11 @@ export default function Users() {
       console.log(res)
   }
 
+  function handleEditDone() {
+    setIsEditing(false);
+    getUsers();
+  }
+
   return (
     <>
     {!isEditing ? (    
@@ -69,7 +74,7 @@ export default function Users() {
         })}
     </div>) : <>
     <div className={`${c.container} ${c.margin}`}>
-      <UserForm user={selectedUser} submitType='edit' />
+      <UserForm user={selectedUser} submitType='edit' onEditDone={handleEditDone} />
       <Button className={c.btn} onClick={() => setIsEditing(false)}>Close</Button>
     </div>
      </>}
