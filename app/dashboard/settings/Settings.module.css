@@ -16,21 +16,27 @@
   flex-grow: 0;
 }
 .menu ul{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   text-decoration: none;
   list-style: none;
-  padding: 0;
+  padding: 0px 0;
   margin: 0;
+  /* background-color: azure; */
+  /* border: 1px solid blue; */
 }
 .menu ul li{
   display: flex;
   align-items: center;
   gap: 5px;
-  background-color: azure;
   min-width: 130px;
   width: 100%;
-  margin: 10px 0;
+  height: 30px; /* ensures the the height is the same for all, prevents :after from shrinking*/
+  margin: 0;
   font-weight: 600;
   cursor: pointer;
+  position: relative;
 }
 .menu svg{
   height: 25px;
@@ -43,4 +49,17 @@
   flex-shrink: 1;
   flex-grow: 1;
   padding: 10px;
+}
+.linkText{
+  position: relative;
+}
+.active::after{
+  position: absolute;
+  content: '';
+  width: 20px;
+  height: 2px;
+  background-color: red;
+  left: 30px;
+  bottom: 0px;
+  z-index: 50;
 }

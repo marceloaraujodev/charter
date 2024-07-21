@@ -83,6 +83,11 @@
   background-color: rgb(255, 70, 70);
   border: 1px solid rgb(255, 70, 70);
 }
+.btnDel:hover{
+  background-color: white;
+  border: 1px solid rgb(255, 70, 70);
+  color: red;
+}
 .saved{
   color: rgba(3, 198, 3, 0.742);
   font-weight: 600;

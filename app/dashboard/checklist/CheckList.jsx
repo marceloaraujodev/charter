@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import c from './CheckList.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
-// figure it out how to get the user to display captains or stews list and if  none of them display all.
+// figure it out how to get the user to display captain or stews list and if  none of them display all.
 
 // maybe create a page for the lists if the user is a admin.
 
@@ -22,12 +22,13 @@ export default function CheckList() {
   const [saved, setSaved] = useState(false);
   const [newTaskAdded, setNewTaskAdded] = useState(false);
   const { data: session } = useSession();
-  const [user, setUser] = useState(session.user.role); // get user from session
+  const [user, setUser] = useState(session.user.user); // get user from session
 
   // setUser(session.user.user); 
+  console.log(session)
 
   // this will come from session
-// const user = 'captains';
+// const user = 'captain';
 
   // populates tasks on mount
   useEffect(() => {
@@ -135,8 +136,8 @@ export default function CheckList() {
 
   function handleList(listView){
     console.log('click')
-    if(listView === 'captains'){
-      setUser('captains');
+    if(listView === 'captain'){
+      setUser('captain');
     }else if(listView === 'stew'){
       setUser('stew');
     }
@@ -147,14 +148,14 @@ export default function CheckList() {
       <div className={c.container}>
         {user === 'admin' && (
           <div className={c.lists}>
-            <span onClick={() => handleList('captains')}>Captains Checklist</span>
+            <span onClick={() => handleList('captain')}>Captain Checklist</span>
             <span onClick={() => handleList('stew')}>Stew Checklist</span>
           </div>
         )}
         {showModal && (
           <CheckListModal onSubmit={submitTask} onCloseModal={closeModal} />
         )}
-        {user === 'captains' &&         (
+        {user === 'captain' &&         (
           <div className={c.titleContainer}>
             <h2 className={c.listTitle}>{upperCase(user)} - Post Charter</h2>
           </div>

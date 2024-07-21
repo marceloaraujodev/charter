@@ -5,6 +5,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a name']
   },
+  lastName: {
+    type: String,
+    required: [true, 'Please provide a last name']
+  },
   email: {
     type: String,
     required: [true, 'Please provide email']
@@ -18,7 +22,8 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
     default: 'user'
-  }
+  },
+  phone: Number
 }, { timestamps: true });
 
 const User = mongoose.models?.User || mongoose.model('User', UserSchema);

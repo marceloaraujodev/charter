@@ -2,10 +2,16 @@ import { useState } from 'react';
 import Vendors from '../vendors/Vendors';
 import CreateUser from '../createuser/CreateUser';
 import CrewSettings from '../crewsettings/CrewSettings';
+import Users from '../users/Users';
+import { useSession } from 'next-auth/react';
 import c from './Settings.module.css';
 export default function Settings() {
   const [view, setView] = useState('createuser');
+  const { data: session } = useSession();
+  
 
+  // setUser(session.user.user); 
+  console.log(session)
 
   return (
     <div className={c.container}>
@@ -13,7 +19,7 @@ export default function Settings() {
       <div className={c.innerContainer}>
         <div className={c.menu}>
           <ul>
-            <li>
+            <li className={view === 'createuser' ? c.active : null}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -28,9 +34,40 @@ export default function Settings() {
                   d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                 />
               </svg>
-              <span onClick={() => setView('createuser')}>Create User</span>
+              <span
+                onClick={() => setView('createuser')}
+                className={`$ ${
+                  c.linkText
+                }`}
+              >
+                Create User
+              </span>
             </li>
-            <li>
+
+            <li className={view === 'users' ? c.active : null}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                />
+              </svg>
+              <span
+                onClick={() => setView('users')}
+                className={c.linkText}
+              >
+                Users
+              </span>
+            </li>
+
+            <li className={view === 'vendors' ? c.active : null}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -46,9 +83,16 @@ export default function Settings() {
                 />
               </svg>
 
-              <span onClick={() => setView('vendors')}>Vendors</span>
+              <span
+                onClick={() => setView('vendors')}
+                className={` ${
+                  c.linkText
+                }`}
+              >
+                Vendors
+              </span>
             </li>
-            <li>
+            <li className={view === 'crew' ? c.active : null}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -63,17 +107,24 @@ export default function Settings() {
                   d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                 />
               </svg>
-              <span onClick={() => setView('crew')}>Crew</span>
+              <span
+                onClick={() => setView('crew')}
+                className={` ${
+                  c.linkText
+                }`}
+              >
+                Crew
+              </span>
             </li>
           </ul>
         </div>
 
         <div className={c.content}>
-          {view === 'createuser' && <CreateUser />}
-          {view === 'vendors' && <Vendors />}
-          {view === 'crew' && <CrewSettings />}
+          {view === 'createuser' && <CreateUser session={session} />}
+          {view === 'users' && <Users session={session} />}
+          {view === 'vendors' && <Vendors session={session} />}
+          {view === 'crew' && <CrewSettings session={session} />}
         </div>
-
       </div>
     </div>
   );

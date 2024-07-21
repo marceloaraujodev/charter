@@ -15,7 +15,7 @@ export default function page() {
   const { data: session } = useSession();
 
   // // console.log(session.user.role)
-  console.log(session);
+  // console.log(session);
   // if(session.user.role === 'admin' || session.user.role === 'captain' || session.user.role === 'stew'){
 
   // }

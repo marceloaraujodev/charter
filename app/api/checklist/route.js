@@ -4,8 +4,6 @@ import CheckList from '@/app/models/checklist';
 
 mongooseConnect();
 
-
-
 export async function POST(req, res) {
   const { type, list, action } = await req.json();
   console.log('list from frontend:-----------', list);
