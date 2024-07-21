@@ -7,7 +7,9 @@
   letter-spacing: 1px;
   border-radius: 5px;
   transition: all .4s ease;
-  width: 90px;
+  width: auto;
+  min-width: min-content;
+  height: 35px;
 }
 .btn.small{
  width: 60px;

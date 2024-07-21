@@ -4,7 +4,7 @@ export default function CreateUser() {
 
   return (
     <>
-     <UserForm  />
+     <UserForm submitType='register' />
     </>
   );
 }

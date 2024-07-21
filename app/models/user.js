@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'user'
   },
-  phone: Number
+  phone: String
 }, { timestamps: true });
 
 const User = mongoose.models?.User || mongoose.model('User', UserSchema);

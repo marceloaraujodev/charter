@@ -1,17 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@/app/components/Button';
 import axios from 'axios';
 import c from './UserForm.module.css';
 
 // handle if is a edit or create new user by receiving a prop
-export default function UserForm() {
+export default function UserForm({user, submitType}) {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [type, setType] = useState();
-  const [showCloseBtn, setShowCloseBtn] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name || '');
+      setLastName(user.lastName || '');
+      setEmail(user.email || '');
+      setPassword(user.password || '');
+      setPhone(user.phone || '');
+      setType(user.type || '');
+    }
+  }, [user]);
+
+  console.log(submitType);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -28,9 +40,14 @@ export default function UserForm() {
         type,
       };
       console.log(user);
-      const res = await axios.post('http://localhost:3000/api/register', user);
+      if(submitType === 'register') {
+        const res = await axios.post(`http://localhost:3000/api/register`, user);
+      }else if(submitType === 'edit') {
+        const res = await axios.put(`http://localhost:3000/api/users`, user);
+        console.log(res.status);
+      }
+      const res = submitType === 'register' ? (await axios.post('http://localhost:3000/api/register', user)) : (await axios.put('http://localhost:3000/api/users, user'));
 
-      console.log(res.status);
 
       if (res.status === 200) {
         console.log('success');
@@ -46,6 +63,8 @@ export default function UserForm() {
       }
     }
   }
+
+
 
   return (
     <>
@@ -92,7 +111,7 @@ export default function UserForm() {
             />
           </div>
           <div className={c.row}>
-            <label>Choose Type of user</label>
+            <label>Choose Role</label>
             <select
               className={c.select}
               onChange={(e) => setType(e.target.value)}
@@ -112,8 +131,8 @@ export default function UserForm() {
               placeholder="Phone"
             />
             <div className={c.btnContainer}>
-              <Button className={c.btnSubmit} type="submit">
-                Submit
+              <Button className={c.btnSubmit} size="default" type="submit">
+                {submitType === 'register' ? 'Submit' : 'Edit'}
               </Button>
             </div>
           </div>

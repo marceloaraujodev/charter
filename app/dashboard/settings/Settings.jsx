@@ -11,7 +11,7 @@ export default function Settings() {
   
 
   // setUser(session.user.user); 
-  console.log(session)
+  // console.log(session)
 
   return (
     <div className={c.container}>
