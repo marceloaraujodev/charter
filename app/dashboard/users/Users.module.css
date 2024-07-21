@@ -31,15 +31,12 @@
   gap: 10px;
 }
 .btn{
-  /* height: 30px; */
   width: 80%;
   padding: 0;
   font-size: .9rem;
-  /* max-width: 800px; */
 }
 @media screen and (max-width: 600px){
   .btn{
-    height: 30px;
     width: 80%;
     padding: 0;
     font-size: .9rem;

@@ -42,7 +42,7 @@ export async function PUT(req, res){
 
   console.log('should display new pass hashed', data);
 
-  const user = await User.findOneAndUpdate({email: data.email}, data, { new: true });
+  const user = await User.findOneAndUpdate({_id: data._id}, data, { new: true });
 
   return NextResponse.json({
     message:'success',

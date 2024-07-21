@@ -10,6 +10,7 @@ export default function UserForm({user, submitType}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
+  const [id, setId] = useState(user? user._id : null);
   const [type, setType] = useState();
 
   useEffect(() => {
@@ -19,11 +20,15 @@ export default function UserForm({user, submitType}) {
       setEmail(user.email || '');
       setPassword(user.password || '');
       setPhone(user.phone || '');
-      setType(user.type || '');
+      setType(user.type || ''); 
+      setId(user._id);
+      
+      console.log(id)    
     }
   }, [user]);
 
   console.log(submitType);
+  console.log(user);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -38,6 +43,7 @@ export default function UserForm({user, submitType}) {
         password,
         phone,
         type,
+        _id: id, // if is an edit, we pass the id
       };
       console.log(user);
       
@@ -58,8 +64,6 @@ export default function UserForm({user, submitType}) {
       }
     }
   }
-
-
 
   return (
     <>
