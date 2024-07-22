@@ -5,7 +5,6 @@ import User from "@/app/models/user";
 import bcrypt from 'bcrypt';
 
 mongooseConnect();
-console.log('running')
 
 export const authOptions = {
       providers: [
@@ -22,7 +21,7 @@ export const authOptions = {
             try {
               const user = await User.findOne({ email }).select('+password');
     
-              console.log('This is User:------------',user)
+              // console.log('This is User:------------',user)
 
               if (!user) {
                 console.log("User not found");
