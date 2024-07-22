@@ -1,13 +1,13 @@
 // import SmoothScroll from '@/components/LenisLayout';
 import { Roboto, Source_Sans_3 } from 'next/font/google';
 import { getServerSession } from 'next-auth';
-import SessionProvider from './../components/SessionProvider';
-import Nav from '../components/Nav';
-import Footer from '../components/Footer';
+import SessionProvider from './components/SessionProvider';
+import Nav from './components/Nav';
+import Footer from './components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './globals.css';
 
-import GalleryModal from '@/components/GalleryModal';
+import GalleryModal from '@/app/components/GalleryModal';
 
 // const inter = Inter({ subsets: ["latin"] });
 // const madimiOne = MadimiOne({

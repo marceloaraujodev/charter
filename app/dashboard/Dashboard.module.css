@@ -1,13 +1,11 @@
 .container{
-  flex: 1;
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
+  flex-direction: column;
+  align-items: center;
   margin-top: 100px;
 }
 .row{
   display: flex;
-  align-items: center;
   gap: 5px;
   margin-bottom: 10px;
   cursor: pointer;
@@ -15,6 +13,11 @@
 .rowRight{
   padding: 10px 20px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 95%;
+
+  /* background-color: blue; */
 }
 .btn{
   width: 130px;
@@ -30,6 +33,8 @@
     font-size: 0.9rem;
   }
   .rowRight{
-    padding: 5px 8px;
+    padding: 5px 0px;
+    max-width: 100%;
+    padding: 0 5px;
   }
 }

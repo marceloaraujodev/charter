@@ -1,0 +1,94 @@
+.container{
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  gap: 10px;
+  margin-top: 10px;
+}
+.innerContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px 10px;
+  justify-content: center;
+}
+.menu{
+  margin-bottom: 20px;
+}
+.menu ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  list-style: none;
+  padding: 0px 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+.menu ul li{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 90px;
+  height: 70px; 
+  margin: 0;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid gray;
+  background-color: rgba(213, 213, 213, 0.586);
+  font-size: .8rem;
+  color: rgb(84, 84, 84);
+}
+.menu ul li.active{
+  background-color: white;
+}
+.menu svg{
+  height: 20px;
+}
+.content{
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  overflow: hidden;
+  word-break: break-all;
+  flex-shrink: 1;
+  flex-grow: 1;
+  padding: 10px;
+}
+.linkText{
+  position: relative;
+}
+/* .active::after{
+  position: absolute;
+  content: '';
+  width: 20px;
+  height: 2px;
+  background-color: red;
+  left: 30px;
+  bottom: 0px;
+  z-index: 50;
+} */
+
+
+@media screen and (max-width: 600px){
+  .container{
+    width: 100%;
+    /* background-color: gray; */
+  }
+  .innerContainer{
+    gap: 5px;
+    padding: 0;
+  }
+  .content{
+    padding: 0px;
+    padding-left: 5px;
+  }
+  /* .menu{
+    display: none;
+  } */
+}

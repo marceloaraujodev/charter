@@ -4,12 +4,12 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import img6 from '../public/images/yacht-6.JPG';
 import img82 from '../public/images/yacht-82.JPG';
 import img81 from '../public/images/yacht-51.JPG';
-import BackgroundImg from '../components/BackgroundImg';
-import Card from '@/components/Card';
-import Description from '@/components/Description';
-import Blocks from '@/components/Blocks';
+import BackgroundImg from './components/BackgroundImg';
+import Card from '@/app/components/Card';
+import Description from '@/app/components/Description';
+import Blocks from '@/app/components/Blocks';
 import c from './page.module.css';
-import HeroSection2 from '@/components/HeroSection2';
+import HeroSection2 from '@/app/components/HeroSection2';
 
 export default function IndexPage() {
   const textRef = useRef();
@@ -35,7 +35,6 @@ export default function IndexPage() {
     whileInView: { opacity: 1, transition: { duration: 1.7 } },
   };
 
-
   return (
     <>
       <BackgroundImg className={`IndexPage`} />
@@ -51,9 +50,9 @@ export default function IndexPage() {
           >
             LUXURY
           </motion.div>
-          <Description 
-            title='Corporate Charters & Events'
-            description='Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more.'
+          <Description
+            title="Corporate Charters & Events"
+            description="Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more."
             image={img82}
           />
 
@@ -67,16 +66,16 @@ export default function IndexPage() {
             </motion.div>
           </div>
           <BackgroundImg className={`view`} />
-          <Description 
-            title='Corporate Charters & Events'
-            description='Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more.'
+          <Description
+            title="Corporate Charters & Events"
+            description="Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more."
             image={img82}
           />
 
           <Blocks />
-          <Description 
-            title='Corporate Charters & Events'
-            description='Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more.'
+          <Description
+            title="Corporate Charters & Events"
+            description="Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more."
             image={img82}
           />
 

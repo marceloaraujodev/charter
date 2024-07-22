@@ -1,0 +1,59 @@
+/* paddding to at 150 because if I do 200 100 from the nav and 100 as the bottom the linear gradient creates the ilution of the space being more that it it */
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-top: 150px;
+}
+.containerInner{
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+
+}
+.containerInner label{
+  color: #032270;
+  font-weight: 600;
+}
+.containerInner label::after{
+  content: '';
+  display: block;
+  background-color: red;
+  width: 35px;
+  height: 2px;
+  margin-top: 2px;
+}
+.containerInner input{
+  border: 1px solid rgb(207, 206, 206);
+  padding: 5px 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+.containerInner input:focus {
+  outline: none;
+  border: 1px solid #42adf8;
+}
+
+.btn{
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+/* .btn{
+  background-color: #2582ce;
+  border: 1px solid  #2582ce;
+  color: white;
+  padding: 5px 0;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 20px;
+  transition: all .4s ease;
+  width: 180px;
+}
+
+.btn:hover{
+  background-color: #0069be;
+} */

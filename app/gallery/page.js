@@ -1,12 +1,12 @@
 // import {useState} from 'react';
-'use client'
+'use client';
 import Image from 'next/image';
 import c from './page.module.css';
 import yachtImages from '@/imageImports';
 import { useState, useEffect } from 'react';
-import ModalImage from '@/components/GalleryModal';
-import { initializeApp } from "firebase/app";
-import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage'
+import ModalImage from '@/app/components/GalleryModal';
+import { initializeApp } from 'firebase/app';
+import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -15,7 +15,7 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
-  measurementId: process.env.REACT_APP_MEASUREMENT_ID
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 /* 
@@ -30,10 +30,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
-const storage = getStorage()
-
-
-
+const storage = getStorage();
 
 function Gallery() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,47 +42,55 @@ function Gallery() {
     const fetchImages = async () => {
       try {
         const storageRef = ref(storage, 'gs://charter-8fd79.appspot.com');
-        const urlsRefArray = (await listAll(storageRef)).items
+        const urlsRefArray = (await listAll(storageRef)).items;
         const absoluteUrl = urlsRefArray.map((url) => {
-          return getDownloadURL(url)
-        })
-        const urls = await Promise.all(absoluteUrl)
-        setImagesUrl(urls)
+          return getDownloadURL(url);
+        });
+        const urls = await Promise.all(absoluteUrl);
+        setImagesUrl(urls);
         // console.log(urls)
-
-      } catch (error) {
-        
-      }
-    }
-    fetchImages()
-  }, [])
+      } catch (error) {}
+    };
+    fetchImages();
+  }, []);
 
   const onClose = () => setIsOpen(false);
 
   return (
     <>
-      <div className='container'>
+      <div className="container">
         <div className={c.photoGrid}>
-          {imagesUrl ? imagesUrl.map((imgURL, index) => (
-            <div key={index} className={c.gridItem}>
-              <a href='#' onClick={() => { 
-                setSelectedImage(imagesUrl[index]); 
-                setIsOpen(true); 
-                setInitialIndex(index)
-                }}>
-                <div className={c.imgBorder}>
-                <Image
-                  className={c.x}
-                  src={imgURL}
-                  width={300}
-                  height={200}
-                  alt={'gallery image'}
-                  style={{objectFit: "cover", maxHeight: '169px' , height: 'auto'}}
-              />
+          {imagesUrl ? (
+            imagesUrl.map((imgURL, index) => (
+              <div key={index} className={c.gridItem}>
+                <a
+                  href="#"
+                  onClick={() => {
+                    setSelectedImage(imagesUrl[index]);
+                    setIsOpen(true);
+                    setInitialIndex(index);
+                  }}
+                >
+                  <div className={c.imgBorder}>
+                    <Image
+                      className={c.x}
+                      src={imgURL}
+                      width={300}
+                      height={200}
+                      alt={'gallery image'}
+                      style={{
+                        objectFit: 'cover',
+                        maxHeight: '169px',
+                        height: 'auto',
+                      }}
+                    />
+                  </div>
+                </a>
               </div>
-              </a>
-            </div>
-          )): <p className={c.loading}>Loading Images...</p>}
+            ))
+          ) : (
+            <p className={c.loading}>Loading Images...</p>
+          )}
 
           {/* {Object.keys(yachtImages).map((imageName, index) => (
             <div key={index} className={c.gridItem}>
@@ -107,13 +112,14 @@ function Gallery() {
           ))} */}
         </div>
       </div>
-      {isOpen && <ModalImage 
-      isOpen={isOpen} 
-      selectedImage={selectedImage} 
-      onClose={onClose} 
-      initialIndex={initialIndex}
-      />}
-      
+      {isOpen && (
+        <ModalImage
+          isOpen={isOpen}
+          selectedImage={selectedImage}
+          onClose={onClose}
+          initialIndex={initialIndex}
+        />
+      )}
     </>
   );
 }
