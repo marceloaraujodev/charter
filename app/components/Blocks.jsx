@@ -44,7 +44,9 @@ export default function Blocks() {
         >
           <h2>LUXURY YACHT RENTALS & EVENTS</h2>
           <p>Headquartered in Miami, Florida, we offer a wide variety of boats and event planning services including luxury yacht rentals, yacht charters, party boat rentals, speed boat rentals, yacht weddings</p>
-        <Button>Read More</Button>
+          <div>
+          <Button classname={c.btn}>Read More</Button>
+        </div>
         </motion.div>
       </div>
     </div>
@@ -61,7 +63,9 @@ export default function Blocks() {
         >          
           <h2>LUXURY YACHT RENTALS & EVENTS</h2>
           <p>Headquartered in Miami, Florida, we offer a wide variety of boats and event planning services including luxury yacht rentals, yacht charters, party boat rentals, speed boat rentals, yacht weddings</p>
-        <Button classname={c.btn}>Read More</Button>
+        <div>
+          <Button classname={c.btn}>Read More</Button>
+        </div>
         </motion.div>
         <motion.div 
           className={c.left}

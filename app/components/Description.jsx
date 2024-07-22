@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import image6 from '@/public/images/yacht-6.JPG';
 import Button from './Button';
@@ -9,6 +10,7 @@ import c from './Description.module.css';
 export default function Description({ title, description, image }) {
   const imgRef = useRef();
   const descriptionRef = useRef();
+  const router = useRouter();
 
   const animationConfig = {
     initial: { x: 100, opacity: 0 },
@@ -40,7 +42,7 @@ export default function Description({ title, description, image }) {
           ref={descriptionRef}>
           <h2>{title}</h2>
           <p>{description}</p>
-          <Button>Read More</Button>
+          <Button onClick={() => router.push('/details')}>Read More</Button>
         </motion.div>
 
         <motion.div className={c.right} {...animationConfig} ref={imgRef}>

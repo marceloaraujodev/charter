@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Button from '@/app/components/Button';
 import axios from 'axios';
+import Spinner from '../../components/Spinner';
 import c from './UserForm.module.css';
 
 // handle if is a edit or create new user by receiving a prop
@@ -19,6 +20,8 @@ export default function UserForm({
   const [phone, setPhone] = useState('');
   const [id, setId] = useState(user ? user._id : null);
   const [type, setType] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [confirmMessage, setConfirmMessage] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -38,49 +41,77 @@ export default function UserForm({
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (type === undefined || type === '') {
-      alert('Please select user type');
-      return;
-    } else {
-      const user = {
-        name,
-        lastName,
-        email,
-        password,
-        phone,
-        type,
-        _id: id, // if is an edit, we pass the id
-      };
-      // console.log(user);
-
-      // const res = submitType === 'register' ? (await axios.post('http://localhost:3000/api/register', user)) : (await axios.put('http://localhost:3000/api/users', user));
-
-      const res = await axios({
-        method: method || (submitType === 'register' ? 'post' : 'put'),
-        url: apiEndpoint,
-        data: user,
-      });
-
-      if (res.status === 200) {
-        console.log('success');
-        setName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setPhone('');
-        setType('');
-        onEditDone();
+    setIsLoading(true);
+    try {
+      if (type === undefined || type === '') {
+        alert('Please select user type');
+        return;
       } else {
-        console.log('error');
-        alert('Failed to register');
+        const user = {
+          name,
+          lastName,
+          email,
+          password,
+          phone,
+          type,
+          _id: id, // if is an edit, we pass the id
+        };
+        const res = await axios({
+          method: method || (submitType === 'register' ? 'post' : 'put'),
+          url: apiEndpoint,
+          data: user,
+        });
+
+        if (res.status === 200) {
+          console.log('success');
+          setName('');
+          setLastName('');
+          setEmail('');
+          setPassword('');
+          setPhone('');
+          setType('');
+          if (onEditDone) onEditDone();
+          setIsLoading(false);
+          displayMessage('success');
+        } else {
+          console.log('error');
+          alert('Failed to register');
+          displayMessage('fail');
+        }
       }
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
     }
   }
+
+  function displayMessage(message) {
+    if (message ==='success') {
+      setConfirmMessage(message);
+      setTimeout(() => setConfirmMessage(null), 3000);
+    }else if (message === 'fail') {
+      setConfirmMessage(message);
+      setTimeout(() => setConfirmMessage(null), 3000);
+    }
+  }
+
+
 
   return (
     <>
       <div className={c.container}>
-        <form className={c.form} onSubmit={handleSubmit}>
+        {isLoading && (
+          <div className={c.spinner}>
+          <Spinner />
+        </div>
+        )}
+
+        {confirmMessage && <p className={confirmMessage === 'success' ? 'success' : 'fail'}>{confirmMessage === 'success' ? 'User Created Successfully' : 'Failed to register'}</p>}
+
+        <form
+          className={`${c.form} ${isLoading ? c.loading : ''}`}
+          onSubmit={handleSubmit}
+        >
           <div className={c.row}>
             <label htmlFor="name">Name</label>
             <input

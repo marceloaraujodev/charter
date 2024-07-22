@@ -1,6 +1,8 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 import c from './Footer.module.css';
+import logo from '@/public/images/logo.png';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 
@@ -14,7 +16,13 @@ export default function Footer() {
   return (
     <footer className={c.footer}>
       <div className={c.container}>
-        <div className={c.title}>Logo</div>
+        <div className={c.title}>
+          <Image 
+          src={logo}
+          width={200}
+          height={'auto'}
+        />
+        </div>
 
         <div className={c.row}>
           <nav className={c.leftBox}>

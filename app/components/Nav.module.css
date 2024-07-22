@@ -135,6 +135,7 @@
     color: rgb(255, 255, 255);
     padding: 5px 0;
     margin-bottom: 20px;
+    cursor: pointer;
   }
   .smallNav {
     display: none;

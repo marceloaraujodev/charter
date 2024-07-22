@@ -5,6 +5,7 @@ import User from "@/app/models/user";
 import bcrypt from 'bcrypt';
 
 mongooseConnect();
+console.log('running')
 
 export const authOptions = {
       providers: [
@@ -32,9 +33,10 @@ export const authOptions = {
               console.log("Password match:", isMatch);
     
               if (!isMatch) {
+                console.log("Password does not match");
                 return null;
               }
-    
+              console.log("User authorized");
               return user;
     
             } catch (error) {

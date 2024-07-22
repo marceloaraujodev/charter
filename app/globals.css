@@ -29,6 +29,9 @@ body {
   align-items: center;
   margin-top: 100px;
 }
+.leftAlign{
+  justify-content: flex-start;
+}
 /* calendar buttons */
 
 .fc .fc-button-primary {
@@ -59,7 +62,16 @@ body {
 .fc .fc-button {
   padding: 0.2em 0.35em;
 }
-
+.success{
+  color: green;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.fail{
+  color: red;
+  font-weight: 600;
+  font-size: 1rem;
+}
 
 @media screen and (max-width: 600px) {
   body{

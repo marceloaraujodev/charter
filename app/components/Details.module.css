@@ -1,0 +1,7 @@
+.contInner{
+  border: 1px solid red;
+  display: flex;  
+}
+.contLeft{
+  border: 1px solid green;
+}
