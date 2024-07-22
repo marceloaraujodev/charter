@@ -4,13 +4,20 @@ import axios from 'axios';
 import c from './UserForm.module.css';
 
 // handle if is a edit or create new user by receiving a prop
-export default function UserForm({user, submitType, onEditDone}) {
+export default function UserForm({
+  user,
+  submitType,
+  apiEndpoint,
+  method,
+  onEditDone,
+  view,
+}) {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
-  const [id, setId] = useState(user? user._id : null);
+  const [id, setId] = useState(user ? user._id : null);
   const [type, setType] = useState();
 
   useEffect(() => {
@@ -20,15 +27,14 @@ export default function UserForm({user, submitType, onEditDone}) {
       setEmail(user.email || '');
       setPassword(user.password || '');
       setPhone(user.phone || '');
-      setType(user.type || ''); 
+      setType(user.type || '');
       setId(user._id);
-      
-      console.log(id)    
+
+      console.log(id);
     }
   }, [user]);
 
-  console.log(submitType);
-  console.log(user);
+  console.log(view);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -45,9 +51,15 @@ export default function UserForm({user, submitType, onEditDone}) {
         type,
         _id: id, // if is an edit, we pass the id
       };
-      console.log(user);
-      
-      const res = submitType === 'register' ? (await axios.post('http://localhost:3000/api/register', user)) : (await axios.put('http://localhost:3000/api/users', user));
+      // console.log(user);
+
+      // const res = submitType === 'register' ? (await axios.post('http://localhost:3000/api/register', user)) : (await axios.put('http://localhost:3000/api/users', user));
+
+      const res = await axios({
+        method: method || (submitType === 'register' ? 'post' : 'put'),
+        url: apiEndpoint,
+        data: user,
+      });
 
       if (res.status === 200) {
         console.log('success');
@@ -89,26 +101,40 @@ export default function UserForm({user, submitType, onEditDone}) {
               placeholder="Last Name"
             />
           </div>
-          <div className={c.row}>
-            <label htmlFor="email">Email</label>
-            <input
-              required
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              id="email"
-              placeholder="Email"
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              required
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              id="password"
-              placeholder="Password"
-            />
-          </div>
+          {view === 'vendors' || view === 'createvendor' ? (
+            <div className={c.row}>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                id="email"
+                placeholder="Email - optional"
+              />
+            </div>
+          ) : (
+            <div className={c.row}>
+              <label htmlFor="email">Email</label>
+              <input
+                required
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                id="email"
+                placeholder="Email"
+              />
+              <label htmlFor="password">Password</label>
+              <input
+                required
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                id="password"
+                placeholder="Password"
+              />
+            </div>
+          )}
+
           <div className={c.row}>
             <label>Choose Role</label>
             <select
@@ -120,6 +146,7 @@ export default function UserForm({user, submitType, onEditDone}) {
               <option value="admin">Admin</option>
               <option value="crew">Crew</option>
               <option value="captain">Captain</option>
+              <option value="vendor">Vendor</option>
             </select>
             <label>Phone</label>
             <input

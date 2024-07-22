@@ -1,12 +1,14 @@
 .container{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 .form{
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
   flex-wrap: wrap;
   color: rgb(146, 146, 146);
   max-width: 800px;
@@ -17,7 +19,6 @@
   font-size: 1.03rem;
 }
 .form input{
-  /* border-radius: 2px; */
   border: 1px solid rgb(189, 189, 189);
   padding: 3px 5px;
   color: rgb(150, 150, 150);
@@ -41,8 +42,9 @@
 }
 .row{
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  width: 80%;
+  /* width: 80%; */
   margin-bottom: 15px;
 }
 .btnContainer{
@@ -53,4 +55,11 @@
   max-width: 100%;
   width: 100%;
   margin-top: 10px;
+}
+
+@media screen and (max-width: 600px){
+  .row{
+    width: 100%;
+
+  }
 }

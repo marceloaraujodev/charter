@@ -32,6 +32,35 @@ export async function POST(req, res) {
   }
 
 }
+export async function GET(req, res) {
+
+  // console.log(session)
+  // try {
+  //   const {session} = await req.json();
+  //   // console.log(session)
+  //   // console.log(session.user.role)
+  //   if(!session.user || !session.user.role){
+  //     return NextResponse.json({
+  //       message: 'fail',
+  //     }, { status: 401 })
+  //   }else{
+  //     const users = await User.find();
+  //     console.log('this is users being returned',users)
+  //     return NextResponse.json({
+  //       message: 'success',
+  //       users,
+  //     })
+  //   }
+    
+  // } catch (error) {
+  //   console.log(error)
+  //   return NextResponse.json({
+  //     message: 'server error',
+  //   }, { status: 500 })
+  // }
+  return NextResponse.json({ message: 'success'})
+
+}
 
 export async function PUT(req, res){
   const data = await req.json();

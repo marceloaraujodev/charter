@@ -31,7 +31,6 @@ export default function CheckList({listView, setListView}) {
   // populates tasks on mount
   useEffect(() => {
     getTasks();
-    console.log('run')
   }, [listView]);
 
   // save tasks to server & if tasks are added saves it 
@@ -46,12 +45,12 @@ export default function CheckList({listView, setListView}) {
   async function getTasks() {
     try {
       const response = await axios.get(`/api/checklist?type=${listView}`);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       if(response.data.data){
         const currentTasks = response.data.data.list;
         setTasks(currentTasks);
       }else if(!response.data.data){
-        console.log('no tasks')
+        // console.log('no tasks')
         setTasks([]);
       }
     } catch (error) {

@@ -5,14 +5,15 @@ import axios from "axios";
 import { useSession } from 'next-auth/react';
 import c from './Users.module.css';
 
-export default function Users() {
+export default function Users({view}) {
   const [isEditing, setIsEditing] = useState(false);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const { data: session } = useSession();
 
-  // console.log(session)
+  console.log(session)
   // console.log(session.user.email);
+  console.log(view)
 
   useEffect(() => {
     getUsers();
@@ -20,11 +21,21 @@ export default function Users() {
   
   async function getUsers() {
     try {
-      const res = await axios.post('http://localhost:3000/api/users', {
+      if (!session) return;
+      if(view === 'vendors'){
+        console.log('enter vendors')
+        const res = await axios.get('/api/vendors')
+        setUsers(res.data.vendors);
+        console.log(res)
+      }
+      else if(view === 'users'){
+      const res = await axios.post('/api/users', {
         session
       });
-  
       setUsers(res.data.users);
+      console.log(res)
+      }
+  
     
     } catch (error) {
       console.log(error)
@@ -32,7 +43,6 @@ export default function Users() {
   }
 
   function handleEdit(user){
-    // console.log(user)
     setSelectedUser(user);
     setIsEditing(true);
     getUsers();
@@ -75,7 +85,9 @@ export default function Users() {
     </div>) : <>
     <div className={`${c.container} ${c.margin}`}>
       <UserForm user={selectedUser} submitType='edit' onEditDone={handleEditDone} />
-      <Button className={c.btn} onClick={() => setIsEditing(false)}>Close</Button>
+      <div className={c.btnContBottom}>
+        <Button className={c.btnBottom} onClick={() => setIsEditing(false)}>Close</Button>
+      </div>
     </div>
      </>}
     </>

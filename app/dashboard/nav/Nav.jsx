@@ -39,10 +39,9 @@ export default function Nav({ setView, resetView }) {
         <span>Sevices</span>
       </div>
 
-      <div className={c.col} onClick={() => {
-        setView('checklist')
+      <div className={c.col} onClick={() => { setView('checklist')
         resetView();
-      }}>
+        }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
