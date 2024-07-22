@@ -30,11 +30,11 @@ export default function UserForm({
       setType(user.type || '');
       setId(user._id);
 
-      console.log(id);
+      // console.log(id);
     }
   }, [user]);
 
-  console.log(view);
+  // console.log(view);
 
   async function handleSubmit(e) {
     e.preventDefault();

@@ -100,9 +100,10 @@ export default function Modal({
                 <label name='description' type='text'>Description</label>
                 <textarea type='text' name='description' value={formData.description} onChange={handleInput}/>
                 <div className={c.btnContainer}>
+                {editEvent ? <Button type='submit'>Save | Edit</Button> : <Button type='submit' >Submit</Button>}
                   <Button onClick={handleCloseModal}>Close</Button>
                   {editEvent ? <Button onClick={handleDeleteEvent}>Delete Event</Button> : ''}
-                  {editEvent ? <Button type='submit'>Save | Edit</Button> : <Button type='submit' >Submit</Button>}
+
                 </div>
               </form>
             </div>

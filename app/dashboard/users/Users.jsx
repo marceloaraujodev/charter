@@ -11,9 +11,9 @@ export default function Users({view}) {
   const [selectedUser, setSelectedUser] = useState(null);
   const { data: session } = useSession();
 
-  console.log(session)
+  // console.log(session)
+  // console.log(view)
   // console.log(session.user.email);
-  console.log(view)
 
   useEffect(() => {
     getUsers();
@@ -23,17 +23,15 @@ export default function Users({view}) {
     try {
       if (!session) return;
       if(view === 'vendors'){
-        console.log('enter vendors')
         const res = await axios.get('/api/vendors')
         setUsers(res.data.vendors);
-        console.log(res)
       }
       else if(view === 'users'){
       const res = await axios.post('/api/users', {
         session
       });
       setUsers(res.data.users);
-      console.log(res)
+      // console.log(res)
       }
   
     
@@ -52,8 +50,8 @@ export default function Users({view}) {
   async function handleDelete(id){
     console.log(id)
 
-      const res = await axios.delete(`http://localhost:3000/api/users?id=${id}`)
-      console.log(`http://localhost:3000/api/users?id=${id}`)
+      const res = await axios.delete(`/api/users?id=${id}`)
+      console.log(`/api/users?id=${id}`)
       getUsers();
       console.log(res)
   }
