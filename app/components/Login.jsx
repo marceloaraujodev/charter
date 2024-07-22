@@ -4,14 +4,14 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import { useState } from 'react';
 import Button from '@/app/components/Button';
 import { useRouter } from 'next/navigation';
-
-import axios from 'axios';
+import Spinner from './Spinner';
 
 import c from './Login.module.css';
 
 export default function loginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -26,58 +26,51 @@ export default function loginPage() {
   }
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    // console.log('form submitted')
-    // const formData = {
-    //   email,
-    //   password
-    // }
-    // console.log(formData)
-    // const res = await axios.post('http://localhost:3000/api/login', formData)
-
+    setIsLoading(true);
     const res = await signIn('credentials', {
       redirect: false,
       email,
       password,
     });
 
-    console.log(res);
+    // console.log('res from login', res);
     if (res.ok) {
-      console.log('authenticated');
+      // console.log('authenticated');
       router.push('/dashboard');
     } else {
       console.log('wrong user or pass');
+      setIsLoading(false);
     }
-  }
-
-  if (session) {
-    // console.log(session);
-    // console.log('User role:', session.user.role);
   }
 
   return (
     <div className={c.container}>
-      <form className={c.containerInner} onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          onChange={handleInput}
-          type="email"
-          id="email"
-          value={email}
-          placeholder="email"
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          onChange={handleInput}
-          type="password"
-          id="password"
-          value={password}
-          placeholder="password"
-        />
-        <Button type="submit" className={c.btn}>
-          Submit
-        </Button>
-      </form>
+      {isLoading ? <Spinner /> : (
+        <form className={c.containerInner} onSubmit={handleSubmit}>
+          <label htmlFor="email">Email</label>
+          <input
+            onChange={handleInput}
+            type="email"
+            id="email"
+            value={email}
+            placeholder="email"
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            onChange={handleInput}
+            type="password"
+            id="password"
+            value={password}
+            placeholder="password"
+          />
+          <Button 
+          type="submit" 
+          // disabled={true}
+          className={c.btn}>
+            Submit
+          </Button>
+        </form>
+      )}
     </div>
   );
 }

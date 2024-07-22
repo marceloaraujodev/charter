@@ -8,6 +8,7 @@ export default function Button({
   type = 'button',
   size = 'default',
   color = 'primary',
+  disabled
 }) {
 
   const colorClass = color === 'red' ? c.delete : color === 'primary' ? c.btn : '';
@@ -16,6 +17,7 @@ export default function Button({
 
   return (
     <button 
+      disabled={disabled} 
       className={`
         ${c.btn} 
         ${colorClass} 
