@@ -35,11 +35,11 @@ export default function Nav() {
         <div className={c.logo}>APHRODITE</div>
         <ul className={c.wideMenu}>
           
-          <li>
+          <li onClick={() => handleClick('/')}>
             <Link
               className={`${c.menuLink} ${isActive === '/' ? c.active : ''}`}
               href="/"
-              onClick={() => handleClick('/')}
+              
             >
               HOME
             </Link>
