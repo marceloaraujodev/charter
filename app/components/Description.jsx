@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Title from './Title';
 import image6 from '@/public/images/yacht-6.JPG';
 import Button from './Button';
 import c from './Description.module.css';
@@ -40,7 +41,7 @@ export default function Description({ title, description, image }) {
           transition={{ duration: 0.3 }}
           viewport={{ once: true }}
           ref={descriptionRef}>
-          <h2>{title}</h2>
+          <Title title={title} />
           <p>{description}</p>
           <Button onClick={() => router.push('/details')}>Read More</Button>
         </motion.div>

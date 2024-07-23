@@ -1,0 +1,23 @@
+.container{
+  color: #032270;
+}
+.title{
+  position: relative;
+}
+.white{
+  color: white;
+}
+.strong{
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+.title::after{
+  content:'';
+  position: absolute;
+  display: block;
+  background-color: red;
+  width: 60px;
+  /* min-width: 60px; */
+  height: 2px;
+  margin-top: 5px;
+}

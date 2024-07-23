@@ -4,6 +4,7 @@ import image6 from '@/public/images/yacht-6.JPG'
 import img81 from '@/public/images/yacht-51.JPG';
 import c from './Blocks.module.css';
 import Button from './Button';
+import Title from './Title';
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
 
@@ -42,7 +43,9 @@ export default function Blocks() {
           transition={{ duration: 0.3, delay: 0.4}}
           viewport={{ once: true }}
         >
-          <h2>LUXURY YACHT RENTALS & EVENTS</h2>
+          <Title 
+            title='LUXURY YACHT RENTALS & EVENTS'
+          />
           <p>Headquartered in Miami, Florida, we offer a wide variety of boats and event planning services including luxury yacht rentals, yacht charters, party boat rentals, speed boat rentals, yacht weddings</p>
           <div>
           <Button classname={c.btn}>Read More</Button>
@@ -61,7 +64,10 @@ export default function Blocks() {
           transition={{ duration: 0.3, delay: 0.5}}
           viewport={{ once: true }}  
         >          
-          <h2>LUXURY YACHT RENTALS & EVENTS</h2>
+          <Title 
+            title='LUXURY YACHT RENTALS & EVENTS'
+            colorClass='white'
+          />
           <p>Headquartered in Miami, Florida, we offer a wide variety of boats and event planning services including luxury yacht rentals, yacht charters, party boat rentals, speed boat rentals, yacht weddings</p>
         <div>
           <Button classname={c.btn}>Read More</Button>
