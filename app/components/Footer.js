@@ -24,6 +24,9 @@ export default function Footer() {
       console.log('enter phone')
       navigator.clipboard.writeText(text)
     }
+    if(type === 'instagram'){
+      window.open('https://www.instagram.com/aphrodite_yacht/');
+    }
   }
 
   return (
@@ -173,14 +176,18 @@ export default function Footer() {
                 <span>949 204 7109</span>
               </i>
             </div>
-            {/* <i className={`bi bi-calendar-check ${c.icons}`}></i> */}
-            {/* <Link href={'/auth/login'}>Admin</Link>
-              <span onClick={() => signOut()}>logout</span> */}
+            <div onClick={(e) => handleClick('instagram')} title='copy to clipboard'>
+
+              <i className={`bi bi-instagram ${c.icons}`}>                {' '}
+              <span>instagram</span></i>
+            </div>
+ 
             {/* </div> */}
             {/* <div>
               Follow Us
               <div>social media Icons</div>
             </div> */}
+
           </div>
         </div>
       </div>

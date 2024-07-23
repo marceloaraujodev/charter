@@ -1,0 +1,45 @@
+.priceCont{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  color: #032270;
+}
+.titleCont{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.priceBoxes{
+  margin-top: 50px;
+  display: flex;
+  /* gap: 50px; */
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 1200px;
+  /* margin: 20px 0; */
+}
+.box{
+  border: 1px solid #032270;
+  background-color: rgb(248, 248, 248);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.priceInfo{
+  border: 1px solid #032270;
+  background-color: rgb(248, 248, 248);
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: .03rem;
+  line-height: 20px;
+  max-width: 1200px;
+  margin: 0 5px;
+  padding: 5px;
+  /* display: none; */
+}

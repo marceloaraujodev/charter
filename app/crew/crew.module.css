@@ -1,21 +1,8 @@
-.container{
-  display: flex;
-  justify-content: center;
-  align-items:center;
-  flex-direction: column;
-  width: 100%;
-  /* flex: 1; */
-  overflow: hidden;
-  margin-top: 150px;
-  gap: 20px;
-  /* border: 3px solid green; */
-}
 .row{
-  position: relative;
   width: 100%;
-  padding: 20px 0;
   display: flex;
   justify-content: center;
+  /* color: gray; */
   /* border: 2px solid red; */
 }
 .containerInner{

@@ -1,6 +1,7 @@
 'use client';
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import PageContent from '../components/PageContent';
 import Image from 'next/image';
 import Title from '../components/Title';
 import c from './crew.module.css';
@@ -17,12 +18,11 @@ export default function crew() {
   // {/* <BackgroundImg className={`crew` } /> */}
   return (
     <>
-      <div className={c.container}>
-        <div className={c.titleCont}>
-          <Title title="Crew" />
-        </div>
+    <PageContent>
+        <Title title="Crew" />
+        <Wave position="middle" />
+
         <div className={c.row}>
-          <Wave position="middle" />
           <div className={c.containerInner}>
             <motion.section
               ref={ref}
@@ -30,7 +30,7 @@ export default function crew() {
               initial={{ opacity: 0, y: 200 }}
               transition={{ duration: 0.3, delay: 0.1}}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 200 }}
-            >
+             >
               <div className={c.photo}>
                 <Image
                   src={nick}
@@ -57,7 +57,7 @@ export default function crew() {
               initial={{ opacity: 0, y: 200 }}
               transition={{ duration: 0.3, delay: 0.2}}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 200 }}
-            >
+             >
               <div className={c.photo}>
                 <Image
                   src={james}
@@ -84,7 +84,7 @@ export default function crew() {
               initial={{ opacity: 0, y: 200 }}
               transition={{ duration: 0.3, delay: 0.3}}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 200 }}
-            >
+             >
               <div className={c.photo}>
                 <Image
                   src={yandri}
@@ -106,7 +106,7 @@ export default function crew() {
             </motion.section>
           </div>
         </div>
-      </div>
+    </PageContent>
     </>
   );
 }
