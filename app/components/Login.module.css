@@ -6,12 +6,21 @@
   height: 100%;
   padding-top: 150px;
 }
+
 .containerInner{
-  /* border: 2px solid red; */
   display: flex;
   flex-direction: column;
   width: 300px;
-
+  position: relative;
+}
+.spinnerCont{
+  position: absolute;
+  left: 50%;
+  z-index: 50;
+  transform: translateX(-50%);
+}
+.loading{
+  opacity: 0;
 }
 .containerInner label{
   color: #032270;

@@ -26,6 +26,7 @@ export default function loginPage() {
   }
 
   async function handleSubmit(e) {
+    e.preventDefault();
     setIsLoading(true);
     const res = await signIn('credentials', {
       redirect: false,
@@ -39,14 +40,21 @@ export default function loginPage() {
       router.push('/dashboard');
     } else {
       console.log('wrong user or pass');
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   }
 
   return (
     <div className={c.container}>
-      {isLoading ? <Spinner /> : (
-        <form className={c.containerInner} onSubmit={handleSubmit}>
+      {/* {isLoading ? <Spinner /> : (
+      )} */}
+
+      {isLoading &&
+      <div className={`${c.spinnerCont}`}>
+        <Spinner />  
+      </div>}
+
+        <form className={`${c.containerInner} ${isLoading ? c.loading : ''}`} onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>
           <input
             onChange={handleInput}
@@ -70,7 +78,6 @@ export default function loginPage() {
             Submit
           </Button>
         </form>
-      )}
     </div>
   );
 }

@@ -27,6 +27,11 @@
   opacity: .6;
   transition: 0.5s;
 }
+.imgWrapper{
+  /* width: 300px;
+  height: 169px; */
+  max-height: 169px;
+}
 .x{
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.322);
   /* border-radius: 10px; */

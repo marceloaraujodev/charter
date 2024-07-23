@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import c from './Nav.module.css';
 import logo from '@/public/images/logo.png';
 import Link from 'next/link';
@@ -10,15 +11,17 @@ export default function Nav() {
   const pathname = usePathname();
   const [isActive, setIsActive] = useState('/'); // underline
   const [isSmallNavActive, setIsSmallNavActive] = useState(false); // closes menu and sets underline
-  
+  const router = useRouter();
   // console.log(pathname);
+  const validPaths = ['/', '/features', '/gallery', '/crew', '/calendar'];
 
   useEffect(() => {
-    if(isActive === '/auth/login'){
-      setIsActive(null)
+    if(!validPaths.includes(pathname)){
+      setIsActive(null);
+    }else{
+      setIsActive(pathname);
     }
-    setIsActive(pathname);
-  }, []);
+  }, [pathname]);
 
   function handleClick(path) {
     // console.log(path);
@@ -34,11 +37,13 @@ export default function Nav() {
     <>
       <div className={c.container}>
       <nav className={c.nav}>
-        <div className={c.logo}>
+        <div className={c.logo} onClick={() => router.push('/')}>
         <Image 
           src={logo}
           width={200}
           height={'auto'}
+          alt='logo'
+          priority={true}
         />
           </div>
         <ul className={c.wideMenu}>

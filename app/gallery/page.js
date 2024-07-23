@@ -71,18 +71,19 @@ function Gallery() {
                     setInitialIndex(index);
                   }}
                 >
-                  <div className={c.imgBorder}>
+                  <div className={c.imgWrapper}>
                     <Image
                       className={c.x}
                       src={imgURL}
                       width={300}
-                      height={200}
+                      height={169}
                       alt={'gallery image'}
-                      style={{
-                        objectFit: 'cover',
-                        maxHeight: '169px',
-                        height: 'auto',
-                      }}
+                      // style={{
+                      //   objectFit: 'cover',
+                      //   maxHeight: '169px',
+                      //   // height: 'auto',
+                      //   // width: 'auto'
+                      // }}
                     />
                   </div>
                 </a>

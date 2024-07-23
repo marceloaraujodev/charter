@@ -21,6 +21,7 @@ export default function Footer() {
           src={logo}
           width={200}
           height={'auto'}
+          alt='logo'
         />
         </div>
 
