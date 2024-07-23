@@ -1,44 +1,10 @@
-.containerOuter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  flex: 1;
-  height: 100%;
-  padding: 100px 0;
-  width: 100%;
-}
-
-.contentContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-}
-.containerOuter h1{
-  color: #42ADF8;
-  font-weight: bold;
-}
-.containerOuter h4{
-  padding: 15px 0;
-  font-weight: 600;
-}
-.containerOuter p{
-  padding: 20px 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-}
-.btnPricing{
-  background-color: #42ADF8;
-  border: 1px solid #42ADF8;
-}
-.containerOuter button:hover{
-  background-color: white;
-  color: #42ADF8;
-  border: 1px solid #42ADF8;
-}
 .calendarContainer{
   width: 100%;
-  /* height: 100%; */
-  height: 600px;
+  height: 100%;
+  padding: 0 10px;
+  max-width: 1400px;
+  position: relative
 }
+/* .postion{
+  position: relative;
+} */

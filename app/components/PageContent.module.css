@@ -1,0 +1,20 @@
+.container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 150px;
+  margin-bottom: 50px;
+  /* border: 1px solid red; */
+  /* padding: 20px; */
+}
+.wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  /* border: 2px solid green; */
+  /* padding: 20px; */
+}

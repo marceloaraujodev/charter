@@ -3,7 +3,7 @@
   left: 0;
   width: 100%;
   height: 50%;
-  background: linear-gradient(to bottom, #61c0ff67 0%, #ffffff 100%);
+  background: linear-gradient(to bottom, #61c0ff55 0%, #ffffff 100%);
   z-index: -1;
   /* border: 1px solid red; */
 }
@@ -35,5 +35,8 @@
   transform: translateY(-50%);
 }
 .bottom{
-  bottom: 0px;
+  bottom: -200px;
+}
+.bottomNegative{
+  bottom: -50px;
 }
