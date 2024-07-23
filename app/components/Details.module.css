@@ -1,0 +1,170 @@
+.container{
+  margin-top: 200px;
+  /* border: 1px solid red; */
+  position: relative;
+}
+.waveContainer{
+  position: absolute;
+  top: 150px;
+  left: 0;
+  width: 100%;
+  height: 90%;
+  background: linear-gradient(to bottom, #61c0ff44 0%, #ffffff 100%);
+  z-index: -1;
+}
+.contInner{
+  border: 1px solid red;
+  display: flex;  
+  width: 100%;
+}
+.contLeft{
+  border: 1px solid green;
+}
+
+.row{
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+.block{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.block{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+/* .reverseBlock{
+  flex-direction: column-reverse;
+} */
+.left img{
+  object-fit: cover;
+  height: 300px;
+  max-width: 100%;
+}
+.right{
+  padding: 40px 30px;
+  color: #032270;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.right h2::after{
+  content:'';
+  display: block;
+  background-color: red;
+  width: 60px;
+  height: 2px;
+  margin-top: 5px;
+}
+.right .rightBackground{
+  color: white;
+}
+.rightBackground{
+  background-color: rgb(41, 111, 196);
+  color: white;
+}
+
+.right .btn{
+  background-color: #032270;
+}
+.wave {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  line-height: 0;
+  /* transform: rotate(180deg); */
+}
+
+.wave svg {
+  position: relative;
+  display: block;
+  width: calc(115% + 1.3px);
+  height: 149px;
+}
+
+.wave .shapeFill {
+  /* fill: #6DC5FF2A; */
+  fill: white;
+}
+
+.section{
+  padding: 20px;
+  width: 100%;
+  height: 500px;
+  /* background: linear-gradient(to top, #61c0ff44 0%, #ffffff 100%); */
+  background: linear-gradient(
+    to bottom, /* Direction of the gradient (top to bottom) */
+    white, /* Start color */
+    #61c0ff7e, /* Middle color */
+    white /* End color */
+  );
+  margin-top: 100px;
+  color: #032270;
+}
+.titleContainer{
+  display: flex;
+  justify-content: center;
+}
+.callCont{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  gap: 80px;
+  margin-top: 50px;
+  max-width: 1200px;
+}
+.svgCont{
+  display: flex;
+  gap: 20px;
+  height: 30px;
+}
+.circle{
+  background-color: rgba(255, 255, 255, 0.999);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); */
+  border: 1px solid #032270;
+  cursor: pointer;
+}
+.circle:hover{
+  background-color: #42ADF8;
+  border-color: #42ADF8;
+  color: white;
+}
+.callCont svg{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 30px;
+}
+@media screen and (min-width: 768px){
+  .block{
+    flex-direction: row;
+  }
+  .left{
+    width: 50%;
+  }
+  .left img{
+    height: 400px;
+    width: 100%;
+  }
+  .right{
+    padding: 0 80px;
+    width: 50%;
+    justify-content: center;
+  }
+  .section{
+    padding: 80px;
+  }
+}

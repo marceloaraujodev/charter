@@ -21,7 +21,7 @@ export const authOptions = {
             try {
               const user = await User.findOne({ email }).select('+password');
     
-              console.log('This is User:------------',user)
+              // console.log('This is User:------------',user)
 
               if (!user) {
                 console.log("User not found");
@@ -32,9 +32,10 @@ export const authOptions = {
               console.log("Password match:", isMatch);
     
               if (!isMatch) {
+                console.log("Password does not match");
                 return null;
               }
-    
+              console.log("User authorized");
               return user;
     
             } catch (error) {

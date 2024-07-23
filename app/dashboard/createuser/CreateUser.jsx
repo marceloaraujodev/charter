@@ -4,7 +4,11 @@ export default function CreateUser() {
 
   return (
     <>
-     <UserForm submitType='register' />
+     <UserForm 
+      submitType='register'
+      method='post'
+      apiEndpoint='/api/register'
+     />
     </>
   );
 }

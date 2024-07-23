@@ -74,7 +74,7 @@ export default function IndexPage() {
 
           <Blocks />
           <Description
-            title="Corporate Charters & Events"
+            title="Sunset Dates & Fun"
             description="Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more."
             image={img82}
           />

@@ -4,6 +4,10 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  position: relative;
+}
+.spinner{
+  position: absolute;
 }
 .form{
   display: flex;
@@ -12,6 +16,9 @@
   flex-wrap: wrap;
   color: rgb(146, 146, 146);
   max-width: 800px;
+}
+.form.loading{
+  opacity: 0;
 }
 .form label{
   color: #42ADF8;
@@ -56,6 +63,16 @@
   width: 100%;
   margin-top: 10px;
 }
+/* .success{
+  color: green;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.fail{
+  color: red;
+  font-weight: 600;
+  font-size: 1rem;
+} */
 
 @media screen and (max-width: 600px){
   .row{

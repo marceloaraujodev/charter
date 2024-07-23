@@ -1,20 +1,37 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 import c from './Footer.module.css';
+import logo from '@/public/images/logo.png';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 
 export default function Footer() {
   // const router = useRouter();
 
-  async function handleSignout(){
-    await signOut({redirect: true, callbackUrl: '/'})
+  async function handleSignout() {
+    await signOut({ redirect: true, callbackUrl: '/' });
+  }
+
+  function handleClick(type, text){
+    console.log(type)
+    console.log(text)
+    if(type === 'email'){
+      console.log('enter email')
+      window.location.href = 'mailto:example@example.com';
+    }
+    if(type === 'phone'){
+      console.log('enter phone')
+      navigator.clipboard.writeText(text)
+    }
   }
 
   return (
     <footer className={c.footer}>
       <div className={c.container}>
-        <div className={c.title}>Logo</div>
+        <div className={c.title}>
+          <Image src={logo} width={200} height={'auto'} alt="logo" />
+        </div>
 
         <div className={c.row}>
           <nav className={c.leftBox}>
@@ -27,7 +44,8 @@ export default function Footer() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6">
+                  className="size-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -43,7 +61,8 @@ export default function Footer() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6">
+                  className="size-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -59,7 +78,8 @@ export default function Footer() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6">
+                  className="size-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -75,7 +95,8 @@ export default function Footer() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6">
+                  className="size-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -91,7 +112,8 @@ export default function Footer() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6">
+                  className="size-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -107,7 +129,8 @@ export default function Footer() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6">
+                  className="size-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -123,7 +146,8 @@ export default function Footer() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6">
+                  className="size-6"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -132,17 +156,25 @@ export default function Footer() {
                 </svg>{' '}
                 <span onClick={handleSignout}>logout</span>
               </li>
-
             </ul>
           </nav>
 
           <div className={c.rightBox}>
-          <h2>Contact</h2>
+            <h2>Contact</h2>
             {/* <div> */}
-              <i className={`bi bi-envelope ${c.icons}`}><span>aphroditecharters@gmail.com</span></i> 
-              <i className={`bi bi-telephone ${c.icons}`}> <span>333 333 3333</span></i>
-              {/* <i className={`bi bi-calendar-check ${c.icons}`}></i> */}
-              {/* <Link href={'/auth/login'}>Admin</Link>
+            <div onClick={() => handleClick('email')}>
+              <i className={`bi bi-envelope ${c.icons}`}>
+                <span>aphroditecharters@gmail.com</span>
+              </i>
+            </div>
+            <div onClick={(e) => handleClick('phone', e.target.textContent)} title='copy to clipboard'>
+              <i className={`bi bi-telephone ${c.icons}`}>
+                {' '}
+                <span>949 204 7109</span>
+              </i>
+            </div>
+            {/* <i className={`bi bi-calendar-check ${c.icons}`}></i> */}
+            {/* <Link href={'/auth/login'}>Admin</Link>
               <span onClick={() => signOut()}>logout</span> */}
             {/* </div> */}
             {/* <div>
