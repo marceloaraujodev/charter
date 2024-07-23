@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { useEffect } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useState } from 'react';
 import Button from '@/app/components/Button';
@@ -15,7 +16,22 @@ export default function loginPage() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  // console.log(session)
+  useEffect(() => {
+    if(session && session.expires){
+      const {expires} = session;
+      if(isSessionExpired(expires)) {
+        signOut(); 
+      }else{
+        router.push('/dashboard');
+      }
+    }
+  },[session]);
+
+  console.log(session)
+
+  function isSessionExpired(expires) {
+    return new Date(expires) < new Date();
+  }
 
   function handleInput(e) {
     if (e.target.id === 'email') {
