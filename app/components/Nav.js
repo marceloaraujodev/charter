@@ -150,7 +150,8 @@ export default function Nav() {
               GALLERY
             </Link>
           </li>
-          <li onClick={() => handleClick('/reviews')}>
+
+          {/* <li onClick={() => handleClick('/reviews')}>
             <Link
               className={`${c.menuLink} ${
                 isActive === '/reviews' ? c.active : ''
@@ -160,7 +161,8 @@ export default function Nav() {
             >
               REVIEWS
             </Link>
-          </li>
+          </li> */}
+
           <li onClick={() => handleClick('/crew')}>
             <Link
               className={`${c.menuLink} ${
