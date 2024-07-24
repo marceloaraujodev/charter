@@ -1,22 +1,59 @@
 .priceCont{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 15px;
   color: #032270;
+  width: 100%;
+  /* border: 1px solid red; */
+  position: relative;
+  /* border: 1px solid red; */
+}
+.dividerCont{
+  position: absolute;
+  top: 150px;
+  left: 0;
+  width: 100%;
+  height: 90%;
+  background: linear-gradient(to bottom, #61c0ff44 0%, #ffffff 100%);
+  z-index: -1;
+}
+.arrowDivider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.arrowDivider svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 150px;
+}
+
+.arrowDivider .shapeFill {
+  fill: #ffffff;
 }
 .titleCont{
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* border: 2px solid blue;
+  padding: 20px; */
 }
 .priceBoxes{
   margin-top: 50px;
   display: flex;
-  /* gap: 50px; */
-  flex-wrap: wrap;
+  justify-content: center;
   justify-content: space-around;
-  max-width: 1200px;
-  /* margin: 20px 0; */
+  flex-wrap: wrap;
+  max-width: 400px;
+  width: 100%;
+  padding: 20px 0;
+  /* border: 2px solid red; */
 }
 .box{
   border: 1px solid #032270;
@@ -38,8 +75,42 @@
   font-size: 1rem;
   letter-spacing: .03rem;
   line-height: 20px;
-  max-width: 1200px;
+  max-width: 400px;
   margin: 0 5px;
   padding: 5px;
-  /* display: none; */
+  transition: all .3s ease-in;
+}
+.hide{
+  opacity: 0;
+}
+
+.priceCardsCont{
+  width: 100%;
+  display: flex;
+  /* background-color: gray; */
+}
+.priceCards{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 20px ;
+  padding: 20px;
+  /* border: 1px solid red; */
+}
+.width{
+  min-width: 205px;
+}
+.headerBackground{
+  background-color: #42ADF8;;
+  color: white;
+}
+@media screen and (max-width: 768px){
+  .arrowDivider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 80px;
+  }
 }

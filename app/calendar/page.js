@@ -38,9 +38,9 @@ export default function Pricing() {
       <div className={c.calendarContainer}>
         <Calendar />
       </div>
-      {/* <div className={c.position}> */}
+
         <Wave position="bottom" />
-      {/* </div> */}
+
     </PageContent>
   );
 }
