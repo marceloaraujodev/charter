@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 
 mongooseConnect();
 
+
 export const authOptions = {
       providers: [
         CredentialsProvider({

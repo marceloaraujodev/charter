@@ -1,14 +1,17 @@
 import { NextResponse, NextRequest } from "next/server";
 import { mongooseConnect } from "@/app/lib/mongooseConnect";
-// import { getSession } from "next-auth/react";
 import { getServerSession } from 'next-auth/next';
 import Task from "@/app/models/task";
+import middleware from '../../middleware'
 
 
 mongooseConnect();
 
 // populate all items on the page
 export async function GET(req, res){
+
+  // await corsMiddleware(req, NextResponse);
+  // console.log('passed cors middleware');
   const session = await getServerSession({ req, res });
   // console.log('this should be session, if null you need to login', session)
 
@@ -28,8 +31,13 @@ export async function GET(req, res){
     return NextResponse.json({
       message: 'success',
       tasks
-    })
-
+    },{
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://www.aphroditecharters.com',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }})
   }
 }
 
