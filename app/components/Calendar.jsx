@@ -16,8 +16,8 @@ function formatDateToYMD(date) {
   return date.toISOString().split('T')[0];
 }
 
-// const url = 'https://charter-ebon.vercel.app'
-const url = 'http://localhost:3000'
+// const url = 'https://charter-ebon.vercel.app';
+const url = 'http://localhost:3000';
 
 
 
