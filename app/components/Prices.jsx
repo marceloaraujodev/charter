@@ -28,7 +28,7 @@ export default function Prices() {
         <Title title="Pricing and Availability" center={true} />
       </div>
       <div className={c.dividerCont}>
-        <div class={c.arrowDivider}>
+        <div className={c.arrowDivider}>
           <svg
             data-name="Layer 1"
             xmlns="http://www.w3.org/2000/svg"
