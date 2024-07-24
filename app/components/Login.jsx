@@ -14,7 +14,7 @@ export default function loginPage() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     if(session && session.expires){
@@ -25,7 +25,7 @@ export default function loginPage() {
         router.push('/dashboard');
       }
     }
-  },[session]);
+  },[status, session]);
 
   console.log(session)
 
@@ -58,6 +58,14 @@ export default function loginPage() {
       console.log('wrong user or pass');
       // setIsLoading(false);
     }
+  }
+
+  if (status === 'loading') {
+    return <Spinner />;
+  }
+
+  if (status === 'authenticated') {
+    return null; // or show a different loading indicator
   }
 
   return (

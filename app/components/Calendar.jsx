@@ -12,12 +12,13 @@ import Button from './Button';
 import { signIn, signOut, useSession } from "next-auth/react"
 import c from './Calendar.module.css';
 
+
 function formatDateToYMD(date) {
   return date.toISOString().split('T')[0];
 }
 
 const url = 'https://www.aphroditecharters.com';
-// const url = 'http://localhost:3000'; 
+// const url = 'http://localhost:3000';
 
 
 
