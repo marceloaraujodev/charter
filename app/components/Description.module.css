@@ -11,7 +11,7 @@
 }
 .container{
   background-color: #fafafa;
-  max-width: 90%;
+  max-width: 95%;
   height: 550px;
   margin: 0 auto;
   color: #032270;
@@ -19,13 +19,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 20px;
+  /* padding: 20px 20px; */
   gap: 40px;
   overflow: hidden;
   z-index: 200;
+  /* border: 1px solid red; */
 }
 .left{
   max-width: 400px;
+  padding: 20px 20px;
 }
 .left h2{
   font-weight: 700;
@@ -34,15 +36,15 @@
 .left h2::after{
   content: '';
   display: block;
-  background-color: red;
   width: 60px;
   height: 2px;
   margin-top: 5px;
+  /* background-color: red; */
 }
-
 .right img{
-  height: 300px;
-  width: 500px;
+  /* max-height: 300px; */
+  height: auto;
+  width: 100%;
   max-width: 100%;
   transition: all .4s ease;
   object-fit: cover;
@@ -84,11 +86,21 @@
     padding: 80px 0;
   }
   .container{
+    max-width: 90%;
     flex-direction: row;
     background-color: #fafafa;
     max-width: 1000px;
     padding: 20px 40px;
     height: 450px;
+  }
+
+  .right img{
+    height: auto;
+    width: 100%;
+    max-width: 100%;
+    transition: all .4s ease;
+    object-fit: cover;
+    /* border: 3px solid green; */
   }
 
 }
