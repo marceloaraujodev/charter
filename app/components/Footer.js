@@ -33,7 +33,13 @@ export default function Footer() {
     <footer className={c.footer}>
       <div className={c.container}>
         <div className={c.title}>
-          <Image src={logo} width={200} height={'auto'} alt="logo" />
+          <Image 
+          src={logo} 
+          width={200} 
+          height={'auto'} 
+          alt="logo" 
+          priority={true}
+          />
         </div>
 
         <div className={c.row}>

@@ -11,6 +11,14 @@
   color: #42ADF8;
   padding-top: 10px;
 }
+.textCont{
+  width: 90%;
+  border: 1px solid red;
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  margin: 0 auto;
+}
 .cardText{
   text-overflow: ellipsis;
   padding: 15px 0;
