@@ -5,6 +5,7 @@ import SessionProvider from './components/SessionProvider';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Head from 'next/head';
 import './globals.css';
 
 import GalleryModal from '@/app/components/GalleryModal';
@@ -33,6 +34,15 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
+            <Head>
+        <link
+          rel="preload"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/fonts/bootstrap-icons.woff2?48804dbfe98a9c8a08858a0de0b0e3db"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </Head>
       <body className={sourceSans3.className}>
         <SessionProvider session={session}>
           <Nav />
