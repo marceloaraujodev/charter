@@ -17,8 +17,8 @@ function formatDateToYMD(date) {
   return date.toISOString().split('T')[0];
 }
 
-// const url = 'https://www.aphroditecharters.com';
-const url = 'http://localhost:3000';
+const url = 'https://www.aphroditecharters.com';
+// const url = 'http://localhost:3000';
 
 
 
