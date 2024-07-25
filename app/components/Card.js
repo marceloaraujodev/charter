@@ -14,7 +14,9 @@ export default function Card({ title, description, image }) {
       />
       <div className={c.cardBody}>
         <h5 className={c.cardTitle}>{title}</h5>
+        <div className={c.textCont}>
         <p className={c.cardText}>{description}</p>
+        </div>
         {/* <a href="#" className={`btn btn-primary ${c.btnCard}`}>
           Book Now
         </a> */}

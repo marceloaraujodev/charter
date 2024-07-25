@@ -32,22 +32,22 @@ export default function HeroSection2() {
       <div className={c.contentContainer} >
         <section className={c.section}>
           <Card
-            title='PRIVACY'
-            description="Description of each card goes here."
+            title='Unparalleled Privacy'
+            description="Experience the ultimate escape from the world. Our yachts offer exclusive privacy, ensuring you enjoy your time with complete discretion and serenity."
             image={img12}
           />
         </section>
         <section className={c.section}>
           <Card
-            title='ENTERTAINMENT'
-            description="Description of each card goes here."
+            title='Luxurious Entertainment'
+            description="Indulge in world-class entertainment on the high seas. From live music to private screenings, our yachts are equipped to provide endless enjoyment."
             image={img81}
           />
         </section>
         <section className={c.section}>
           <Card
-            title='COMFORT'
-            description="Description of each card goes here."
+            title='Supreme Comfort'
+            description="Relax in unmatched comfort. Our yachts boast plush interiors and state-of-the-art amenities, guaranteeing a restful and rejuvenating voyage."
             image={img47}
           />
         </section>
