@@ -34,7 +34,7 @@ export async function GET(req, res){
     },{
       status: 200,
       headers: {
-        'Access-Control-Allow-Origin': ['https://www.aphroditecharters.com', 'http://localhost:3000'],
+        'Access-Control-Allow-Origin': ['https://www.aphroditecharters.com'],
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       }})
