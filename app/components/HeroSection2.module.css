@@ -12,6 +12,7 @@
   background: linear-gradient(to bottom, #61c0ff44 0%, #ffffff 100%);
 }
 .contentContainer {
+
   height: 100%;
   width: 100%;
   display: flex;
@@ -23,10 +24,14 @@
   max-width: 1000px;
   padding: 80px 0;
   z-index: 200;
+  /* border: 1px solid red; */
 }
 
 .section {
   text-align: center;
+  height: 100%;
+  overflow: hidden;
+  /* border: 1px solid red; */
 }
 
 .wave {
