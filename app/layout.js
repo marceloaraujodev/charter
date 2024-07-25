@@ -34,7 +34,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-            <Head>
+        <Head>
         <link
           rel="preload"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/fonts/bootstrap-icons.woff2?48804dbfe98a9c8a08858a0de0b0e3db"

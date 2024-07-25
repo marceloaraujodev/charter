@@ -18,9 +18,8 @@ body {
   flex-direction: column;
   min-height: 100vh;
   box-sizing: border-box;
-
   position: relative;
-  
+  font-family: 'Roboto', 'Source Sans 3', sans-serif;
 }
 .container{
   flex: 1;
