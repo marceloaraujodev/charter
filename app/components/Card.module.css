@@ -3,25 +3,26 @@
   padding: 20px 0;
   color: #03227067;
   font-weight: 400;
+  width: 300px;
 }
 .cardTitle{
   font-size: 1.5rem;
   font-weight: 600;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
   color: #42ADF8;
   padding-top: 10px;
 }
 .textCont{
-  width: 90%;
-  /* border: 1px solid red; */
+  width: 100%;
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
-  margin: 0 auto;
+  padding: 0 10px;
+  /* border: 1px solid red; */
 }
 .cardText{
   text-overflow: ellipsis;
   padding: 15px 0;
+  overflow: hidden;
+  word-break: break-all;
 }
 
 .btnCard{
