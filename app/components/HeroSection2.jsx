@@ -33,21 +33,21 @@ export default function HeroSection2() {
         <section className={c.section}>
           <Card
             title='Unparalleled Privacy'
-            description="Experience the ultimate escape from the world. Our yachts offer exclusive privacy, ensuring you enjoy your time with complete discretion and serenity."
+            description="Experience the ultimate escape from the world. "
             image={img12}
           />
         </section>
         <section className={c.section}>
           <Card
-            title='Luxurious Entertainment'
-            description="Indulge in world-class entertainment on the high seas. From live music to private screenings, our yachts are equipped to provide endless enjoyment."
+            title='LUXURIOUS'
+            description="Indulge in world-class entertainment on the high seas. "
             image={img81}
           />
         </section>
         <section className={c.section}>
           <Card
-            title='Supreme Comfort'
-            description="Relax in unmatched comfort. Our yachts boast plush interiors and state-of-the-art amenities, guaranteeing a restful and rejuvenating voyage."
+            title='COMFORT'
+            description="Relax in unmatched comfort."
             image={img47}
           />
         </section>
