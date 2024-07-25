@@ -1,28 +1,35 @@
+.cardCont{
+  /* min-height: 480px; */
+  height: 100%;
+}
 .cardBody{
   background-color: #e1f2fd;
   padding: 20px 0;
   color: #03227067;
   font-weight: 400;
   width: 300px;
+  flex-grow: 1;
+  min-height: 280px;
+  /* border: 1px solid red; */
 }
 .cardTitle{
   font-size: 1.5rem;
   font-weight: 600;
-  /* letter-spacing: 1px; */
   color: #42ADF8;
   padding-top: 10px;
 }
 .textCont{
-  width: 100%;
-  display: flex;
   padding: 0 10px;
-  /* border: 1px solid red; */
 }
 .cardText{
+  /* max-height: 150px; */
+  height: 130px;
   text-overflow: ellipsis;
   padding: 15px 0;
   overflow: hidden;
   word-break: break-all;
+  overflow-y: auto;
+
 }
 
 .btnCard{

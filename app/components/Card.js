@@ -4,7 +4,7 @@ import c from './Card.module.css';
 
 export default function Card({ title, description, image }) {
   return (
-    <div className={` ${c.animation}`}>
+    <div className={`${c.cardCont} ${c.animation}`}>
       <Image
         src={image}
         className={c.img}
@@ -17,9 +17,6 @@ export default function Card({ title, description, image }) {
         <div className={c.textCont}>
         <p className={c.cardText}>{description}</p>
         </div>
-        {/* <a href="#" className={`btn btn-primary ${c.btnCard}`}>
-          Book Now
-        </a> */}
         <Button>Book now</Button>
       </div>
     </div>
