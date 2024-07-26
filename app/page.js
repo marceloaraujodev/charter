@@ -12,23 +12,33 @@ import c from './page.module.css';
 import HeroSection2 from '@/app/components/HeroSection2';
 
 export default function IndexPage() {
+  const [confortTop, setConfortTop] = useState(0);
   const textRef = useRef();
   const confortRef = useRef();
   const { scrollYProgress, scrollY } = useScroll();
   // console.log(scrollY)
 
-  const yText = useTransform(scrollY, [1, 400], [400, 980]);
+  const yText = useTransform(scrollY, [1, 300], [300, 980]);
   const opacityText = useTransform(scrollY, [0, 400], [1, 0]);
+
+  useEffect(() => {
+    if (confortRef.current) {
+      const top = confortRef.current.getBoundingClientRect().top + window.scrollY;
+      setConfortTop(top);
+      console.log("Confort container top position:", top);
+    }
+  }, []);
 
   const yConfort = useTransform(
     scrollY,
-    [900, 1200, 1500, 1600, 2000],
-    [0, 250, 250, 250, 913]
+    [1000, 1600, 1800, 2100, 2200], [0, 350, 350, 800, 900]
+    // [900, 1200, 1500, 1600, 2000],
+    // [0, 250, 250, 250, 913]
   );
   const opacityConfort = useTransform(
     scrollY,
-    [760, 1300, 1600, 2160],
-    [0, 1, 1, 0]
+    [1, 1800, 1800, 2300], [0, 1, 1, 0]
+    // [700, 1300, 1600, 2160], [0, 1, 1, 0]
   );
   const animationConfig = {
     initial: { opacity: 0 },
@@ -44,7 +54,7 @@ export default function IndexPage() {
             className={c.luxury}
             ref={textRef}
             initial={{ opacity: 0, y: -200 }}
-            animate={{ opacity: 1, y: 400, transition: { durantion: 0.2 } }}
+            animate={{ opacity: 1, y: 300, transition: { durantion: 0.8 } }}
             style={{ opacity: opacityText, y: yText }}
             // animate={animateOnce}
           >

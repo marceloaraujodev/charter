@@ -45,7 +45,7 @@ async function sendMail() {
 }
 
 try {
-  await sendMail();
+  // await sendMail();
 
   return NextResponse.json({
     message: 'success',
