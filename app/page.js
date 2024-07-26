@@ -12,7 +12,6 @@ import c from './page.module.css';
 import HeroSection2 from '@/app/components/HeroSection2';
 
 export default function IndexPage() {
-  const [confortTop, setConfortTop] = useState(0);
   const textRef = useRef();
   const confortRef = useRef();
   const { scrollYProgress, scrollY } = useScroll();
