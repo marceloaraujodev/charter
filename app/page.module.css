@@ -23,10 +23,10 @@
 }
 .confortContainer{
   position: relative;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 .confort{
-  font-size: 15rem;
+  font-size: 20rem;
   font-weight: bold;
   position: absolute;
   top: 0;
