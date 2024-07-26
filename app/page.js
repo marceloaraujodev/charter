@@ -20,14 +20,6 @@ export default function IndexPage() {
   const yText = useTransform(scrollY, [1, 300], [300, 980]);
   const opacityText = useTransform(scrollY, [0, 400], [1, 0]);
 
-  useEffect(() => {
-    if (confortRef.current) {
-      const top = confortRef.current.getBoundingClientRect().top + window.scrollY;
-      setConfortTop(top);
-      console.log("Confort container top position:", top);
-    }
-  }, []);
-
   const yConfort = useTransform(
     scrollY,
     [1000, 1600, 1800, 2100, 2200], [0, 350, 350, 800, 900]
