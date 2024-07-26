@@ -14,17 +14,19 @@
   color: white;
   z-index: 5000;
   line-height: 13rem;
-  vertical-align: top;
+  /* vertical-align: top; */
   overflow: hidden;
+  padding: 10px 0;
 }
 .luxury::first-letter{
   margin-left: -25px;
 }
 .confortContainer{
   position: relative;
+  border: 1px solid red;
 }
 .confort{
-  font-size: 20rem;
+  font-size: 15rem;
   font-weight: bold;
   position: absolute;
   top: 0;

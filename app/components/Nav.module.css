@@ -103,6 +103,7 @@
   .nav{
     height: 70px;
     flex-direction: row-reverse;
+    /* display: none; */
   }
   .wideMenu {
     display: none;
