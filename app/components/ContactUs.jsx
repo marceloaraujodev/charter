@@ -14,18 +14,6 @@ export default function ContactUs() {
   const [isLoading, setIsLoading] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState(null);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     setName(user.name || '');
-  //     setEmail(user.email || '');
-  //     setPhone(user.phone || '');
-
-  //     // console.log(id);
-  //   }
-  // }, []);
-
-  // console.log(view);
-
   async function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
