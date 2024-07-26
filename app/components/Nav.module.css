@@ -164,6 +164,7 @@
     position: static;
     margin: 0;
     padding: 0;
+    margin-right: 10px;
   }
   .logo img{
     width: 150px;
