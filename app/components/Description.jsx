@@ -1,6 +1,7 @@
+// 'use client'
 import React from 'react';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Title from './Title';
@@ -8,7 +9,8 @@ import image6 from '@/public/images/yacht-6.JPG';
 import Button from './Button';
 import c from './Description.module.css';
 
-export default function Description({ title, description, image }) {
+export default function Description({ title, description, image, identifier }) {
+  
   const imgRef = useRef();
   const descriptionRef = useRef();
   const router = useRouter();
@@ -18,6 +20,7 @@ export default function Description({ title, description, image }) {
     whileInView: { x: 0, opacity: 1 },
     viewport: { once: true },
   };
+
 
   return (
     <div className={c.row}>
@@ -43,7 +46,7 @@ export default function Description({ title, description, image }) {
           ref={descriptionRef}>
           <Title title={title} />
           <p>{description}</p>
-          <Button onClick={() => router.push('/details')}>Read More</Button>
+          <Button onClick={() => router.push(`/details?identifier=${identifier}`)}>Read More</Button>
         </motion.div>
 
         <motion.div className={c.right} {...animationConfig} ref={imgRef}>

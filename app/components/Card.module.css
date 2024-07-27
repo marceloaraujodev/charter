@@ -29,20 +29,12 @@
   overflow: hidden;
   word-break: break-all;
   overflow-y: auto;
-
+}
+.btn{
+  max-width: 60%;
+  margin: 0 auto;
 }
 
-.btnCard{
-  background-color: white;
-  color: #42ADF8;
-  margin-bottom: 20px;
-  border: 1px solid #42ADF8;
-}
-.btnCard:hover{
-  border: 1px solid #42ADF8;
-  background-color: #42ADF8;
-  color: white;
-}
 .animation {
   transition: box-shadow 0.3s ease-out, transform 0.3s linear;
 }

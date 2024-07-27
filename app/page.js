@@ -4,6 +4,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import img6 from '../public/images/yacht-6.JPG';
 import img82 from '../public/images/yacht-82.JPG';
 import img81 from '../public/images/yacht-51.JPG';
+import img19 from '@/public/images/yacht-19.JPG';
+import img12 from '@/public/images/yacht-12.JPG';
+import imgSunset from '@/public/images/sunset.jpg';
 import BackgroundImg from './components/BackgroundImg';
 import Card from '@/app/components/Card';
 import Description from '@/app/components/Description';
@@ -52,9 +55,10 @@ export default function IndexPage() {
             LUXURY
           </motion.div>
           <Description
-            title="Corporate Charters & Events"
-            description="Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more."
-            image={img82}
+            title="Bahamas Escape"
+            description="Discover the Bahamas in style aboard our luxurious yacht. Glide through crystal-clear waters, explore secluded islands, and relax on sun-kissed beaches. Enjoy bespoke experiences, including snorkeling in vibrant coral reefs and savoring gourmet meals, as you embrace the ultimate tropical getaway. Weekly packages available."
+            image={img19}
+            identifier='corporate'
           />
 
           <div className={c.confortContainer}>
@@ -68,16 +72,18 @@ export default function IndexPage() {
           </div>
           <BackgroundImg className={`view`} />
           <Description
-            title="Corporate Charters & Events"
-            description="Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more."
-            image={img82}
+            title="Thrill of the Open Sea"
+            description="Discover the thrill of cruising through the water on our sleek yacht. With every turn and wave, experience the exhilaration of movement and the joy of an unrestricted adventure. Revel in the pure excitement of the open sea and the freedom it offers."
+            image={img12}
+            identifier='opensea'
           />
 
           <Blocks />
           <Description
-            title="Sunset Dates & Fun"
-            description="Corporate Dinners, Cocktail Cruises, Office Parties, Team Building, Watersports Adventures, Sailing Regattas & more."
-            image={img82}
+            title="Sunsets & Dates"
+            description="Create unforgettable moments aboard our luxurious yacht. Enjoy romantic sunsets, intimate dinners, and enchanting dates with Miami's stunning skyline as your backdrop. Indulge in a serene escape and make memories to last a lifetime."
+            image={imgSunset}
+            identifier='sunset'
           />
 
           <HeroSection2 />
