@@ -1,28 +1,73 @@
 'use client';
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Button from './Button';
-// import { useRef } from 'react';
 import Image from 'next/image';
-import image6 from '@/public/images/yacht-6.JPG';
+import img3 from '@/public/images/yacht-3.JPG';
+import img12 from '@/public/images/yacht-12.JPG';
+import ocean from '@/public/images/above.jpg'
 import Title from './Title';
 import c from './Details.module.css';
+
 export default function Details() {
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
+  const [image, setImage] = useState();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const identifier = searchParams.get('identifier');
 
-  // const imgRef = useRef();
-  // const descriptionRef = useRef();
+  // const textDescription 
+  const bahamasText = (
+    <>
+      <p>
+      Discover the Bahamas in style aboard our luxurious motor yacht. Glide through the crystal-clear waters and explore secluded islands with stunning white sandy beaches. Relax on sun-kissed shores and enjoy bespoke experiences, including snorkeling in vibrant coral reefs and savoring gourmet meals. Embrace the ultimate tropical getaway and let the beauty of the Bahamas captivate you.
+      </p>
+    </>
+  );
+  const bahamasTitle = `Bahamas escape`;
+  const jacuzziLuxTitle = `Luxury Afloat  `;
+  const jacuzziLuxText = (
+    <>
+      <p>
+        Indulge in unparalleled luxury aboard our exquisite yacht, offering breathtaking ocean views of Miami. Unwind in the lavish jacuzzi on the flybridge, where the gentle sea breeze and stunning skyline combine to create an idyllic backdrop for your voyage. Enjoy the serenity and elegance of your surroundings as you embark on a journey of supreme comfort and relaxation.
+      </p>
+      <p>
+        For a truly personalized experience, we offer professional stews, a private chef, and even a photographer to capture your special moments. Whether you desire gourmet dining, impeccable service, or beautiful memories to take home, our dedicated team is here to ensure your voyage is nothing short of extraordinary.
+      </p>
+    </>
+  );
+  const openSeaTitle = 'Thrill of the Open Sea';
+  const openseaText = (<p>
+    Discover the thrill of cruising through the water on our sleek yacht. With every turn and wave, experience the exhilaration of movement and the joy of an unrestricted adventure. Revel in the pure excitement of the open sea and the freedom it offers.</p>
+  );
 
-  // const animationConfig = {
-  //   initial: { x: 100, opacity: 0 },
-  //   whileInView: { x: 0, opacity: 1 },
-  //   viewport: { once: true },
-  // };
 
-  function handleClick(type) {
-    console.log(type)
-  }
+  useEffect(() => {
+    console.log('useEffect triggered');
+    console.log('Identifier:', identifier);
+    if (identifier === 'corporate') {
+      console.log('Setting corporate title and text');
+      setTitle(bahamasTitle);
+      setText(bahamasText);
+      setImage(ocean);
+    } else if (identifier === 'sunset') {
+      console.log('Setting sunset title and text');
+      setTitle(jacuzziLuxTitle);
+      setText(jacuzziLuxText);
+      setImage(img3);
+    }else if(identifier === 'opensea'){
+      setTitle(openSeaTitle);
+      setText(openseaText);
+      setImage(img12);
+    }
+    window.scrollTo(0, 0); // Scroll to top of the page
+  }, [identifier]);
+
+
+
 
   return (
     <>
@@ -52,16 +97,13 @@ export default function Details() {
               transition={{ duration: 0.3, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <h2>LUXURY YACHT RENTALS & EVENTS</h2>
+              <Title title={title}/>
               <p>
-                Headquartered in Miami, Florida, we offer a wide variety of
-                boats and event planning services including luxury yacht
-                rentals, yacht charters, party boat rentals, speed boat rentals,
-                yacht weddings
+                {text}
               </p>
-              {/* <div>
-              <Button classname={c.btn}>Read More</Button>
-            </div> */}
+              <div className={c.btnCont}>
+                <Button className={c.btn} onClick={() => router.push('/contact')}>Book now</Button>
+              </div>
             </motion.div>
 
             <motion.div
@@ -71,13 +113,16 @@ export default function Details() {
               transition={{ duration: 0.3 }}
               viewport={{ once: true }}
             >
-              <Image src={image6} width="auto" height="auto" alt="blockImg" />
+              <Image 
+              src={image} 
+              width="auto" 
+              height="auto" alt="blockImg" />
             </motion.div>
           </div>
         </div>
       </div>
 
-      <section className={c.section}>
+      {/* <section className={c.section}>
         <div className={c.titleContainer}>
           <Title title="Activities" center={true} />
         </div>
@@ -125,7 +170,7 @@ export default function Details() {
           Our office will gladly and quickly provide you with additional vessel options and any other special requests.</p>
           
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

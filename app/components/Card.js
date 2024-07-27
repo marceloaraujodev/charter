@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import Button from './Button';
+import { useRouter } from 'next/navigation';
 import c from './Card.module.css';
 
 export default function Card({ title, description, image }) {
+  const router = useRouter();
   return (
     <div className={`${c.cardCont} ${c.animation}`}>
       <Image
@@ -17,7 +19,7 @@ export default function Card({ title, description, image }) {
         <div className={c.textCont}>
         <p className={c.cardText}>{description}</p>
         </div>
-        <Button>Book now</Button>
+        <Button className={c.btn} onClick={() => router.push('/contact')}>Book now</Button>
       </div>
     </div>
   );
