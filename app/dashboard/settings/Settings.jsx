@@ -6,13 +6,14 @@ import CreateVendor from '../createVendor/createVendor';
 import Users from '../users/Users';
 import { useSession } from 'next-auth/react';
 import c from './Settings.module.css';
+import GallerySettings from '../gallery/GallerySettings';
 export default function Settings() {
   const [view, setView] = useState('createuser');
   const { data: session } = useSession();
 
   // console.log(view)
 
-  // setUser(session.user.user); 
+  // setUser(session.user.user);
   // console.log(session)
 
   return (
@@ -20,7 +21,10 @@ export default function Settings() {
       <div className={c.innerContainer}>
         <div className={c.menu}>
           <ul>
-            <li onClick={() => setView('createuser')} className={view === 'createuser' ? c.active : null}>
+            <li
+              onClick={() => setView('createuser')}
+              className={view === 'createuser' ? c.active : null}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -35,16 +39,13 @@ export default function Settings() {
                   d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                 />
               </svg>
-              <span
-                className={`$ ${
-                  c.linkText
-                }`}
-              >
-                Create User
-              </span>
+              <span className={`$ ${c.linkText}`}>Create User</span>
             </li>
 
-            <li onClick={() => setView('users')} className={view === 'users' ? c.active : null}>
+            <li
+              onClick={() => setView('users')}
+              className={view === 'users' ? c.active : null}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -59,15 +60,13 @@ export default function Settings() {
                   d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                 />
               </svg>
-              <span
-                
-                className={c.linkText}
-              >
-                Users
-              </span>
+              <span className={c.linkText}>Users</span>
             </li>
 
-            <li onClick={() => setView('createvendor')} className={view === 'createvendor' ? c.active : null}>
+            <li
+              onClick={() => setView('createvendor')}
+              className={view === 'createvendor' ? c.active : null}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -83,17 +82,13 @@ export default function Settings() {
                 />
               </svg>
 
-              <span
-                
-                className={` ${
-                  c.linkText
-                }`}
-              >
-               Create Vendor
-              </span>
+              <span className={` ${c.linkText}`}>Create Vendor</span>
             </li>
 
-            <li onClick={() => setView('vendors')} className={view === 'vendors' ? c.active : null}>
+            <li
+              onClick={() => setView('vendors')}
+              className={view === 'vendors' ? c.active : null}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -109,17 +104,13 @@ export default function Settings() {
                 />
               </svg>
 
-              <span
-                
-                className={` ${
-                  c.linkText
-                }`}
-              >
-                Vendors
-              </span>
+              <span className={` ${c.linkText}`}>Vendors</span>
             </li>
 
-            <li onClick={() => setView('crew')} className={view === 'crew' ? c.active : null}>
+            <li
+              onClick={() => setView('crew')}
+              className={view === 'crew' ? c.active : null}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -134,14 +125,29 @@ export default function Settings() {
                   d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                 />
               </svg>
-              <span
-                
-                className={` ${
-                  c.linkText
-                }`}
+              <span className={` ${c.linkText}`}>Crew</span>
+            </li>
+
+            <li
+              onClick={() => setView('gallery')}
+              className={view === 'gallery' ? c.active : null}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6"
               >
-                Crew
-              </span>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                />
+              </svg>
+
+              <span className={` ${c.linkText}`}>Gallery</span>
             </li>
           </ul>
         </div>
@@ -151,7 +157,10 @@ export default function Settings() {
           {view === 'users' && <Users session={session} view={view} />}
           {view === 'vendors' && <Vendors session={session} view={view} />}
           {view === 'crew' && <CrewSettings session={session} />}
-          {view === 'createvendor' && <CreateVendor session={session} view={view} />}
+          {view === 'createvendor' && (
+            <CreateVendor session={session} view={view} />
+          )}
+          {view === 'gallery' && <GallerySettings session={session} />}
         </div>
       </div>
     </div>

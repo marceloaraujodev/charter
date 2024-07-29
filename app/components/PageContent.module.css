@@ -4,8 +4,7 @@
   flex-direction: column;
   margin-top: 150px;
   margin-bottom: 50px;
-  /* border: 1px solid red; */
-  /* padding: 20px; */
+  flex: 1;
 }
 .wrapper {
   width: 100%;
@@ -15,6 +14,4 @@
   justify-content: center;
   align-items: center;
   gap: 50px;
-  /* border: 2px solid green; */
-  /* padding: 20px; */
 }

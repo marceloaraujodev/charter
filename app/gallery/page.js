@@ -5,6 +5,7 @@ import c from './page.module.css';
 import yachtImages from '@/imageImports';
 import { useState, useEffect } from 'react';
 import ModalImage from '@/app/components/GalleryModal';
+import fetchImages from '../utils/fetchImages';
 import { initializeApp } from 'firebase/app';
 import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage';
 
@@ -38,20 +39,36 @@ function Gallery() {
   const [initialIndex, setInitialIndex] = useState(null);
   const [imagesUrl, setImagesUrl] = useState();
 
+  // useEffect(() => {
+  //   const fetchImages = async () => {
+  //     try {
+  //       const storageRef = ref(storage, 'gs://charter-8fd79.appspot.com');
+  //       const urlsRefArray = (await listAll(storageRef)).items;
+  //       const absoluteUrl = urlsRefArray.map((url) => {
+  //         return getDownloadURL(url);
+  //       });
+  //       const urls = await Promise.all(absoluteUrl);
+  //       setImagesUrl(urls);
+  //       // console.log(urls)
+  //     } catch (error) {}
+  //   };
+  //   fetchImages();
+  //   // const getImages = async () => {
+  //   //   const urls = await fetchImages();
+  //   //   setImagesUrl(urls);
+  //   // };
+  //   // getImages();
+
+  //   console.log('this is fetchImages',fetchImages());
+
+  // }, []);
+
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const storageRef = ref(storage, 'gs://charter-8fd79.appspot.com');
-        const urlsRefArray = (await listAll(storageRef)).items;
-        const absoluteUrl = urlsRefArray.map((url) => {
-          return getDownloadURL(url);
-        });
-        const urls = await Promise.all(absoluteUrl);
-        setImagesUrl(urls);
-        // console.log(urls)
-      } catch (error) {}
-    };
-    fetchImages();
+    const getImages = async () => {
+      const urls = await fetchImages();
+      setImagesUrl(urls);
+    }
+    getImages();
   }, []);
 
   const onClose = () => setIsOpen(false);
@@ -65,7 +82,8 @@ function Gallery() {
               <div key={index} className={c.gridItem}>
                 <a
                   href="#"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     setSelectedImage(imagesUrl[index]);
                     setIsOpen(true);
                     setInitialIndex(index);
@@ -119,6 +137,7 @@ function Gallery() {
           selectedImage={selectedImage}
           onClose={onClose}
           initialIndex={initialIndex}
+          imagesUrl={imagesUrl} 
         />
       )}
     </>

@@ -8,6 +8,7 @@ import Services from './services/Services';
 import CheckList from './checklist/CheckList';
 import Login from '../components/Login';
 import Settings from './settings/Settings';
+import GallerySettings from './gallery/GallerySettings';
 import c from './Dashboard.module.css';
 
 export default function page() {
@@ -33,6 +34,7 @@ export default function page() {
             {view === 'services' && <Services />}
             {view === 'checklist' && <CheckList setListView={setListView} listView={listView}/>}
             {view === 'settings' && <Settings />}
+            {view === 'gallery' && <GallerySettings />}
           </div>
         </div>
       ) : (

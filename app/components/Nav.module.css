@@ -32,11 +32,11 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
-  margin-right: 20px;
+  gap: 30px;
+  margin-right: 13px;
 }
 
 .nav li {
-  margin: 0 20px;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -90,20 +90,11 @@
   display: none;
 }
 
-@media screen and (max-width: 850px) {
-  .wideMenu {
-    display: none;
-  }
-  .wideMenu li {
-    display: none;
-  }
 
-}
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 850px) {
   .nav{
     height: 70px;
     flex-direction: row-reverse;
-    /* display: none; */
   }
   .wideMenu {
     display: none;
@@ -121,11 +112,9 @@
     padding: 0;
     font-weight: bold;
     left: 8px;
-    /* position: absolute; */
     color: rgb(255, 255, 255);
     line-height: 0;
     cursor: pointer;
-    /* border: 1px solid red; */
   }
   .smallNav {
     display: none;
@@ -137,7 +126,6 @@
     left: 0px;
     top: 0;
     background-color: white;
-    /* border-right: 2px solid #42ADF8; */
   }
   .smallNavActive {
     display: block;
@@ -150,6 +138,7 @@
     top: 5px;
     right: 5px;
     cursor: pointer;
+    color: rgb(66, 172, 248);
   }
   @keyframes displaySmallScreenMenu {
     from {
