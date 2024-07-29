@@ -9,21 +9,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-
 .modalContent{
   position: relative;
   display: flex;
   justify-content: center;
-
 }
 .x{
   position: relative;
 }
-/* .modalImg{
-  border-radius: 10px;
-} */
+
 .btnClose{
   position: absolute;
   top: -40px; 
@@ -54,4 +49,45 @@
   color: rgb(255, 255, 255);
   z-index: 50;
   cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .modalContent{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .x{
+    width: 90%;
+  }
+  .modalImg{
+    width: 100%;
+    height: auto;
+    /* position: relative; */
+  }
+  .modalControls{
+    position: relative;
+    /* border: 1px solid red; */
+    height: 30px;
+    width: 100%;
+    padding: 20px;
+  }
+  .btnClose{
+    top: 5px; 
+    right: 50%; 
+    font-size: 1.5rem;
+  }
+  .leftArrow{
+    top: 5px;  
+    left: 0; 
+    font-size: 1.5rem;
+  }
+  .righttArrow{
+    top: 5px;  
+    right: 0; 
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    transform: translateY(0);
+  }
 }
