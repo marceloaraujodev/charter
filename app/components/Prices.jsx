@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import Button from './Button';
-import { motion } from 'framer-motion';
-import Calendar from './Calendar';
 import Title from './Title';
 import c from './Prices.module.css';
-import { set } from 'mongoose';
 export default function Prices() {
   const [showInfo, setShowInfo] = useState(false);
   const [amount, setAmount] = useState();
@@ -51,13 +48,14 @@ export default function Prices() {
             </div>
             <div className="card-body">
               <h1 className="card-title pricing-card-title">
-                $4000<small className="text-body-secondary fw-light"></small>
+                $3.699,00<small className="text-body-secondary fw-light"></small>
               </h1>
               <ul className="list-unstyled mt-3 mb-4">
                 <li>10 guests</li>
-                <li>80 feet</li>
-                <li>jacuzzi</li>
-                <li>stew</li>
+                <li>80 feet Lazzara </li>
+                <li>Jacuzzi</li>
+                <li>Stew</li>
+                <li>Captain</li>
               </ul>
               <Button size="large">Book Now</Button>
             </div>
@@ -69,13 +67,14 @@ export default function Prices() {
             </div>
             <div className="card-body">
               <h1 className="card-title pricing-card-title">
-                $6000<small className="text-body-secondary fw-light"></small>
+                $4.699,00<small className="text-body-secondary fw-light"></small>
               </h1>
               <ul className="list-unstyled mt-3 mb-4">
                 <li>10 guests</li>
-                <li>80 feet</li>
-                <li>jacuzzi</li>
-                <li>stew</li>
+                <li>80 feet Lazzara </li>
+                <li>Jacuzzi</li>
+                <li>Stew</li>
+                <li>Captain</li>
               </ul>
               <Button size="large">Book Now</Button>
             </div>
@@ -87,13 +86,14 @@ export default function Prices() {
             </div>
             <div className="card-body">
               <h1 className="card-title pricing-card-title">
-                $8000<small className="text-body-secondary fw-light"></small>
+                $7.699,00<small className="text-body-secondary fw-light"></small>
               </h1>
               <ul className="list-unstyled mt-3 mb-4">
                 <li>10 guests</li>
-                <li>80 feet</li>
-                <li>jacuzzi</li>
-                <li>stew</li>
+                <li>80 feet Lazzara </li>
+                <li>Jacuzzi</li>
+                <li>Stew</li>
+                <li>Captain</li>
               </ul>
               <Button size="large">Book Now</Button>
             </div>
