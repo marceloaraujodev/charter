@@ -26,7 +26,7 @@ export default function Prices() {
   return (
     <div className={c.priceCont}>
       <div className={c.titleCont}>
-        <Title title="Pricing and Availability" center={true} />
+        <Title title="Pricing & Availability" center={true} />
       </div>
       <div className={c.dividerCont}>
         <div className={c.arrowDivider}>
@@ -50,7 +50,7 @@ export default function Prices() {
             <div className="card-header py-3">
               <h4 className="my-0 fw-normal">4 hours</h4>
             </div>
-            <div className="card-body">
+            <div className={`card-body ${c.cardBody}`}>
               <h1 className="card-title pricing-card-title">
                 $3.699,00<small className="text-body-secondary fw-light"></small>
               </h1>
@@ -61,7 +61,7 @@ export default function Prices() {
                 <li>Stew</li>
                 <li>Captain</li>
               </ul>
-              <Button onClick={() => router.push('/book')} size="large">Book Now</Button>
+              <Button className={c.btn}  onClick={() => router.push('/book')} size="large">Book Now</Button>
             </div>
           </div>
 
@@ -69,7 +69,7 @@ export default function Prices() {
             <div className={`card-header py-3 ${c.headerBackground}`}>
               <h4 className="my-0 fw-normal">6 hours</h4>
             </div>
-            <div className="card-body">
+            <div className={`card-body ${c.cardBody}`}>
               <h1 className="card-title pricing-card-title">
                 $4.699,00<small className="text-body-secondary fw-light"></small>
               </h1>
@@ -80,7 +80,7 @@ export default function Prices() {
                 <li>Stew</li>
                 <li>Captain</li>
               </ul>
-              <Button size="large">Book Now</Button>
+              <Button className={c.btn}  onClick={() => router.push('/book')} size="large">Book Now</Button>
             </div>
           </div>
 
@@ -88,7 +88,7 @@ export default function Prices() {
             <div className="card-header py-3 ">
               <h4 className="my-0 fw-normal">8 hours</h4>
             </div>
-            <div className="card-body">
+            <div className={`card-body ${c.cardBody}`}>
               <h1 className="card-title pricing-card-title">
                 $7.699,00<small className="text-body-secondary fw-light"></small>
               </h1>
@@ -99,7 +99,7 @@ export default function Prices() {
                 <li>Stew</li>
                 <li>Captain</li>
               </ul>
-              <Button size="large">Book Now</Button>
+              <Button className={c.btn} onClick={() => router.push('/book')} size="large">Book Now</Button>
             </div>
           </div>
         </div>
