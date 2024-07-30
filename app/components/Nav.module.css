@@ -14,7 +14,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px
+  padding: 0 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 /* .logo-container {
   position: relative;
@@ -95,6 +96,9 @@
   .nav{
     height: 70px;
     flex-direction: row-reverse;
+  }
+  .nav ul {
+    gap: 0;
   }
   .wideMenu {
     display: none;

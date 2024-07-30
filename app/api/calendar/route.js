@@ -2,7 +2,8 @@ import { NextResponse, NextRequest } from "next/server";
 import { mongooseConnect } from "@/app/lib/mongooseConnect";
 import { getServerSession } from 'next-auth/next';
 import Task from "@/app/models/task";
-import middleware from '../../middleware'
+import Customer from "@/app/models/customer";
+
 
 
 mongooseConnect();
@@ -17,7 +18,7 @@ export async function GET(req, res){
 
   // if user logged in gets all the calendar
   if(session?.user?.email){
-    const tasks = await Task.find();
+    const tasks = await Task.find().populate('customer');
     // console.log(tasks);
     
     return NextResponse.json({
@@ -58,7 +59,6 @@ export async function POST(req, res){
 
 // edit / save task
 export async function PUT(req, res){
-  console.log('enter');
   const data = await req.json();
   // console.log(data)
 
@@ -69,6 +69,7 @@ export async function PUT(req, res){
     title: data.title,
     description: data.description,
     publicView: data.publicView,
+    charter: data.charter
   }
 
   const newUpdatedEvent = await Task.findOneAndUpdate({eventId:data.eventId}, updatedEvent, { new: true});
