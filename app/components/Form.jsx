@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Button from '@/app/components/Button';
 import axios from 'axios';
 import Spinner from './Spinner';
+import Title from './Title';
 import c from './Form.module.css';
 
 // handle if is a edit or create new user by receiving a prop
@@ -87,6 +88,7 @@ export default function Form() {
           </div>
         </div>}
 
+        <Title title='Book your Charter' center={true} />
         <form
           className={`${c.form} ${isLoading ? c.loading : ''}`}
           onSubmit={handleSubmit}
