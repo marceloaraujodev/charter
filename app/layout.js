@@ -4,7 +4,6 @@ import { getServerSession } from 'next-auth';
 import SessionProvider from './components/SessionProvider';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
-import Head from 'next/head';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './globals.css';
 
@@ -35,9 +34,6 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <body className={sourceSans3.className}>
         <SessionProvider session={session}>
           <Nav />

@@ -1,11 +1,15 @@
+
 import { useState } from 'react';
 import Button from './Button';
 import Title from './Title';
+import { useRouter } from 'next/navigation';
 import c from './Prices.module.css';
 export default function Prices() {
   const [showInfo, setShowInfo] = useState(false);
   const [amount, setAmount] = useState();
   const [selectedTime, setSelectedTime] = useState(null);
+
+  const router = useRouter();
 
   const handleClick = (time) => {
     if (time === selectedTime) {
@@ -57,7 +61,7 @@ export default function Prices() {
                 <li>Stew</li>
                 <li>Captain</li>
               </ul>
-              <Button size="large">Book Now</Button>
+              <Button onClick={() => router.push('/book')} size="large">Book Now</Button>
             </div>
           </div>
 

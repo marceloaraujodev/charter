@@ -21,7 +21,6 @@ const url = 'https://www.aphroditecharters.com';
 // const url = 'http://localhost:3000';
 
 
-
 export default function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [events, setEvents] = useState([]);
@@ -34,6 +33,12 @@ export default function Calendar() {
     title: '',
     description: '',
     publicView: false,
+    charter: false,
+    customer: {
+      name: '',
+      email: '',
+      phone: '',
+    }
   });
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -47,9 +52,7 @@ export default function Calendar() {
     // console.log(events)
   }, []);
 
-  if(session){
 
-  }
 
   // Populate tasks
   async function loadTasks() {
@@ -77,6 +80,8 @@ export default function Calendar() {
       title: formData.title,
       description: formData.description,
       publicView: formData.publicView,
+      charter: formData.charter,
+      customer: formData.customer,
     };
     setShowModal(false);
     setEvents([...events, newEvent]);
@@ -107,8 +112,10 @@ export default function Calendar() {
           title: formData.title,
           description: formData.description,
           publicView: formData.publicView,
+          charter: formData.charter,
+          customer: formData.customer,
         }
-        console.log('this is the updatedEvetns', updatedEvents[indexToUpdate]);
+        // console.log('this is the updatedEvetns', updatedEvents[indexToUpdate]);
 
         setEvents(updatedEvents)
         // setEvents(prev => [...prev, updatedEvents])
@@ -139,6 +146,8 @@ export default function Calendar() {
       title: '',
       description: '',
       publicView: false,
+      charter: false,
+      
     };
 
     setFormData(newEvent);
@@ -164,6 +173,8 @@ export default function Calendar() {
     const eventId = clickedEvent.extendedProps?.eventId;
     const time = clickedEvent.extendedProps?.time;
     const publicView = clickedEvent.extendedProps?.publicView;
+    const charter = clickedEvent.extendedProps?.charter;
+    const customer = clickedEvent.extendedProps?.customer || { name: '', email: '', phone: '' }
     // console.log(eventId)
 
     setFormData({
@@ -174,6 +185,8 @@ export default function Calendar() {
       title,
       description,
       publicView,
+      charter,
+      customer,
     });
     // console.log('Clicked Event Details:', { title, description, startDate, endDate, eventId });
   }
@@ -212,12 +225,10 @@ export default function Calendar() {
   }
 
   function toogleView(){
-    console.log('click')
     const view = ['dayGridMonth', 'dayGridWeek', 'timeGridDay'];
-    // const view = ['0', '1', '2'];
-    setViewIndex((viewIndex +1) % view.length)
+    setViewIndex((viewIndex + 1) % view.length)
     const calendarApi = calendarApiRef.current.getApi();
-    console.log(view[viewIndex])
+    // console.log(view[viewIndex])
     calendarApi.changeView(view[viewIndex])
   }
 
@@ -266,6 +277,7 @@ export default function Calendar() {
           isEditing={isEditing}
           onEdit={openEditor}
           showModal={showModal}
+          session={session}
         />
       )}
     </>

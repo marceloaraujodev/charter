@@ -11,11 +11,17 @@ const TaskSchema = new mongoose.Schema({
   title: String,
   description: String,
   publicView: Boolean,
+  charter: Boolean,
+  customer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Customer',
+    // required: true
+  }
 },
 {
   timestamps: true
 });
 
-const Task = mongoose.models?.Task || mongoose.model('Task', TaskSchema);
+const Task = mongoose.models.Task || mongoose.model('Task', TaskSchema);
 
 export default Task;
