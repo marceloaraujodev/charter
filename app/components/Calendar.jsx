@@ -234,6 +234,22 @@ export default function Calendar() {
 
   return (
     <>
+      {showModal && (
+        <Modal
+          formData={formData}
+          setFormData={setFormData}
+          onSubmit={createEventTask}
+          onEditSubmit={editEventTask}
+          onCloseModal={closeModal}
+          editEvent={editEvent}
+          onDelete={deleteEvent}
+          isEditing={isEditing}
+          onEdit={openEditor}
+          showModal={showModal}
+          session={session}
+        />
+      )}
+
       <div className={c.container}>
         <div className={c.contentContainer}>
           <div className={c.btnContainer}>
@@ -265,21 +281,6 @@ export default function Calendar() {
           />
         </div>
       </div>
-      {showModal && (
-        <Modal
-          formData={formData}
-          setFormData={setFormData}
-          onSubmit={createEventTask}
-          onEditSubmit={editEventTask}
-          onCloseModal={closeModal}
-          editEvent={editEvent}
-          onDelete={deleteEvent}
-          isEditing={isEditing}
-          onEdit={openEditor}
-          showModal={showModal}
-          session={session}
-        />
-      )}
     </>
   );
 }

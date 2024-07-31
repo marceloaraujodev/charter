@@ -35,7 +35,7 @@ export default function Nav() {
 
   return (
     <>
-      <div className={c.container}>
+      {/* <div className={c.container}></div> */}
         <nav className={c.nav}>
           <div className={c.logo} onClick={() => router.push('/')}>
             <Image
@@ -194,7 +194,7 @@ export default function Nav() {
             </ul>
           </div>
         </nav>
-      </div>
+  
     </>
   );
 }
