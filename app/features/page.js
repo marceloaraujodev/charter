@@ -6,7 +6,7 @@ import c from './page.module.css';
 export default function features() {
   return (
     <PageContent>
-        <Title title='Features' />
+        <Title title='Features' center={true}/>
         <Wave position="bottom" />
       <div className={c.contentContainer}>
         <div className={c.featuresColumn}>

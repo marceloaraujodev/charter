@@ -4,11 +4,13 @@ import Image from 'next/image';
 import c from './Footer.module.css';
 import logo from '@/public/images/logo.png';
 import Link from 'next/link';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 export default function Footer() {
+  const { data: session, status } = useSession();
   const router = useRouter();
+
 
   async function handleSignout() {
     await signOut({ redirect: true, callbackUrl: '/' });
@@ -152,23 +154,26 @@ export default function Footer() {
                 </svg>{' '}
                 <Link href={'/auth/login'}>Admin</Link>
               </li>
-              <li>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="size-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
-                  />
-                </svg>{' '}
-                <span onClick={handleSignout}>logout</span>
-              </li>
+
+              {session && (
+                <li>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"
+                    />
+                  </svg>{' '}
+                  <span onClick={handleSignout}>logout</span>
+                </li>
+              )}
             </ul>
           </nav>
 

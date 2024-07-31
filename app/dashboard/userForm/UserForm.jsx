@@ -112,7 +112,7 @@ export default function UserForm({
           className={`${c.form} ${isLoading ? c.loading : ''}`}
           onSubmit={handleSubmit}
         >
-          <div className={c.row}>
+       
             <label htmlFor="name">Name</label>
             <input
               required
@@ -131,9 +131,9 @@ export default function UserForm({
               id="lastname"
               placeholder="Last Name"
             />
-          </div>
+  
           {view === 'vendors' || view === 'createvendor' ? (
-            <div className={c.row}>
+            <>
               <label htmlFor="email">Email</label>
               <input
                 type="email"
@@ -142,9 +142,10 @@ export default function UserForm({
                 id="email"
                 placeholder="Email - optional"
               />
-            </div>
+            </>
+        
           ) : (
-            <div className={c.row}>
+            <> 
               <label htmlFor="email">Email</label>
               <input
                 required
@@ -163,10 +164,10 @@ export default function UserForm({
                 id="password"
                 placeholder="Password"
               />
-            </div>
+            </>
           )}
 
-          <div className={c.row}>
+          
             <label>Choose Role</label>
             <select
               className={c.select}
@@ -192,7 +193,7 @@ export default function UserForm({
                 {submitType === 'register' ? 'Submit' : 'Edit'}
               </Button>
             </div>
-          </div>
+          
         </form>
       </div>
     </>

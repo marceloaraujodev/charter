@@ -6,69 +6,68 @@ import Spinner from './Spinner';
 import Title from './Title';
 import c from './Form.module.css';
 
-// handle if is a edit or create new user by receiving a prop
-export default function Form() {
+export default function Form({title, apiEndpoint, type}) {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
-  const [type, setType] = useState();
   const [date, setDate] = useState('');
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [displayMessage, setDisplayMessage] = useState(false);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     setName(user.name || '');
-  //     setLastName(user.lastName || '');
-  //     setEmail(user.email || '');
-  //     setPassword(user.password || '');
-  //     setPhone(user.phone || '');
-  //     setType(user.type || '');
-  //     setId(user._id);
-  //   }
-  // }, [user]);
-
   async function handleSubmit(e) {
     e.preventDefault();
-    // setIsLoading(true);
-    
+    setIsLoading(true);
+
+    const user = {name, lastName, email, phone, message}; 
+    if(type === 'book'){
+      user.date = date;
+    }
+
     try {
-      const user = {
-        name,
-        lastName,
-        email,
-        // password,
-        phone,
-        date,
-        message,
-      };
-      const res = await axios.post('/api/book', user);
-      console.log(res.data)
-      
-      if (res.data.availability === 'available') {
+      const res = await axios.post(apiEndpoint, user);
+      console.log(res.data);
+
+      // cases for the book type
+      if(type === 'book'){
+        // if date has charter show message to choose another date
+        // if date has no chater message goes to server reset fields 
+        if(type === 'book' && res.data.availability !== 'available'){
+          setDisplayMessage(true);
+        } else {
+          setIsLoading(false);
           setName('');
           setLastName('');
           setEmail('');
           setPhone('');
-          setType('');
           setDate('');
           setMessage('');
-        } else {
-          setDisplayMessage(true);
         }
+      }else if(type === 'message'){
+        if (res.status === 200) {
+          console.log('success');
+          setName('');
+          setEmail('');
+          setPhone('');
+          setMessage('');
+          setConfirmMessage('success');
+          setIsLoading(false);
+          displayMessage('success');
+        } else {
+          console.log('error');
+          alert('Failed to register');
+          setConfirmMessage('fail');
+          displayMessage('fail');
+        }
+      }
+
       
     } catch (error) {
       setIsLoading(false);
       console.log(error);
     }
   }
-
-  // function handleDisplayMessage(){
-  //   setDisplayMessage(!displayMessage)
-  // }
 
   return (
     <>
@@ -88,7 +87,7 @@ export default function Form() {
           </div>
         </div>}
 
-        <Title title='Book your Charter' center={true} />
+        <Title title={title} center={true} />
         <form
           className={`${c.form} ${isLoading ? c.loading : ''}`}
           onSubmit={handleSubmit}
@@ -121,31 +120,7 @@ export default function Form() {
             id="email"
             placeholder="Email - optional"
           />
-            {/* PASSWORD */}
-          {/* <label htmlFor="password">Password</label>
-          <input
-            required
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            id="password"
-            placeholder="Password"
-          /> */}
-
-            {/* ROLE */}
-          {/* <label>Choose Role</label>
-          <select
-            className={c.select}
-            onChange={(e) => setType(e.target.value)}
-            value={type}
-           >
-            <option value="">Select</option>
-            <option value="admin">Admin</option>
-            <option value="crew">Crew</option>
-            <option value="captain">Captain</option>
-            <option value="vendor">Vendor</option>
-          </select> */}
-          
+                      
           <label>Phone</label>
           <input
             required
@@ -154,14 +129,19 @@ export default function Form() {
             onChange={(e) => setPhone(e.target.value)}
             placeholder="Phone"
           />
-          <label>Date</label>
-          <input
-            required
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            placeholder="Date"
-          />
+          {/* if book form this will render */}
+          {type === 'book' && (
+            <>
+              <label>Date</label>
+              <input
+                required
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                placeholder="Date"
+              />
+            </>
+          )}
 
           <label name="message" type="text">
             Message

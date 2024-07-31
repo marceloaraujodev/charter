@@ -15,14 +15,6 @@ export default function Modal({
   session
 }) {
   const [showConfirm, setShowConfirm] = useState(false);
-  // // date format
-  // function formatDate(dateString) {
-  //   const [year, month, day] = dateString.split('-');
-  //   return `${day}-${month}-${year}`;
-  // }
-
-  // console.log(formData);
-  // console.log(session)
 
 
   function handleInput(e) {
