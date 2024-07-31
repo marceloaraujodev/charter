@@ -41,7 +41,9 @@ export default function IndexPage() {
 
   return (
     <>
+    <div>
       <BackgroundImg className={`IndexPage`} />
+    </div>
       <div className={c.container}>
         <div className={c.contentContainer}>
           <motion.div

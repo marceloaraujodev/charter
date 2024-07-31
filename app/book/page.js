@@ -6,8 +6,11 @@ import Form from "../components/Form";
 export default function BookNow() {
   return (
     <PageContent>
-        {/* <UserForm /> */}
-        <Form />
+        <Form 
+        title='Book Your Charter' 
+        apiEndpoint='/api/book' 
+        type='book'
+      />
     </PageContent>
   )
 }

@@ -9,6 +9,7 @@ import CheckList from './checklist/CheckList';
 import Login from '../components/Login';
 import Settings from './settings/Settings';
 import GallerySettings from './gallery/GallerySettings';
+import PageContent from '../components/PageContent';
 import c from './Dashboard.module.css';
 
 export default function page() {
@@ -26,6 +27,7 @@ export default function page() {
 
   return (
     <>
+    <PageContent>
       {session ? (
         <div className={c.container}>
           <Nav setView={setView} resetView={() => setListView(session?.user?.role)}/>
@@ -40,6 +42,8 @@ export default function page() {
       ) : (
         <Login />
       )}
+      
+    </PageContent>
     </>
   );
 }

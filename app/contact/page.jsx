@@ -1,12 +1,13 @@
 import PageContent from "../components/PageContent"
-import Title from "../components/Title"
-import ContactUs from "../components/ContactUs"
+import Form from "../components/Form"
 export default function page() {
   return (
     <PageContent>
-      <Title title="Send us a message" center={true}></Title>
-      {/* <p>This is a page component.</p> */}
-      <ContactUs />
+      <Form 
+        title='Send Us a Message'
+        apiEndpoint='/api/contact' 
+        type='message'
+      />
     </PageContent>
   )
 }

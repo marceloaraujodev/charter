@@ -143,12 +143,8 @@ export default function CheckList({listView, setListView}) {
   return (
     <>
       <div className={c.container}>
-        {listView === 'admin' && (
-          <div className={c.lists}>
-            <span onClick={() => handleList('captain')}>Captain Checklist</span>
-            <span onClick={() => handleList('stew')}>Stew Checklist</span>
-          </div>
-        )}
+
+        
         {showModal && (
           <CheckListModal onSubmit={submitTask} onCloseModal={closeModal} />
         )}
@@ -162,12 +158,32 @@ export default function CheckList({listView, setListView}) {
             <h2 className={c.listTitle}>Stew</h2>
           </div>
         ) }
+
+{/* buttons working that should be on the individual list */}
+
+        {/* <div className={c.btnContainer}>
+          <Button onClick={addTask}>Add New</Button>
+          <Button onClick={() => setRemove(!remove)}>
+            {remove ? 'Close' : 'Remove'}
+          </Button>
+        </div> */}
+
+        
         <div className={c.btnContainer}>
           <Button onClick={addTask}>Add New</Button>
           <Button onClick={() => setRemove(!remove)}>
             {remove ? 'Close' : 'Remove'}
           </Button>
         </div>
+
+        
+
+        {listView === 'admin' && (
+          <div className={c.lists}>
+            <span onClick={() => handleList('captain')}>Captain Checklist</span>
+            <span onClick={() => handleList('stew')}>Stew Checklist</span>
+          </div>
+        )}
 
         <div className={c.taskContainer}>
           

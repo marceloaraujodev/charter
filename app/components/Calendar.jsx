@@ -53,7 +53,6 @@ export default function Calendar() {
   }, []);
 
 
-
   // Populate tasks
   async function loadTasks() {
     try {
@@ -202,17 +201,18 @@ export default function Calendar() {
     // alert('Are you sure you want to delete this event?');
     try {
       const eventId = selectedEvent._def.extendedProps?.eventId;
+      console.log(eventId)
       await axios.delete(`${url}/api/calendar`, {
         headers: { eventId: eventId }, // Custom header for eventId
       });
 
       // creates array that excludes the item
-      const updatedEvents = events.filter((event) => {
-        return event.eventId !== eventId;
-      });
+      // const updatedEvents = events.filter((event) => {
+      //   return event.eventId !== eventId;
+      // });
       // // update the state
-      setEvents(updatedEvents);
-      // even though url doesnt change in browser its still sent here below
+      // setEvents(updatedEvents);
+      setEvents((prevEvents) => prevEvents.filter(event => event.eventId !== eventId)) 
       closeModal();
     } catch (error) {
       console.log(error);
@@ -234,6 +234,22 @@ export default function Calendar() {
 
   return (
     <>
+      {showModal && (
+        <Modal
+          formData={formData}
+          setFormData={setFormData}
+          onSubmit={createEventTask}
+          onEditSubmit={editEventTask}
+          onCloseModal={closeModal}
+          editEvent={editEvent}
+          onDelete={deleteEvent}
+          isEditing={isEditing}
+          onEdit={openEditor}
+          showModal={showModal}
+          session={session}
+        />
+      )}
+
       <div className={c.container}>
         <div className={c.contentContainer}>
           <div className={c.btnContainer}>
@@ -265,21 +281,6 @@ export default function Calendar() {
           />
         </div>
       </div>
-      {showModal && (
-        <Modal
-          formData={formData}
-          setFormData={setFormData}
-          onSubmit={createEventTask}
-          onEditSubmit={editEventTask}
-          onCloseModal={closeModal}
-          editEvent={editEvent}
-          onDelete={deleteEvent}
-          isEditing={isEditing}
-          onEdit={openEditor}
-          showModal={showModal}
-          session={session}
-        />
-      )}
     </>
   );
 }

@@ -3,6 +3,7 @@ import { mongooseConnect } from '@/app/lib/mongooseConnect';
 import Task from '@/app/models/task';
 import Customer from '@/app/models/customer';
 import validator from 'validator';
+import { v4 as uuidv4 } from 'uuid';
 
 mongooseConnect();
 
@@ -58,7 +59,7 @@ export async function POST(req) {
           upsert: true // createss a new doc if doc does not exist
         }
       );
-
+      const eventId = uuidv4();
       const createEvent = {
         start: data.date,
         end: '',
@@ -68,6 +69,7 @@ export async function POST(req) {
         publicView: false,
         charter: true,
         customer: customer._id,
+        eventId
       }
       console.log('this is create event', createEvent);
       // add customer event to calendar

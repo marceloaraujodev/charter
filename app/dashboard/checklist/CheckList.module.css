@@ -4,10 +4,13 @@
   flex-direction: column;
   max-width: 100%;
   gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 .taskContainer{
   padding-top: 20px;
   padding-left: 15px; 
+  width: 100%;
 }
 .task{
   position: relative;
@@ -68,8 +71,11 @@
   margin-bottom: 10px;
   margin-top: 20px;
   display: flex;
+  align-items: center;
   justify-content: center;
+  width: 100%;
   gap: 10px;
+  max-width: 600px;
 }
 .btnContainer.saveBtn{
   align-items: center;
