@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   max-width: 100%;
-  gap: 10px;
+  gap: 25px;
   justify-content: center;
   align-items: center;
 }
@@ -98,19 +98,26 @@
   color: rgba(3, 198, 3, 0.742);
   font-weight: 600;
 }
+.titleContainer{
+  margin: 0 auto;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+.title{
+  margin-top: 100px;
+}
 .lists{
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 15px;
   font-weight: 600;
   font-size: 1.3rem;
   color: #032270;
   cursor: pointer;
+  /* margin: 20px 0; */
 }
-.titleContainer{
-  margin: 0 auto;
-  padding: 20px 0;
-}
+
 .listTitle{
   color: #032270;
   font-weight: 700;
@@ -123,6 +130,28 @@
   height: 2px;
   margin: 0 auto;
   margin-top: 5px;
+}
+
+.square{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 90px;
+  height: 70px; 
+  margin: 0;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid gray;
+  background-color: rgba(213, 213, 213, 0.586);
+  font-size: 1rem;
+  color: rgb(84, 84, 84);
+}
+.square:hover{
+  background-color: white;
 }
 
 @media screen and (max-width: 600px){
