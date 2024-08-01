@@ -225,7 +225,7 @@ export default function CheckList({
               listView === 'admin'
                 ? (displayList ? 'Admin Checklist': `Checklists`)
                 // : `${toUpperCase(listView)} Checklist`
-                : `${listView} Checklist`
+                : (listView ? `${toUpperCase(listView)} Checklist` : 'Checklist')
             }`}
             center={true}
           />
