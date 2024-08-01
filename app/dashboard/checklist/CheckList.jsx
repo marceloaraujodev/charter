@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect } from 'react';
 import Button from '@/app/components/Button';
 import CheckListModal from '@/app/components/CheckListModal';
@@ -5,16 +6,24 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import c from './CheckList.module.css';
 import { v4 as uuidv4 } from 'uuid';
+import Title from '@/app/components/Title';
 
 // figure it out how to get the user to display captain or stews list and if  none of them display all.
 
 // maybe create a page for the lists if the user is a admin.
 
-function upperCase(user) {
-  return user.charAt(0).toUpperCase() + user.slice(1)
+function toUpperCase(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export default function CheckList({listView, setListView}) {
+export default function CheckList({ 
+  listView, 
+  setListView, 
+  listTileIsVisible, 
+  setListTileIsVisible, 
+  displayList,
+  setDisplayList
+}) {
   const [tasks, setTasks] = useState([]);
   const [checkedTasks, setCheckedTasks] = useState([]); // 'task 1';
   const [showModal, setShowModal] = useState(false);
@@ -22,20 +31,25 @@ export default function CheckList({listView, setListView}) {
   const [saved, setSaved] = useState(false);
   const [newTaskAdded, setNewTaskAdded] = useState(false);
   const { data: session } = useSession();
-  const [user, setUser] = useState(session?.user?.role); 
-  // const [displayList, setDisplayList] = useState(false);
+  const [user, setUser] = useState(session?.user?.role);
+  const [inputListName, setInputListName] = useState('');
+  const [role, setRole] = useState('');
+  const [isList, setIsList] = useState(false);
+  const [lists, setLists] = useState([]);
 
-  // setUser(session.user.user); 
+  // setUser(session.user.user);
   // console.log(session)
 
   // populates tasks on mount
   useEffect(() => {
+    setTasks([]);
     getTasks();
+    getList();
   }, [listView]);
 
-  // save tasks to server & if tasks are added saves it 
+  // save tasks to server & if tasks are added saves it
   useEffect(() => {
-    if(newTaskAdded){
+    if (newTaskAdded) {
       saveItem();
       setNewTaskAdded(false);
     }
@@ -46,15 +60,30 @@ export default function CheckList({listView, setListView}) {
     try {
       const response = await axios.get(`/api/checklist?type=${listView}`);
       // console.log(response.data.data);
-      if(response.data.data){
+      if (response.data.data) {
         const currentTasks = response.data.data.list;
         setTasks(currentTasks);
-      }else if(!response.data.data){
+      } else if (!response.data.data) {
         // console.log('no tasks')
         setTasks([]);
       }
     } catch (error) {
       console.error('Error fetching tasks:', error);
+    }
+  }
+
+  async function getList() {
+    // setListTileIsVisible(true);
+    try {
+      const response = await axios.get(`/api/list`);
+      if (response.data.lists) {
+        setLists(response.data.lists);
+      } else if (!response.data) {
+        console.log('no tasks');
+        setLists([]);
+      }
+    } catch (error) {
+      console.error('Error fetching lists:', error);
     }
   }
 
@@ -81,6 +110,7 @@ export default function CheckList({listView, setListView}) {
   }
 
   function closeModal() {
+    setIsList(false);
     setShowModal(false);
   }
 
@@ -93,20 +123,20 @@ export default function CheckList({listView, setListView}) {
   }
 
   async function saveItem() {
-    console.log('enter')
+    console.log('enter');
     try {
-      const data = { type: user, list: tasks}
+      // sets adding a taks to the listview which is the current user
+      const data = { type: listView, list: tasks };
       // console.log('saveItem data variable', data)
-  
+
       // do axios call to backend to save checked tasks
       const res = await axios.post('/api/checklist', data);
-  
+
       if (res.status === 200) {
         console.log('Task saved successfully');
       } else {
         console.error('Error saving task');
       }
-      
     } catch (error) {
       console.error('Error saving tasks:', error);
     }
@@ -114,7 +144,11 @@ export default function CheckList({listView, setListView}) {
 
   async function saveCheckedList() {
     // do axios call to backend to save checked tasks
-    const res = await axios.post('/api/checklist?type=checked', { list: checkedTasks, action: 'checked', type: 'Finished List'});
+    const res = await axios.post('/api/checklist?type=checked', {
+      list: checkedTasks,
+      action: 'checked',
+      type: 'Finished List',
+    });
 
     if (res.status === 200) {
       console.log('Task saved successfully');
@@ -129,65 +163,183 @@ export default function CheckList({listView, setListView}) {
     }
   }
 
-  function deleteTask(index) {
+  // listview holds the user that is viewing the task
+  async function deleteTask(index) {
     const item = tasks[index];
+    console.log(item);
+    console.log(user);
     setTasks((prev) => prev.filter((_, i) => i !== index));
     // console.log(item);
-    axios.put(`/api/checklist`, { item, type: user });
+    await axios.put(`/api/checklist`, { item, type: listView });
   }
 
-  function handleList(role){
+  function handleList(role) {
     setListView(role);
+    setDisplayList(true);
+    setListTileIsVisible(false)
+  }
+
+  function addNewList() {
+    setShowModal(true);
+    setIsList(true);
+  }
+
+  async function submitNewList() {
+    console.log('submit new list', role);
+
+    const newList = {
+      type: role,
+      list: [],
+    };
+    const res = await axios.post('/api/list', newList);
+
+    setShowModal(false);
+    setIsList(false);
+    setInputListName('');
+    setRole('');
   }
 
   return (
     <>
       <div className={c.container}>
-
-        
         {showModal && (
-          <CheckListModal onSubmit={submitTask} onCloseModal={closeModal} />
+          <CheckListModal
+            onSubmit={submitTask}
+            onCloseModal={closeModal}
+            setInputListName={setInputListName}
+            inputListName={inputListName}
+            isList={isList}
+            role={role}
+            setRole={setRole}
+            addNewList={addNewList}
+            submitNewList={submitNewList}
+          />
         )}
-        {listView === 'captain' && (
-          <div className={c.titleContainer}>
-            <h2 className={c.listTitle}>Captain - Post Charter</h2>
-          </div>
-        )}
-        {listView ==='stew' && (
-          <div className={c.titleContainer}>
-            <h2 className={c.listTitle}>Stew</h2>
-          </div>
-        ) }
 
-{/* buttons working that should be on the individual list */}
-
-        {/* <div className={c.btnContainer}>
-          <Button onClick={addTask}>Add New</Button>
-          <Button onClick={() => setRemove(!remove)}>
-            {remove ? 'Close' : 'Remove'}
-          </Button>
-        </div> */}
-
-        
-        <div className={c.btnContainer}>
-          <Button onClick={addTask}>Add New</Button>
-          <Button onClick={() => setRemove(!remove)}>
-            {remove ? 'Close' : 'Remove'}
-          </Button>
+        <div className={c.titleContainer}>
+          <Title
+            className={c.title}
+            title={`${
+              listView === 'admin'
+                ? (displayList ? 'Admin Checklist': `Checklists`)
+                : `${toUpperCase(listView)} Checklist`
+            }`}
+            center={true}
+          />
         </div>
 
-        
-
-        {listView === 'admin' && (
-          <div className={c.lists}>
-            <span onClick={() => handleList('captain')}>Captain Checklist</span>
-            <span onClick={() => handleList('stew')}>Stew Checklist</span>
+        {/* Btns display the new list remove or new taks remove btns */}
+        {listView === 'admin' && displayList === false ? (
+          <div className={c.btnContainer}>
+            <Button onClick={() => addNewList()}>New List</Button>
+            <Button onClick={() => setRemove(!remove)}>Remove List</Button>
+          </div>
+        ) : (
+          <div className={c.btnContainer}>
+            <Button onClick={addTask}>New Task</Button>
+            <Button onClick={() => setRemove(!remove)}>
+              {remove ? 'Close' : 'Remove'}
+            </Button>
           </div>
         )}
 
-        <div className={c.taskContainer}>
-          
-        {listView === 'captain' || listView === 'stew' ? tasks.map((task, index) => {
+        {/* squares iconts to lists */}
+        {listTileIsVisible && (
+          <div className={c.lists}>
+          {lists.map((list) => {
+            return (
+              <span
+                className={c.square}
+                key={list._id}
+                onClick={() => handleList(list.type)}
+              >
+                {/* {toUpperCase(list.type)}{' '} */}
+                {list.type}{' '}
+              </span>
+            );
+          })}
+        </div>
+        )}
+        {/* {listView === 'admin' && (
+          <div className={c.lists}>
+            {lists.map((list) => {
+              return (
+                <span
+                  className={c.square}
+                  key={list._id}
+                  onClick={() => handleList(list.type)}
+                >
+                  {toUpperCase(list.type)}{' '}
+                </span>
+              );
+            })}
+          </div>
+        )} */}
+
+        {displayList && listView === 'admin' ? (
+          null
+        ) : null}
+
+        {/* renders the list items */}
+        {/* {listView === 'admin' ? (
+          <div className={c.taskContainer}>
+            {tasks.map((task, index) => {
+              return (
+                <div className={c.task} key={index}>
+                  <input
+                    onChange={(e) => handleCheckBox(e)}
+                    type="checkbox"
+                    id={task.id}
+                    checked={checkedTasks.some(
+                      (checkedTask) => checkedTask.title === task.title
+                    )}
+                  />
+                  <label htmlFor={task.id}></label>
+                  <span className={c.taskTitle}>{task.title}</span>
+                  {remove && (
+                    <Button
+                      className={c.btnDel}
+                      onClick={() => deleteTask(index)}
+                    >
+                      delete
+                    </Button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={c.taskContainer}>
+            {tasks.map((task, index) => {
+              return (
+                <div className={c.task} key={index}>
+                  <input
+                    onChange={(e) => handleCheckBox(e)}
+                    type="checkbox"
+                    id={task.id}
+                    checked={checkedTasks.some(
+                      (checkedTask) => checkedTask.title === task.title
+                    )}
+                  />
+                  <label htmlFor={task.id}></label>
+                  <span className={c.taskTitle}>{task.title}</span>
+                  {remove && (
+                    <Button
+                      className={c.btnDel}
+                      onClick={() => deleteTask(index)}
+                    >
+                      delete
+                    </Button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )} */}
+
+        {displayList && (
+          <div className={c.taskContainer}>
+          {tasks.map((task, index) => {
             return (
               <div className={c.task} key={index}>
                 <input
@@ -210,9 +362,11 @@ export default function CheckList({listView, setListView}) {
                 )}
               </div>
             );
-          }) : null}
-
+          })}
         </div>
+        )}
+
+
 
         {!!checkedTasks.length && (
           <>
@@ -251,4 +405,3 @@ export default function CheckList({listView, setListView}) {
     </>
   );
 }
-

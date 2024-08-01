@@ -16,7 +16,7 @@ export async function POST(req, res) {
 
     return NextResponse.json({
       message: 'success',
-      doc,
+      // doc,
     });
   }else{
     const existingList = await CheckList.findOneAndUpdate({type}, {list}, {new: true});
