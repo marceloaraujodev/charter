@@ -12,9 +12,7 @@ import Title from '@/app/components/Title';
 
 // maybe create a page for the lists if the user is a admin.
 
-function toUpperCase(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+
 
 export default function CheckList({ 
   listView, 
@@ -39,6 +37,10 @@ export default function CheckList({
 
   // setUser(session.user.user);
   // console.log(session)
+
+  function toUpperCase(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 
   // populates tasks on mount
   useEffect(() => {
