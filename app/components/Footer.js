@@ -1,13 +1,17 @@
 'use client';
 import React from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import c from './Footer.module.css';
 import logo from '@/public/images/logo.png';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Button from './Button';
+import axios from 'axios';
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -32,6 +36,21 @@ export default function Footer() {
     }
     if (type === 'message') {
       router.push('/contact')
+    }
+  }
+
+  async function handleSubmitNewsletter(e){
+    e.preventDefault()
+    try {
+      const res = await axios.post('/api/newsletter', {email})
+      console.log(res)
+
+      if(res.status === 200){
+        console.log('res.status 200')
+        setEmail('');
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -220,14 +239,26 @@ export default function Footer() {
                 <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.354 1.25 1.25a.5.5 0 0 1-.708.708L13 12.207V14a.5.5 0 0 1-1 0v-1.717l-.28.305a.5.5 0 0 1-.737-.676l1.149-1.25a.5.5 0 0 1 .722-.016" />
               </svg>
               <span>message us</span>
+
+              
             </div>
 
-            {/* </div> */}
-            {/* <div>
-              Follow Us
-              <div>social media Icons</div>
-            </div> */}
           </div>
+              <div className={c.formContainer}>
+              <h2 className={c.newsLetter}>Newsletter</h2>
+              <form className={c.form} onSubmit={handleSubmitNewsletter}>
+                <input
+                  type="email"
+                  placeholder="Email address"
+                  required
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <Button className={c.btn} type="submit">Subscribe</Button>
+              </form>
+
+              </div>
         </div>
       </div>
     </footer>

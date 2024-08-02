@@ -23,7 +23,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'user'
   },
-  phone: String
+  phone: String,
+  forgotPasswordToken: String,
+  forgotPasswordExpires: Date,
 }, { timestamps: true });
 
 const User = mongoose.models?.User || mongoose.model('User', UserSchema);
