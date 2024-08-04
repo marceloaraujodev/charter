@@ -23,21 +23,20 @@ export default function UserForm({
   const [isLoading, setIsLoading] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState(null);
 
-  useEffect(() => {
-    if (user) {
-      setName(user.name || '');
-      setLastName(user.lastName || '');
-      setEmail(user.email || '');
-      setPassword(user.password || '');
-      setPhone(user.phone || '');
-      setType(user.type || '');
-      setId(user._id);
+  // useEffect(() => {
+  //   if (user) {
+  //     setName(user.name || '');
+  //     setLastName(user.lastName || '');
+  //     setEmail(user.email || '');
+  //     setPassword(user.password || '');
+  //     setPhone(user.phone || '');
+  //     setType(user.type || '');
+  //     setId(user._id);
 
-      // console.log(id);
-    }
-  }, [user]);
+  //     // console.log(id);
+  //   }
+  // }, [user]);
 
-  // console.log(view);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -193,7 +192,6 @@ export default function UserForm({
                 {submitType === 'register' ? 'Submit' : 'Edit'}
               </Button>
             </div>
-          
         </form>
       </div>
     </>

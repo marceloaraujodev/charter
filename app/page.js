@@ -18,9 +18,9 @@ export default function IndexPage() {
   const textRef = useRef();
   const confortRef = useRef();
   const { scrollYProgress, scrollY } = useScroll();
-  // console.log(scrollY)
 
-  const yText = useTransform(scrollY, [1, 300], [300, 980]);
+
+  const yText = useTransform(scrollY, [1, 323], [323, 980]);
   const opacityText = useTransform(scrollY, [0, 400], [1, 0]);
 
   const yConfort = useTransform(
@@ -50,7 +50,7 @@ export default function IndexPage() {
             className={c.luxury}
             ref={textRef}
             initial={{ opacity: 0, y: -200 }}
-            animate={{ opacity: 1, y: 300, transition: { durantion: 0.8 } }}
+            animate={{ opacity: 1, y: 323, transition: { durantion: 0.8 } }}
             style={{ opacity: opacityText, y: yText }}
             // animate={animateOnce}
           >

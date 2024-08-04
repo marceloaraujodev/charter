@@ -11,6 +11,7 @@
   padding-top: 20px;
   padding-left: 15px; 
   width: 100%;
+  max-width: 1200px;
 }
 .task{
   position: relative;
@@ -69,10 +70,11 @@
 }
 .btnContainer{
   margin-bottom: 10px;
-  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  margin-top: 20px;
   width: 100%;
   gap: 10px;
   max-width: 600px;
@@ -153,6 +155,11 @@
 .square:hover{
   background-color: white;
 }
+.delBtnCont{
+  width: 40%;
+  max-width: 250px;
+  margin-right: 10px;
+}
 
 @media screen and (max-width: 600px){
   .container{
@@ -181,7 +188,7 @@
     overflow-wrap: break-word;
   }
   .btnDel{
-    width: 60px;
+    /* width: 60px; */
     font-size: 0.9rem;
   }
   .listTitle{

@@ -19,7 +19,7 @@ export default function page() {
   const [listTileIsVisible, setListTileIsVisible] = useState(true);
   const [displayList, setDisplayList] = useState(false);
 
-  // // console.log(session.user.role)
+  // console.log(session?.user.role)
  
   useEffect(() => {
     if (view === 'signout') {
@@ -35,13 +35,13 @@ export default function page() {
   return (
     <>
     <PageContent>
-      {session ? (
+      {session?.user?.role === 'admin' ? (
         <div className={c.container}>
           <Nav 
           setView={setView} 
           resetView={() => setListView(session?.user?.role)}
           onNavClick={handleNavClick}
-        />
+         />
           <div className={c.rowRight}>
             {view === 'dashboard' && <Calendar />}
             {view === 'services' && <Services />}
