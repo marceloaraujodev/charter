@@ -37,7 +37,6 @@ export default function UserForm({
     }
   }, [user]);
 
-  // console.log(view);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -193,7 +192,6 @@ export default function UserForm({
                 {submitType === 'register' ? 'Submit' : 'Edit'}
               </Button>
             </div>
-          
         </form>
       </div>
     </>

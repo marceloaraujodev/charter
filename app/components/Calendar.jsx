@@ -9,7 +9,7 @@ import axios from 'axios';
 import Modal from './Modal';
 import { v4 as uuidv4 } from 'uuid';
 import Button from './Button';
-import { signIn, signOut, useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import c from './Calendar.module.css';
 
 
@@ -52,7 +52,7 @@ export default function Calendar() {
     // console.log(events)
   }, []);
 
-
+  console.log({session, status})
   // Populate tasks
   async function loadTasks() {
     try {
@@ -72,7 +72,6 @@ export default function Calendar() {
 
     const newEvent = {
       eventId,
-      // formData.time ? formData.start + ' ' + formData.time : formData.start
       start: formData.time ? formData.start + ' ' + formData.time : formData.start,
       end: formData.end,
       time: formData.time,
@@ -85,7 +84,6 @@ export default function Calendar() {
     setShowModal(false);
     setEvents([...events, newEvent]);
     setIsEditing(false);
-    // console.log(newEvent);
     axios.post(`${url}/api/calendar`, newEvent);
   }
 

@@ -2,6 +2,7 @@
 .container{
   display: flex;
   position: relative;
+  margin-bottom: 150px;
 }
 .waveContainer{
   position: absolute;

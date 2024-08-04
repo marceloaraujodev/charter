@@ -355,12 +355,15 @@ export default function CheckList({
                 <label htmlFor={task.id}></label>
                 <span className={c.taskTitle}>{task.title}</span>
                 {remove && (
-                  <Button
-                    className={c.btnDel}
-                    onClick={() => deleteTask(index)}
-                  >
-                    delete
-                  </Button>
+                  <div className={c.delBtnCont}>
+                    <Button
+                      className={c.btnDel}
+                      onClick={() => deleteTask(index)}
+                    >
+                      delete
+                    </Button>
+
+                  </div>
                 )}
               </div>
             );
