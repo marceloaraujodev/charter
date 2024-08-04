@@ -23,19 +23,19 @@ export default function UserForm({
   const [isLoading, setIsLoading] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState(null);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     setName(user.name || '');
-  //     setLastName(user.lastName || '');
-  //     setEmail(user.email || '');
-  //     setPassword(user.password || '');
-  //     setPhone(user.phone || '');
-  //     setType(user.type || '');
-  //     setId(user._id);
+  useEffect(() => {
+    if (user) {
+      setName(user.name || '');
+      setLastName(user.lastName || '');
+      setEmail(user.email || '');
+      setPassword(user.password || '');
+      setPhone(user.phone || '');
+      setType(user.type || '');
+      setId(user._id);
 
-  //     // console.log(id);
-  //   }
-  // }, [user]);
+      // console.log(id);
+    }
+  }, [user]);
 
 
   async function handleSubmit(e) {

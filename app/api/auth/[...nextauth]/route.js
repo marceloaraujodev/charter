@@ -61,7 +61,7 @@ export const authOptions = {
         }
       },
       session: {
-        jwt: true, // Use JSON Web Tokens (JWT) for session management
+        jwt: true, 
         maxAge: 24 * 60 * 60, // 24 hours (in seconds)
       },
       pages: {

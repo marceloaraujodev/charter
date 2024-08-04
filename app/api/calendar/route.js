@@ -3,7 +3,7 @@ import { mongooseConnect } from "@/app/lib/mongooseConnect";
 import { getServerSession } from 'next-auth/next';
 import Task from "@/app/models/task";
 import Customer from "@/app/models/customer";
-
+import { authOptions } from "../auth/[...nextauth]/route";
 
 
 mongooseConnect();
@@ -11,13 +11,12 @@ mongooseConnect();
 // populate all items on the page
 export async function GET(req, res){
 
-  // await corsMiddleware(req, NextResponse);
-  // console.log('passed cors middleware');
-  const session = await getServerSession({ req, res });
+  const session = await getServerSession(authOptions);
   // console.log('this should be session, if null you need to login', session)
+  console.log('Session in backend:', session);
 
   // if user logged in gets all the calendar
-  if(session?.user?.email){
+  if(session?.user?.role == 'admin'){
     const tasks = await Task.find().populate('customer');
     // console.log(tasks);
     
