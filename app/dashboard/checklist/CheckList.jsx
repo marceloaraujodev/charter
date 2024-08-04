@@ -8,9 +8,6 @@ import c from './CheckList.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import Title from '@/app/components/Title';
 
-// figure it out how to get the user to display captain or stews list and if  none of them display all.
-
-// maybe create a page for the lists if the user is a admin.
 function toUpperCase(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
