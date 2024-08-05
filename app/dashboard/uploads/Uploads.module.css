@@ -1,0 +1,42 @@
+.formCont{
+  /* border: 1px solid red; */
+  width: 100%;
+  overflow: hidden;
+}
+.hiddenFileInput {
+  display: none;
+  width: 100%;
+}
+.btnCont{
+  /* max-width: 100%; */
+  /* min-width: 300px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  gap: 20px;
+}
+.previewContainer{
+  display: flex;
+  flex-direction: column;
+  /* width: 100%; */
+  /* border: 1px solid red; */
+  gap: 10px;
+}
+.row{
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  /* border: 1px solid blue; */
+}
+.previewImage{
+  width: 180px;
+  height: 90px;
+  object-fit: cover;
+  /* border: 1px solid blue; */
+}
+.delBtnCont{
+  display: flex;
+  align-items: center;
+  min-width: 100px;
+}

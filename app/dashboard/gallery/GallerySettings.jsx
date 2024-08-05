@@ -10,6 +10,7 @@ import {
   listAll,
   deleteObject,
 } from 'firebase/storage';
+import Uploads from '../uploads/Uploads';
 import c from './GallerySettings.module.css';
 
 
@@ -20,7 +21,7 @@ const storageRef = ref(storage, storageBucket);
 
 export default function GallerySettings() {
   const [pictures, setPictures] = useState([]);
-
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     const getImages = async () => {
@@ -53,36 +54,44 @@ export default function GallerySettings() {
   return (
     <div className={c.container}>
       <div></div>
-      <Button
-        className={c.btn}
-        // onClick={() => handleDelete(picture._id)}
-      >
-        Add
-      </Button>
-      {pictures.map((picture) => {
-        return (
-          <div className={c.row} key={picture}>
-            <div className={c.pictureContainer}>
-              <Image
-                src={picture}
-                className={c.picture}
-                alt="img"
-                height={100}
-                width={150}
-              />
+
+      {isUploading ? (
+        <Uploads />
+      ) : 
+      (<>
+        <Button
+          className={c.btn}
+          onClick={() => setIsUploading(true)}
+         >
+          Add
+        </Button>
+        {pictures.map((picture) => {
+          return (
+            <div className={c.row} key={picture}>
+              <div className={c.pictureContainer}>
+                <Image
+                  src={picture}
+                  className={c.picture}
+                  alt="img"
+                  height={100}
+                  width={150}
+                />
+              </div>
+              <div className={c.btnContainer}>
+                <Button
+                  color="red"
+                  className={c.btn}
+                  onClick={() => handleDelete(picture)}
+                >
+                  Delete
+                </Button>
+              </div>
             </div>
-            <div className={c.btnContainer}>
-              <Button
-                color="red"
-                className={c.btn}
-                onClick={() => handleDelete(picture)}
-              >
-                Delete
-              </Button>
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </>)
+      }
+      
     </div>
   );
 }
