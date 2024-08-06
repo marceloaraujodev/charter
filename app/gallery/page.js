@@ -39,31 +39,7 @@ function Gallery() {
   const [initialIndex, setInitialIndex] = useState(null);
   const [imagesUrl, setImagesUrl] = useState();
 
-  // useEffect(() => {
-  //   const fetchImages = async () => {
-  //     try {
-  //       const storageRef = ref(storage, 'gs://charter-8fd79.appspot.com');
-  //       const urlsRefArray = (await listAll(storageRef)).items;
-  //       const absoluteUrl = urlsRefArray.map((url) => {
-  //         return getDownloadURL(url);
-  //       });
-  //       const urls = await Promise.all(absoluteUrl);
-  //       setImagesUrl(urls);
-  //       // console.log(urls)
-  //     } catch (error) {}
-  //   };
-  //   fetchImages();
-  //   // const getImages = async () => {
-  //   //   const urls = await fetchImages();
-  //   //   setImagesUrl(urls);
-  //   // };
-  //   // getImages();
-
-  //   console.log('this is fetchImages',fetchImages());
-
-  // }, []);
-
-  useEffect(() => {
+    useEffect(() => {
     const getImages = async () => {
       const urls = await fetchImages();
       setImagesUrl(urls);
