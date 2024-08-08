@@ -2,20 +2,28 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import Button from "@/app/components/Button";
 import c from './Uploads.module.css';
-export default function Uploads() {
+export default function Uploads({setIsUploading}) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const fileInputRef = useRef(null);
 
+
   const handleFileChange = (event) => {
     const files = event.target.files;
-    setSelectedFiles(files);
+    // clean filename before sending to server
+    const newFiles = Array.from(files).map(file => {
+      const newName = file.name.split(' ').join('');
+      return new File([file], newName, {type: file.type})
+    })
+    setSelectedFiles((prevFiles) => {
+      return [...prevFiles,...newFiles];
+    });
 
     const newPreviewUrls = [];
     for (let i = 0; i < files.length; i++) {
       newPreviewUrls.push(URL.createObjectURL(files[i]));
     }
-    setPreviewUrls(newPreviewUrls);
+    setPreviewUrls((prevUrls) => [...prevUrls, ...newPreviewUrls]);
 
     // Log the details of the selected files
     for (let i = 0; i < files.length; i++) {
@@ -25,6 +33,8 @@ export default function Uploads() {
       console.log(`Type: ${files[i].type}`);
       console.log(`Last Modified: ${files[i].lastModifiedDate}`);
     }
+    // Reset the file input value so I can reload files without reloading component
+    event.target.value = null;
   };
 
   const handleSubmit = async (event) => {
@@ -40,7 +50,10 @@ export default function Uploads() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Files uploaded successfully:', response.data);
+      if(response.status === 200){
+        console.log('Files uploaded successfully:', response.data);
+        setIsUploading(false)
+      }
     } catch (error) {
       console.error('Error uploading files:', error);
     }
@@ -59,6 +72,7 @@ export default function Uploads() {
   
     // Update state
     setPreviewUrls(newPreviewUrls);
+    // setSelectedFiles(newSelectedFiles);
     setSelectedFiles(newSelectedFiles);
 
     // Clean up URL objects
@@ -81,6 +95,7 @@ export default function Uploads() {
       <div className={c.btnCont}>
         <Button onClick={handleChooseFile}>Choose files</Button>
         <Button type="submit">Upload</Button>
+        <Button onClick={() => setIsUploading(false)}>Back</Button>
       </div>
 
       <div className={c.previewContainer}>

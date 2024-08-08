@@ -10,7 +10,7 @@ import {
   listAll,
   deleteObject,
 } from 'firebase/storage';
-import Uploads from '../uploads/Uploads';
+import Uploads from './uploads/Uploads';
 import c from './GallerySettings.module.css';
 
 
@@ -29,7 +29,7 @@ export default function GallerySettings() {
       setPictures(urls);
     };
     getImages();
-  }, []);
+  }, [isUploading]);
 
   async function handleDelete(img) {
     const parts = img.split('/');
@@ -56,7 +56,7 @@ export default function GallerySettings() {
       <div></div>
 
       {isUploading ? (
-        <Uploads />
+        <Uploads setIsUploading={setIsUploading} />
       ) : 
       (<>
         <Button
