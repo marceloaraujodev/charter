@@ -48,11 +48,8 @@ export default function Calendar() {
 
   useEffect(() => {
     loadTasks();
-    // console.log('run')
-    // console.log(events)
   }, []);
 
-  console.log({session, status})
   // Populate tasks
   async function loadTasks() {
     try {
@@ -111,10 +108,8 @@ export default function Calendar() {
           charter: formData.charter,
           customer: formData.customer,
         }
-        // console.log('this is the updatedEvetns', updatedEvents[indexToUpdate]);
 
         setEvents(updatedEvents)
-        // setEvents(prev => [...prev, updatedEvents])
         await axios.put(`${url}/api/calendar`, updatedEvents[indexToUpdate]);
         setSelectedEvent(null);
         setIsEditing(false);
@@ -147,7 +142,6 @@ export default function Calendar() {
     };
 
     setFormData(newEvent);
-    // setFormData(formData);
     setEditEvent(false);
     setShowModal(true);
     setIsEditing(true);
@@ -155,10 +149,8 @@ export default function Calendar() {
 
   // when clicked opens modal and loads info from event
   async function eventClick(eventClickInfo) {
-    // setEditEvent(true);
     setShowModal(true);
     setSelectedEvent(eventClickInfo.event);
-    // console.log(eventClickInfo.event)
     const clickedEvent = eventClickInfo.event;
     const title = clickedEvent.title;
     const description = clickedEvent.extendedProps?.description;
@@ -171,7 +163,6 @@ export default function Calendar() {
     const publicView = clickedEvent.extendedProps?.publicView;
     const charter = clickedEvent.extendedProps?.charter;
     const customer = clickedEvent.extendedProps?.customer || { name: '', email: '', phone: '' }
-    // console.log(eventId)
 
     setFormData({
       eventId,
@@ -184,7 +175,7 @@ export default function Calendar() {
       charter,
       customer,
     });
-    // console.log('Clicked Event Details:', { title, description, startDate, endDate, eventId });
+    
   }
 
   function closeModal() {
@@ -203,12 +194,6 @@ export default function Calendar() {
         headers: { eventId: eventId }, // Custom header for eventId
       });
 
-      // creates array that excludes the item
-      // const updatedEvents = events.filter((event) => {
-      //   return event.eventId !== eventId;
-      // });
-      // // update the state
-      // setEvents(updatedEvents);
       setEvents((prevEvents) => prevEvents.filter(event => event.eventId !== eventId)) 
       closeModal();
     } catch (error) {
@@ -225,7 +210,6 @@ export default function Calendar() {
     const view = ['dayGridMonth', 'dayGridWeek', 'timeGridDay'];
     setViewIndex((viewIndex + 1) % view.length)
     const calendarApi = calendarApiRef.current.getApi();
-    // console.log(view[viewIndex])
     calendarApi.changeView(view[viewIndex])
   }
 
