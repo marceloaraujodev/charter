@@ -47,7 +47,6 @@ export default function Nav({ setView, resetView, onNavClick }) {
         <div className={c.col} onClick={() => { setView('checklist')
           resetView();
           onNavClick();
-          console.log('click')
           }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -48,16 +48,13 @@ export default function Calendar() {
 
   useEffect(() => {
     loadTasks();
-    // console.log('run')
-    // console.log(events)
   }, []);
 
-  console.log({session, status})
+  // console.log({session, status})
   // Populate tasks
   async function loadTasks() {
     try {
       const res = await axios.get(`${url}/api/calendar`);
-      //  console.log(res.data.tasks);
       const currentTasks = res.data.tasks;
       setEvents(currentTasks);
     } catch (error) {
@@ -93,7 +90,6 @@ export default function Calendar() {
     try {
       const eventId = selectedEvent._def.extendedProps.eventId;
       const indexToUpdate = events.findIndex(event => event.eventId === eventId);
-      console.log(eventId)
       if(indexToUpdate !== -1){
         // copy task array
         const updatedEvents = [...events];
@@ -112,10 +108,8 @@ export default function Calendar() {
           charter: formData.charter,
           customer: formData.customer,
         }
-        // console.log('this is the updatedEvetns', updatedEvents[indexToUpdate]);
 
         setEvents(updatedEvents)
-        // setEvents(prev => [...prev, updatedEvents])
         await axios.put(`${url}/api/calendar`, updatedEvents[indexToUpdate]);
         setSelectedEvent(null);
         setIsEditing(false);
@@ -159,7 +153,6 @@ export default function Calendar() {
     // setEditEvent(true);
     setShowModal(true);
     setSelectedEvent(eventClickInfo.event);
-    // console.log(eventClickInfo.event)
     const clickedEvent = eventClickInfo.event;
     const title = clickedEvent.title;
     const description = clickedEvent.extendedProps?.description;
@@ -172,7 +165,7 @@ export default function Calendar() {
     const publicView = clickedEvent.extendedProps?.publicView;
     const charter = clickedEvent.extendedProps?.charter;
     const customer = clickedEvent.extendedProps?.customer || { name: '', email: '', phone: '' }
-    // console.log(eventId)
+
 
     setFormData({
       eventId,
@@ -185,7 +178,7 @@ export default function Calendar() {
       charter,
       customer,
     });
-    // console.log('Clicked Event Details:', { title, description, startDate, endDate, eventId });
+   
   }
 
   function closeModal() {
@@ -199,17 +192,10 @@ export default function Calendar() {
     // alert('Are you sure you want to delete this event?');
     try {
       const eventId = selectedEvent._def.extendedProps?.eventId;
-      console.log(eventId)
       await axios.delete(`${url}/api/calendar`, {
         headers: { eventId: eventId }, // Custom header for eventId
       });
 
-      // creates array that excludes the item
-      // const updatedEvents = events.filter((event) => {
-      //   return event.eventId !== eventId;
-      // });
-      // // update the state
-      // setEvents(updatedEvents);
       setEvents((prevEvents) => prevEvents.filter(event => event.eventId !== eventId)) 
       closeModal();
     } catch (error) {
@@ -226,7 +212,6 @@ export default function Calendar() {
     const view = ['dayGridMonth', 'dayGridWeek', 'timeGridDay'];
     setViewIndex((viewIndex + 1) % view.length)
     const calendarApi = calendarApiRef.current.getApi();
-    // console.log(view[viewIndex])
     calendarApi.changeView(view[viewIndex])
   }
 
