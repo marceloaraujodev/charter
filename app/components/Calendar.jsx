@@ -57,7 +57,6 @@ export default function Calendar() {
   async function loadTasks() {
     try {
       const res = await axios.get(`${url}/api/calendar`);
-      //  console.log(res.data.tasks);
       const currentTasks = res.data.tasks;
       setEvents(currentTasks);
     } catch (error) {
