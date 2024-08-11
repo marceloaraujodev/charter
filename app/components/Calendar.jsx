@@ -50,7 +50,7 @@ export default function Calendar() {
     loadTasks();
   }, []);
 
-  // console.log({session, status})
+
   // Populate tasks
   async function loadTasks() {
     try {
@@ -142,7 +142,6 @@ export default function Calendar() {
     };
 
     setFormData(newEvent);
-    // setFormData(formData);
     setEditEvent(false);
     setShowModal(true);
     setIsEditing(true);
@@ -150,7 +149,6 @@ export default function Calendar() {
 
   // when clicked opens modal and loads info from event
   async function eventClick(eventClickInfo) {
-    // setEditEvent(true);
     setShowModal(true);
     setSelectedEvent(eventClickInfo.event);
     const clickedEvent = eventClickInfo.event;
@@ -178,7 +176,7 @@ export default function Calendar() {
       charter,
       customer,
     });
-   
+
   }
 
   function closeModal() {
