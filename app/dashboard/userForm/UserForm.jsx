@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import Button from '@/app/components/Button';
 import axios from 'axios';
 import Spinner from '../../components/Spinner';
+import { ToastContainer} from 'react-toastify';
+import notify from '@/app/utils/notifications';
 import c from './UserForm.module.css';
+
 
 // handle if is a edit or create new user by receiving a prop
 export default function UserForm({
@@ -21,7 +24,7 @@ export default function UserForm({
   const [id, setId] = useState(user ? user._id : null);
   const [type, setType] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const [confirmMessage, setConfirmMessage] = useState(null);
+
 
   useEffect(() => {
     if (user) {
@@ -36,7 +39,6 @@ export default function UserForm({
       // console.log(id);
     }
   }, [user]);
-
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -55,11 +57,14 @@ export default function UserForm({
           type,
           _id: id, // if is an edit, we pass the id
         };
+        console.log('this is edidt user', user);
+        
         const res = await axios({
           method: method || (submitType === 'register' ? 'post' : 'put'),
           url: apiEndpoint,
           data: user,
         });
+        console.log(res)
 
         if (res.status === 200) {
           console.log('success');
@@ -71,26 +76,15 @@ export default function UserForm({
           setType('');
           if (onEditDone) onEditDone();
           setIsLoading(false);
-          displayMessage('success');
+          notify('success', 'New user created successfully!');
         } else {
-          console.log('error');
-          alert('Failed to register');
-          displayMessage('fail');
+          notify('error', 'Failed to register');
         }
       }
     } catch (error) {
+      notify('error', 'Failed to register, internal error');
       setIsLoading(false);
       console.log(error);
-    }
-  }
-
-  function displayMessage(message) {
-    if (message ==='success') {
-      setConfirmMessage(message);
-      setTimeout(() => setConfirmMessage(null), 3000);
-    }else if (message === 'fail') {
-      setConfirmMessage(message);
-      setTimeout(() => setConfirmMessage(null), 3000);
     }
   }
 
@@ -101,36 +95,33 @@ export default function UserForm({
       <div className={c.container}>
         {isLoading && (
           <div className={c.spinner}>
-          <Spinner />
-        </div>
+            <Spinner />
+          </div>
         )}
-
-        {confirmMessage && <p className={confirmMessage === 'success' ? 'success' : 'fail'}>{confirmMessage === 'success' ? 'User Created Successfully' : 'Failed to register'}</p>}
 
         <form
           className={`${c.form} ${isLoading ? c.loading : ''}`}
           onSubmit={handleSubmit}
         >
-       
-            <label htmlFor="name">Name</label>
-            <input
-              required
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              id="name"
-              placeholder="First Name"
-            />
-            <label htmlFor="lastname">Last Name</label>
-            <input
-              required
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              id="lastname"
-              placeholder="Last Name"
-            />
-  
+          <label htmlFor="name">Name</label>
+          <input
+            required
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            id="name"
+            placeholder="First Name"
+          />
+          <label htmlFor="lastname">Last Name</label>
+          <input
+            required
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            id="lastname"
+            placeholder="Last Name"
+          />
+
           {view === 'vendors' || view === 'createvendor' ? (
             <>
               <label htmlFor="email">Email</label>
@@ -142,9 +133,8 @@ export default function UserForm({
                 placeholder="Email - optional"
               />
             </>
-        
           ) : (
-            <> 
+            <>
               <label htmlFor="email">Email</label>
               <input
                 required
@@ -166,34 +156,37 @@ export default function UserForm({
             </>
           )}
 
-          
-            <label>Choose Role</label>
-            <select
-              className={c.select}
-              onChange={(e) => setType(e.target.value)}
-              value={type}
-            >
-              <option value="">Select</option>
-              <option value="admin">Admin</option>
-              <option value="crew">Crew</option>
-              <option value="captain">Captain</option>
-              <option value="vendor">Vendor</option>
-            </select>
-            <label>Phone</label>
-            <input
-              required
-              type="number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone"
-            />
-            <div className={c.btnContainer}>
-              <Button className={c.btnSubmit} size="default" type="submit">
-                {submitType === 'register' ? 'Submit' : 'Edit'}
-              </Button>
-            </div>
+          <label>Choose Role</label>
+          <select
+            className={c.select}
+            onChange={(e) => setType(e.target.value)}
+            value={type}
+          >
+            <option value="">Select</option>
+            <option value="admin">Admin</option>
+            <option value="crew">Crew</option>
+            <option value="captain">Captain</option>
+            <option value="vendor">Vendor</option>
+          </select>
+          <label>Phone</label>
+          <input
+            required
+            type="number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Phone"
+          />
+          <div className={c.btnContainer}>
+            <Button className={c.btnSubmit} size="default" type="submit">
+              {submitType === 'register' ? 'Submit' : 'Edit'}
+            </Button>
+          </div>
         </form>
       </div>
+      <ToastContainer
+        autoClose={500000}
+      />
     </>
   );
 }
+

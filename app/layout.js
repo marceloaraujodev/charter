@@ -4,15 +4,12 @@ import { getServerSession } from 'next-auth';
 import SessionProvider from './components/SessionProvider';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
+import { CustomProvider } from 'rsuite';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'rsuite/dist/rsuite-no-reset.min.css';
 import './globals.css';
 
-import GalleryModal from '@/app/components/GalleryModal';
 
-// const inter = Inter({ subsets: ["latin"] });
-// const madimiOne = MadimiOne({
-//   subsets: ['latin'],
-// });
 const roboto = Roboto({
   subsets: ['latin'],
   weight: '500',
@@ -36,9 +33,11 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={sourceSans3.className}>
         <SessionProvider session={session}>
+          <CustomProvider>
           <Nav />
           {children}
           <Footer />
+          </CustomProvider>
         </SessionProvider>
       </body>
     </html>
