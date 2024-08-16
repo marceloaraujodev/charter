@@ -50,7 +50,7 @@ export default function CheckListModal({
               className={c.select}
               onChange={(e) => setRole(e.target.value)}
               value={role}
-            >
+             >
               <option value="">Select</option>
               <option value="admin">Admin</option>
               <option value="crew">Crew</option>
