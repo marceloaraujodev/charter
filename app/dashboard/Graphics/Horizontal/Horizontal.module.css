@@ -1,0 +1,17 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.graphicContainer{
+  min-height: 400px;
+  height: 100%;
+  /* border: 1px solid red; */
+}
+.bar{
+  /* width: 100%; */
+  /* max-width: 900px; */
+}
+@media screen and (max-width: 768px){
+
+}

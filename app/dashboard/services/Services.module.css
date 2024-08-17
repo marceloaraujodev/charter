@@ -1,8 +1,25 @@
+.graphicContainer{
+  display: flex;
+  
+  border: 1px solid red;
+  margin-bottom: 15px;
+}
 
 .btnCont{
   max-width: 180px;
 }
 .btn{
   margin-bottom: 15px;
-
+}
+.editBtnCont{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 5px 10px; */
+}
+.editBtn{
+  padding: 0px 0px;
+  font-size: 0.8rem;
+  height: 30px;
+  width: 60px;
 }
