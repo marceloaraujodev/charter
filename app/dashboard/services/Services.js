@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Table, Input } from 'rsuite';
 import Button from '@/app/components/Button';
 import c from './Services.module.css';
 import ModalG from '@/app/components/ModalG';
 import Label from '../../components/Label';
 import InputComponent from '../../components/InputComponent';
+import axios from 'axios';
+import notify from '@/app/utils/notifications';
 
-// needs the submit function
-// needs to send info to server in the saveServiceOrder
+    // change save button to default button
 
 const { Column, HeaderCell, Cell } = Table;
 
@@ -49,16 +50,7 @@ const EditableCell = ({
 };
 
 export default function Services() {
-  const [data, setData] = useState([
-    {
-      id: 1,
-      vendor: 'James antony',
-      service: 'flybridge installation',
-      price: 500,
-      edit: 'Edit',
-    },
-    { id: 2, vendor: 'Tony', service: 'Washing', price: 200, edit: 'Edit' },
-  ]);
+  const [data, setData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentRowData, setCurrentRowData] = useState(null);
   const [vendor, setVendor] = useState('');
@@ -66,6 +58,22 @@ export default function Services() {
   const [price, setPrice] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  useEffect(() => {
+    // fetch data from server
+    fetchData()
+  }, []);
+  
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('/api/services')
+      const services = res.data.services
+      // I'm fetching the entire service orders, dont care about old state. 
+      setData(services)
+    } catch (error) {
+      
+    }
+  }
+  
   function closeModal(){
     setIsModalOpen(false);
   }
@@ -86,23 +94,42 @@ export default function Services() {
     { title: 'Edit', label: 'edit', key: 'edit', width: 100 },
   ];
 
-  // save when editing Service order when editing
-  function saveServiceOrder(rowData) {
+  // Edit Service order save when done
+  async function editAndSaveServiceOrder(rowData) {
     console.log(rowData);
-    setIsEditing(false);
     
     // send save data to the server
+    const res = await axios.put('/api/services', rowData)
+    if (res.status === 200){
+      // setData(prevData => prevData.map(item => item.id === rowData.id? rowData : item));
+      notify('success', 'Service Order Updated Successfully');
+      setIsEditing(false);
+    }else{
+      notify('error', 'Failed to Update Service Order');
+    }
   }
 
-  function newServiceOrder(e) {
+  async function newServiceOrder(e) {
     e.preventDefault()
     const serviceOrder = {
+      id: data.length + 1,
       vendor: vendor,
       service: service,
-      price: price,
+      price: +price,
     };
-    console.log(serviceOrder);
     // sende new service order to the server
+    const res = await axios.post('api/services', serviceOrder)
+
+    if (res.status === 200){
+      setData(prevData => [...prevData, serviceOrder]);
+      setIsModalOpen(false);
+      setVendor('');
+      setService('');
+      setPrice('');
+      notify('success', 'New Service Order Added Successfully');
+    }else{
+      notify('error', 'Failed to Add New Service Order');
+    }
   }
 
   function closeModal() {
@@ -154,7 +181,7 @@ export default function Services() {
                 <Cell>
                   {(rowData) =>
                     isEditing && rowData.id === currentRowData.id ? (
-                      <button onClick={() => saveServiceOrder(rowData)}>
+                      <button onClick={() => editAndSaveServiceOrder(rowData)}>
                         save
                       </button>
                     ) : (
