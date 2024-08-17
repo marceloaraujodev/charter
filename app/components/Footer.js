@@ -9,6 +9,9 @@ import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Button from './Button';
 import axios from 'axios';
+import { ToastContainer} from 'react-toastify';
+import notify from '../utils/notifications';
+
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -48,13 +51,16 @@ export default function Footer() {
       if(res.status === 200){
         console.log('res.status 200')
         setEmail('');
+        notify('success', 'Thanks for subscribing!');
       }
     } catch (error) {
+      notify('error', 'Error, please try again!');
       console.log(error)
     }
   }
 
   return (
+    <>
     <footer className={c.footer}>
       <div className={c.container}>
         <div className={c.title}>
@@ -262,5 +268,10 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+          <ToastContainer
+          // hideProgressBar={true}
+          autoClose={500000}
+        />
+    </>
   );
 }

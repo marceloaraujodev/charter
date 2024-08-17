@@ -47,6 +47,9 @@
 .menu ul li.active{
   background-color: white;
 }
+.menu ul li:hover{
+  background-color: white;
+}
 .menu svg{
   height: 20px;
 }

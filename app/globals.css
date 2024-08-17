@@ -1,6 +1,6 @@
 :root {
   --font-roboto: var(${roboto.variable});
-  --font-source-sans-3: var(${sourceSans3.variable});
+  --font-source-sans-3: var(${sourceSans3.variable}); 
 }
 
 /* use it like this
@@ -105,6 +105,15 @@ body {
 }
 
 /* end wave */
+
+/* Toastify customizations */
+
+.Toastify__toast--success .Toastify__toast-icon svg {
+  fill: #42ADF8;
+}
+.Toastify__toast--success .Toastify__progress-bar--success {
+  background-color: #42ADF8 ; 
+}
 
 @media screen and (max-width: 600px) {
   body{

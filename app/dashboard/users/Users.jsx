@@ -3,6 +3,8 @@ import UserForm from '../userForm/UserForm';
 import Button from '@/app/components/Button';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import notify from '@/app/utils/notifications';
+import { ToastContainer } from 'react-toastify';
 import c from './Users.module.css';
 
 export default function Users({ view }) {
@@ -10,10 +12,6 @@ export default function Users({ view }) {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const { data: session } = useSession();
-
-  // console.log(session)
-  // console.log(view)
-  // console.log(session.user.email);
 
   useEffect(() => {
     getUsers();
@@ -44,17 +42,18 @@ export default function Users({ view }) {
   }
 
   async function handleDelete(id) {
-    console.log(id);
-
-    const res = await axios.delete(`/api/users?id=${id}`);
-    console.log(`/api/users?id=${id}`);
-    getUsers();
-    console.log(res);
+   const res = await axios.delete(`/api/users?id=${id}`);
+    if(res.status !== 200){
+      notify('error', 'Failed to delete user');
+      return;
+    }
+    handleEditDone();
   }
 
   function handleEditDone() {
     setIsEditing(false);
     getUsers();
+    notify('success', 'User deleted successfully');
   }
 
   return (
@@ -94,6 +93,7 @@ export default function Users({ view }) {
               user={selectedUser}
               submitType="edit"
               onEditDone={handleEditDone}
+              apiEndpoint='/api/users'
             />
             <div className={c.btnContBottom}>
               <Button
@@ -106,6 +106,7 @@ export default function Users({ view }) {
           </div>
         </>
       )}
+      <ToastContainer />
     </>
   );
 }

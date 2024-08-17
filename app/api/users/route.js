@@ -6,6 +6,8 @@ import User from '@/app/models/user';
 
 mongooseConnect();
 
+// this will also get the users since we need to send the session to the backend it becomes a post request
+
 export async function POST(req, res) {
   try {
     const {session} = await req.json();
@@ -32,35 +34,7 @@ export async function POST(req, res) {
   }
 
 }
-export async function GET(req, res) {
 
-  // console.log(session)
-  // try {
-  //   const {session} = await req.json();
-  //   // console.log(session)
-  //   // console.log(session.user.role)
-  //   if(!session.user || !session.user.role){
-  //     return NextResponse.json({
-  //       message: 'fail',
-  //     }, { status: 401 })
-  //   }else{
-  //     const users = await User.find();
-  //     console.log('this is users being returned',users)
-  //     return NextResponse.json({
-  //       message: 'success',
-  //       users,
-  //     })
-  //   }
-    
-  // } catch (error) {
-  //   console.log(error)
-  //   return NextResponse.json({
-  //     message: 'server error',
-  //   }, { status: 500 })
-  // }
-  return NextResponse.json({ message: 'success'})
-
-}
 
 export async function PUT(req, res){
   const data = await req.json();
@@ -77,34 +51,13 @@ export async function PUT(req, res){
     message:'success',
     user,
   })
-  // try {
-  //   const {session} = await req.json();
-  //   if(!session.user ||!session.user.role){
-  //     return NextResponse.json({
-  //       message: 'fail',
-  //     }, { status: 401 })
-  //   }else{
-  //     const { id, name, email } = req.body;
-  //     const user = await User.findByIdAndUpdate(id, { name, email }, { new: true });
-  //     return NextResponse.json({
-  //       message:'success',
-  //       user,
-  //     })
-  //   }
-  // } catch (error) {
-  //   console.log(error)
-  //   return NextResponse.json({
-  //     message:'server error',
-  //   }, { status: 500 })
-  // }
+
 }
 
 export async function DELETE(req, res){
   const url = new URL(req.url);
-  console.log(url)
   const searchParams = url.searchParams;
   const id = searchParams.get('id');
-  console.log(id)
 
   await User.findOneAndDelete({_id: id});
 
