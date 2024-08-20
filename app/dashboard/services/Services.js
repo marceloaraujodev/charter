@@ -7,8 +7,11 @@ import Label from '../../components/Label';
 import InputComponent from '../../components/InputComponent';
 import axios from 'axios';
 import notify from '@/app/utils/notifications';
+import Dougnut from '../Graphics/Dougnut/Dougnut';
+import HorizontalCharts from '../Graphics/Horizontal/HorizontalCharts';
+    // add graphics to the service order page
 
-    // change save button to default button
+
 
 const { Column, HeaderCell, Cell } = Table;
 
@@ -57,6 +60,9 @@ export default function Services() {
   const [service, setService] = useState('');
   const [price, setPrice] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [graphicData, setGraphicData] = useState([]);
+
+  
 
   useEffect(() => {
     // fetch data from server
@@ -69,11 +75,37 @@ export default function Services() {
       const services = res.data.services
       // I'm fetching the entire service orders, dont care about old state. 
       setData(services)
+      // setGraphicData([...services.prices])
+
     } catch (error) {
       
     }
   }
-  
+
+  const graphicData = {
+    labels: [
+      'Red',
+      'Blue',
+      'Yellow'
+    ],
+    datasets: [{
+      label: 'My First Dataset',
+      data: [300, 50, 100],
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)'
+      ],
+      hoverOffset: 4
+    }]
+  }
+
+  const config = {
+    type: 'doughnut',
+    data: graphicData,
+  }
+
+
   function closeModal(){
     setIsModalOpen(false);
   }
@@ -138,10 +170,11 @@ export default function Services() {
 
   return (
     <div>
+      {/* when modal open */}
       {isModalOpen && <ModalG 
         onCloseModal={closeModal}
         onSubmit={(e)=> newServiceOrder(e)}
-      >
+       >
         <Label htmlFor="vendor">New Vendor:</Label>
             <InputComponent
               className={c.textarea}
@@ -163,12 +196,19 @@ export default function Services() {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-        </ModalG>}
+      </ModalG>}
 
 
       <div className={c.btnCont}>
         <Button className={c.btn} onClick={() => setIsModalOpen(true)}>New Service Order</Button>
       </div>
+
+      {/* <div className={c.graphicContainer}> */}
+        {/* graphic goes here */}
+        {/* <Dougnut data={graphicData} /> */}
+        <HorizontalCharts  />
+      {/* </div> */}
+
       <Table height={400} data={data} bordered={true}>
         {Col.map((column) => {
           const { key, label, title, width } = column;
@@ -178,23 +218,24 @@ export default function Services() {
               <HeaderCell>{label}</HeaderCell>
               {/* when editing is active */}
               {title === 'Edit' ? (
-                <Cell>
+                <Cell className={c.editBtnCont}>
                   {(rowData) =>
                     isEditing && rowData.id === currentRowData.id ? (
-                      <button onClick={() => editAndSaveServiceOrder(rowData)}>
+                      <Button 
+                      className={c.editBtn}
+                        onClick={() => editAndSaveServiceOrder(rowData)}>
                         save
-                      </button>
+                      </Button>
                     ) : (
-                      <span
+                      <Button
+                        className={c.editBtn}
                         onClick={() => {
-                          // console.log(rowData);
                           setCurrentRowData(rowData);
                           setIsEditing(true);
                         }}
-                        style={{ cursor: 'pointer', color: 'blue' }}
                       >
                         Edit
-                      </span>
+                      </Button>
                     )
                   }
                 </Cell>
