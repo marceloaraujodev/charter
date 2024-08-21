@@ -69,10 +69,9 @@ export default function loginPage() {
         email,
         password,
       });
-      // console.log('res from login', res);
       if (res.ok) {
-        // console.log('authenticated');
         router.push('/dashboard');
+        setIsLoading(false);
       } else {
         console.log('wrong user or pass');
       }
@@ -83,7 +82,7 @@ export default function loginPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // setIsLoading(true);
+    setIsLoading(true);
 
     if (!email || (!forgot && !password)) {
       alert('Please enter email and password');
@@ -100,9 +99,6 @@ export default function loginPage() {
 
   return (
     <div className={c.container}>
-      {/* {isLoading ? <Spinner /> : (
-      )} */}
-
       {isLoading && (
         <div className={`${c.spinnerCont}`}>
           <Spinner />
