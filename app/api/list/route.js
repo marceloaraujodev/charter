@@ -7,7 +7,7 @@ export async function POST(req, res) {
   try {
     const data = await req.json();
   
-    console.log('list:-----------', data);
+    // console.log('list:-----------', data);
   
     const newList = new CheckList(data)
     await newList.save();
