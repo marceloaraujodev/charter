@@ -110,10 +110,10 @@ export default function CheckList({
     setShowModal(false);
   }
 
-  // creates new task after add new button -> Add is clicked
+  // creates new task new task -> Add is clicked
   async function submitTask(task) {
     const newTask = { id: uuidv4(), title: task };
-    setTasks((prev) => [...prev, newTask]);
+    setTasks((prev) => [newTask, ...prev]);
     closeModal();
     setNewTaskAdded(true);
   }
@@ -276,63 +276,6 @@ export default function CheckList({
           null
         ) : null}
 
-        {/* renders the list items */}
-        {/* {listView === 'admin' ? (
-          <div className={c.taskContainer}>
-            {tasks.map((task, index) => {
-              return (
-                <div className={c.task} key={index}>
-                  <input
-                    onChange={(e) => handleCheckBox(e)}
-                    type="checkbox"
-                    id={task.id}
-                    checked={checkedTasks.some(
-                      (checkedTask) => checkedTask.title === task.title
-                    )}
-                  />
-                  <label htmlFor={task.id}></label>
-                  <span className={c.taskTitle}>{task.title}</span>
-                  {remove && (
-                    <Button
-                      className={c.btnDel}
-                      onClick={() => deleteTask(index)}
-                    >
-                      delete
-                    </Button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div className={c.taskContainer}>
-            {tasks.map((task, index) => {
-              return (
-                <div className={c.task} key={index}>
-                  <input
-                    onChange={(e) => handleCheckBox(e)}
-                    type="checkbox"
-                    id={task.id}
-                    checked={checkedTasks.some(
-                      (checkedTask) => checkedTask.title === task.title
-                    )}
-                  />
-                  <label htmlFor={task.id}></label>
-                  <span className={c.taskTitle}>{task.title}</span>
-                  {remove && (
-                    <Button
-                      className={c.btnDel}
-                      onClick={() => deleteTask(index)}
-                    >
-                      delete
-                    </Button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        )} */}
-
         {displayList && (
           <div className={c.taskContainer}>
           {tasks.map((task, index) => {
@@ -369,9 +312,6 @@ export default function CheckList({
 
         {!!checkedTasks.length && (
           <>
-            {/* <div className={c.titleContainer}>
-              <h2 className={c.listTitle}>Checked Items</h2>
-            </div> */}
             <div className={c.taskContainer}>
               <div className={c.checkedTasks}>
                 {checkedTasks.map((checkedTask, index) => {
