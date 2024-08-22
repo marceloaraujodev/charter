@@ -71,7 +71,6 @@ export default function loginPage() {
       });
       if (res.ok) {
         router.push('/dashboard');
-        setIsLoading(false);
       } else {
         console.log('wrong user or pass');
       }

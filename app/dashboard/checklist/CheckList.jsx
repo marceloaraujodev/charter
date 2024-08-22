@@ -1,47 +1,46 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useGlobalContext } from '@/app/GlobalContext';
 import Button from '@/app/components/Button';
 import CheckListModal from '@/app/components/CheckListModal';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
+// import { useSession } from 'next-auth/react';
 import c from './CheckList.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import Title from '@/app/components/Title';
+import { list } from 'firebase/storage';
 
-function toUpperCase(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+export default function CheckList({ listView }) {
+  // cons
+  const { 
+    resetCheckList,
+    listTileIsVisible, 
+    setListTileIsVisible,
+    displayList, 
+    setDisplayList, 
+    role, 
+    setRole,
+   } = useGlobalContext();
 
-export default function CheckList({ 
-  listView, 
-  setListView, 
-  listTileIsVisible, 
-  setListTileIsVisible, 
-  displayList,
-  setDisplayList
-}) {
   const [tasks, setTasks] = useState([]);
   const [checkedTasks, setCheckedTasks] = useState([]); // 'task 1';
   const [showModal, setShowModal] = useState(false);
   const [remove, setRemove] = useState(false);
   const [saved, setSaved] = useState(false);
   const [newTaskAdded, setNewTaskAdded] = useState(false);
-  const { data: session } = useSession();
-  const [user, setUser] = useState(session?.user?.role);
   const [inputListName, setInputListName] = useState('');
-  const [role, setRole] = useState('');
   const [isList, setIsList] = useState(false);
   const [lists, setLists] = useState([]);
+  const [currentList, setCurrentList] = useState()
 
-  // setUser(session.user.user);
-  // console.log(session)
 
-  // populates tasks on mount
+
+  // gets Lists and clears tasks when changing from list to list
   useEffect(() => {
     setTasks([]);
-    getTasks();
+    // getTasks();
     getList();
-  }, [listView]);
+  }, [listView, resetCheckList, inputListName]);
 
   // save tasks to server & if tasks are added saves it
   useEffect(() => {
@@ -51,22 +50,29 @@ export default function CheckList({
     }
   }, [tasks, newTaskAdded]);
 
-  // get tasks from server
-  async function getTasks() {
-    try {
-      const response = await axios.get(`/api/checklist?type=${listView}`);
-      // console.log(response.data.data);
-      if (response.data.data) {
-        const currentTasks = response.data.data.list;
-        setTasks(currentTasks);
-      } else if (!response.data.data) {
-        // console.log('no tasks')
-        setTasks([]);
-      }
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
+  // sets task for the current list
+  useEffect(() => {
+    if (currentList && currentList.list) {
+      setTasks(currentList.list);
     }
-  }
+  }, [currentList]);
+
+  // // get tasks from server
+  // async function getTasks() {
+  //   try {
+  //     const response = await axios.get(`/api/checklist?type=${listView}`);
+  //     // console.log(response.data.data);
+  //     if (response.data.data) {
+  //       const currentTasks = response.data.data.list;
+  //       setTasks(currentTasks);
+  //     } else if (!response.data.data) {
+  //       // console.log('no tasks')
+  //       setTasks([]);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching tasks:', error);
+  //   }
+  // }
 
   async function getList() {
     // setListTileIsVisible(true);
@@ -110,29 +116,32 @@ export default function CheckList({
     setShowModal(false);
   }
 
-  // creates new task new task -> Add is clicked
+  // creates new task after add new button -> Add is clicked
   async function submitTask(task) {
+    console.log('taks', task)
     const newTask = { id: uuidv4(), title: task };
-    setTasks((prev) => [newTask, ...prev]);
+    console.log(newTask);
+    setTasks((prev) => [newTask, ...prev ]);
     closeModal();
     setNewTaskAdded(true);
   }
 
+  // when task item is created useEffect triggers this function to save the task item
   async function saveItem() {
     console.log('enter');
     try {
       // sets adding a taks to the listview which is the current user
-      const data = { type: listView, list: tasks };
-      // console.log('saveItem data variable', data)
+      const data = { type: listView, list: tasks, currentListId: currentList._id };
+      console.log('saveItem data variable', data)
 
       // do axios call to backend to save checked tasks
       const res = await axios.post('/api/checklist', data);
 
-      if (res.status === 200) {
-        console.log('Task saved successfully');
-      } else {
-        console.error('Error saving task');
-      }
+      // if (res.status === 200) {
+      //   console.log('Task saved successfully');
+      // } else {
+      //   console.error('Error saving task');
+      // }
     } catch (error) {
       console.error('Error saving tasks:', error);
     }
@@ -162,15 +171,15 @@ export default function CheckList({
   // listview holds the user that is viewing the task
   async function deleteTask(index) {
     const item = tasks[index];
-    console.log(item);
-    console.log(user);
+    const currentListId = currentList._id;
+    console.log(item, 'currentlist id:', currentListId);
     setTasks((prev) => prev.filter((_, i) => i !== index));
-    // console.log(item);
-    await axios.put(`/api/checklist`, { item, type: listView });
+
+    await axios.put(`/api/checklist`, { item, listId: currentListId });
   }
 
-  function handleList(role) {
-    setListView(role);
+  function handleList(listId) {
+    setCurrentList(lists.find(list => list._id == listId))
     setDisplayList(true);
     setListTileIsVisible(false)
   }
@@ -181,9 +190,8 @@ export default function CheckList({
   }
 
   async function submitNewList() {
-    console.log('submit new list', role);
-
-    const newList = {
+     const newList = {
+      title: inputListName,
       type: role,
       list: [],
     };
@@ -192,7 +200,19 @@ export default function CheckList({
     setShowModal(false);
     setIsList(false);
     setInputListName('');
-    setRole('');
+    // setRole('');
+  }
+
+  async function deleteList(listId){
+
+    const res = await axios.delete('/api/list', {
+      data: {listId}
+    });
+    if (res.status === 200) {
+      getList();
+    }else if (res.status === 404) {
+      console.error('Error deleting list');
+    }
   }
 
   return (
@@ -215,11 +235,7 @@ export default function CheckList({
         <div className={c.titleContainer}>
           <Title
             className={c.title}
-            title={`${
-              listView === 'admin'
-                ? (displayList ? 'Admin Checklist': `Checklists`)
-                : `${toUpperCase(listView)} Checklist`
-            }`}
+            title={currentList ? `${currentList.title.charAt(0).toUpperCase()}${currentList.title.slice(1)} Checklist` : 'Checklists'}
             center={true}
           />
         </div>
@@ -239,46 +255,93 @@ export default function CheckList({
           </div>
         )}
 
-        {/* squares iconts to lists */}
+        {/* squares icons */}
         {listTileIsVisible && (
           <div className={c.lists}>
           {lists.map((list) => {
             return (
-              <span
-                className={c.square}
-                key={list._id}
-                onClick={() => handleList(list.type)}
-              >
-                {/* {toUpperCase(list.type)}{' '} */}
-                {list.type}{' '}
-              </span>
-            );
-          })}
-        </div>
-        )}
-        {/* {listView === 'admin' && (
-          <div className={c.lists}>
-            {lists.map((list) => {
-              return (
+              <div>
                 <span
                   className={c.square}
                   key={list._id}
-                  onClick={() => handleList(list.type)}
+                  onClick={() => handleList(list._id)}
                 >
-                  {toUpperCase(list.type)}{' '}
+                  {/*  {' '} */}
+                  {list.title}{' '}
                 </span>
-              );
-            })}
-          </div>
-        )} */}
+                {remove && <Button onClick={() => deleteList(list._id)} className={c.btnDel} color='red'>remove</Button>}
+              </div>
+            );
+          })}
+          
+        </div>
+        )}
 
         {displayList && listView === 'admin' ? (
           null
         ) : null}
 
-        {displayList && (
+        {/* renders the list items */}
+        {listView === 'admin' ? (
           <div className={c.taskContainer}>
-          {tasks.map((task, index) => {
+            {tasks.map((task, index) => {
+              return (
+                <div className={c.task} key={index}>
+                  <input
+                    onChange={(e) => handleCheckBox(e)}
+                    type="checkbox"
+                    id={task.id}
+                    checked={checkedTasks.some(
+                      (checkedTask) => checkedTask.title === task.title
+                    )}
+                  />
+                  <label htmlFor={task.id}></label>
+                  <span className={c.taskTitle}>{task.title}</span>
+                  {remove && (
+                    
+                    <Button
+                      className={c.btnDel}
+                      onClick={() => deleteTask(index)}
+                    >
+                      delete
+                    </Button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={c.taskContainer}>
+            {tasks.map((task, index) => {
+              return (
+                <div className={c.task} key={index}>
+                  <input
+                    onChange={(e) => handleCheckBox(e)}
+                    type="checkbox"
+                    id={task.id}
+                    checked={checkedTasks.some(
+                      (checkedTask) => checkedTask.title === task.title
+                    )}
+                  />
+                  <label htmlFor={task.id}></label>
+                  <span className={c.taskTitle}>{task.title}</span>
+                  {remove && (
+                    <Button
+                      className={c.btnDel}
+                      onClick={() => deleteTask(index)}
+                    >
+                      delete
+                    </Button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* {displayList && (
+          <div className={c.taskContainer}>
+          {currentList.list.map((task, index) => {
             return (
               <div className={c.task} key={index}>
                 <input
@@ -306,12 +369,15 @@ export default function CheckList({
             );
           })}
         </div>
-        )}
+        )} */}
 
 
 
         {!!checkedTasks.length && (
           <>
+            <div className={c.titleContainer}>
+              <h2 className={c.listTitle}>Checked Items</h2>
+            </div>
             <div className={c.taskContainer}>
               <div className={c.checkedTasks}>
                 {checkedTasks.map((checkedTask, index) => {

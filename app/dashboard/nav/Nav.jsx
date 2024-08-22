@@ -1,8 +1,13 @@
 import c from './Nav.module.css';
 import { useSession } from 'next-auth/react';
+import { useGlobalContext } from '@/app/GlobalContext';
 
 export default function Nav({ setView, resetView, onNavClick }) {
   const { data: session } = useSession();
+  const { 
+    resetCheckList, 
+    setResetCheckList, 
+  } = useGlobalContext();
 
   return (
     <nav className={c.nav}>
@@ -47,7 +52,7 @@ export default function Nav({ setView, resetView, onNavClick }) {
         <div className={c.col} onClick={() => { setView('checklist')
           resetView();
           onNavClick();
-          console.log('click')
+          setResetCheckList(!resetCheckList);
           }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

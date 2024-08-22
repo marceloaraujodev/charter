@@ -90,6 +90,9 @@
 .btnDel{
   background-color: rgb(255, 70, 70);
   border: 1px solid rgb(255, 70, 70);
+  font-size: 1rem;
+  /* margin-top: 10px; */
+  max-width: 100px;
 }
 .btnDel:hover{
   background-color: white;
@@ -151,8 +154,12 @@
   background-color: rgba(213, 213, 213, 0.586);
   font-size: 1rem;
   color: rgb(84, 84, 84);
+  margin-bottom: 10px;
 }
 .square:hover{
+  background-color: white;
+}
+.active{
   background-color: white;
 }
 .delBtnCont{

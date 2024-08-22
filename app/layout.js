@@ -1,4 +1,5 @@
 // import SmoothScroll from '@/components/LenisLayout';
+import { GlobalProvider } from './GlobalContext';
 import { Roboto, Source_Sans_3 } from 'next/font/google';
 import { getServerSession } from 'next-auth';
 import SessionProvider from './components/SessionProvider';
@@ -8,7 +9,6 @@ import { CustomProvider } from 'rsuite';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'rsuite/dist/rsuite-no-reset.min.css';
 import './globals.css';
-
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -33,11 +33,13 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={sourceSans3.className}>
         <SessionProvider session={session}>
-          <CustomProvider>
-          <Nav />
-          {children}
-          <Footer />
-          </CustomProvider>
+          <GlobalProvider>
+            <CustomProvider>
+              <Nav />
+              {children}
+              <Footer />
+            </CustomProvider>
+          </GlobalProvider>
         </SessionProvider>
       </body>
     </html>

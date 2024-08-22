@@ -49,6 +49,7 @@ export const authOptions = {
       callbacks:{
         async jwt({token, user}){
           if(user){
+            // sets the role for the session- this user is from the the database user object
             token.role = user.role;
           }
           return token;

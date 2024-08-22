@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const CheckListSchema = new mongoose.Schema({
+  title: String,
   type: String,
   list: [{
     id: String,
