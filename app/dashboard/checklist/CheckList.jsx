@@ -81,7 +81,6 @@ export default function CheckList({ listView }) {
       if (response.data.lists) {
         setLists(response.data.lists);
       } else if (!response.data) {
-        console.log('no tasks');
         setLists([]);
       }
     } catch (error) {
@@ -128,7 +127,6 @@ export default function CheckList({ listView }) {
 
   // when task item is created useEffect triggers this function to save the task item
   async function saveItem() {
-    console.log('enter');
     try {
       // sets adding a taks to the listview which is the current user
       const data = { type: listView, list: tasks, currentListId: currentList._id };
@@ -156,7 +154,6 @@ export default function CheckList({ listView }) {
     });
 
     if (res.status === 200) {
-      console.log('Task saved successfully');
       setSaved(true);
       setTimeout(() => {
         setSaved(false);

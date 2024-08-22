@@ -17,8 +17,8 @@ function formatDateToYMD(date) {
   return date.toISOString().split('T')[0];
 }
 
-// const url = 'https://www.aphroditecharters.com';
-const url = 'http://localhost:3000';
+const url = 'https://www.aphroditecharters.com';
+// const url = 'http://localhost:3000';
 
 
 export default function Calendar() {
@@ -49,6 +49,7 @@ export default function Calendar() {
   useEffect(() => {
     loadTasks();
   }, []);
+
 
   // Populate tasks
   async function loadTasks() {
@@ -89,7 +90,6 @@ export default function Calendar() {
     try {
       const eventId = selectedEvent._def.extendedProps.eventId;
       const indexToUpdate = events.findIndex(event => event.eventId === eventId);
-      console.log(eventId)
       if(indexToUpdate !== -1){
         // copy task array
         const updatedEvents = [...events];
@@ -164,6 +164,7 @@ export default function Calendar() {
     const charter = clickedEvent.extendedProps?.charter;
     const customer = clickedEvent.extendedProps?.customer || { name: '', email: '', phone: '' }
 
+
     setFormData({
       eventId,
       start: startDate,
@@ -175,7 +176,7 @@ export default function Calendar() {
       charter,
       customer,
     });
-    
+
   }
 
   function closeModal() {
@@ -189,7 +190,6 @@ export default function Calendar() {
     // alert('Are you sure you want to delete this event?');
     try {
       const eventId = selectedEvent._def.extendedProps?.eventId;
-      console.log(eventId)
       await axios.delete(`${url}/api/calendar`, {
         headers: { eventId: eventId }, // Custom header for eventId
       });
