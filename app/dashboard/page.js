@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useGlobalContext } from '@/app/GlobalContext';
 import Nav from '@/app/dashboard/nav/Nav';
 import Calendar from '@/app/components/Calendar';
 import { signOut, useSession } from 'next-auth/react';
@@ -12,14 +13,17 @@ import GallerySettings from './gallery/GallerySettings';
 import PageContent from '../components/PageContent';
 import c from './Dashboard.module.css';
 
+
 export default function page() {
+  const { 
+    setListTileIsVisible,
+    setDisplayList, 
+  } = useGlobalContext();
+
   const { data: session } = useSession();
   const [view, setView] = useState('dashboard');
   const [listView, setListView] = useState(session?.user?.role);
-  const [listTileIsVisible, setListTileIsVisible] = useState(true);
-  const [displayList, setDisplayList] = useState(false);
 
-  // console.log(session?.user.role)
  
   useEffect(() => {
     if (view === 'signout') {
@@ -52,10 +56,6 @@ export default function page() {
                     {view === 'checklist' && <CheckList
                      setListView={setListView} 
                      listView={listView}
-                     listTileIsVisible={listTileIsVisible}
-                     setListTileIsVisible={setListTileIsVisible}
-                     displayList={displayList}
-                     setDisplayList={setDisplayList}
                     />}
                   </div>
                 </div>
@@ -75,11 +75,6 @@ export default function page() {
                   {view === 'gallery' && <GallerySettings />}
                   {view === 'checklist' && <CheckList
                    setListView={setListView} 
-                   listView={listView}
-                   listTileIsVisible={listTileIsVisible}
-                   setListTileIsVisible={setListTileIsVisible}
-                   displayList={displayList}
-                   setDisplayList={setDisplayList}
                   />}
                 </div>
               </div>

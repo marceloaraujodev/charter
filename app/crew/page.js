@@ -8,7 +8,6 @@ import c from './crew.module.css';
 import nick from '../../public/images/crew/captain-nick.jpg';
 import yandri from '../../public/images/crew/captain-yandri.jpg';
 import james from '../../public/images/crew/captain-james.jpg';
-import BackgroundImg from '@/app/components/BackgroundImg';
 import Wave from '../components/Wave';
 
 export default function crew() {
@@ -43,11 +42,11 @@ export default function crew() {
               <div className={c.name}>Nick</div>
               <div className={c.profession}>Captain</div>
               <div className={c.descriptionContainer}>
-                <p className="">
+                {/* <p className="">
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
                   eos id officiis hic tenetur quae quaerat ad velit ab hic
                   tenetur.
-                </p>
+                </p> */}
               </div>
             </motion.section>
 
@@ -70,11 +69,11 @@ export default function crew() {
               <div className={c.name}>James</div>
               <div className={c.profession}>Captain</div>
               <div className={c.descriptionContainer}>
-                <p className="">
+                {/* <p className="">
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
                   eos id officiis hic tenetur quae quaerat ad velit ab hic
                   tenetur.
-                </p>
+                </p> */}
               </div>
             </motion.section>
 
@@ -97,11 +96,11 @@ export default function crew() {
               <div className={c.name}>Yandri</div>
               <div className={c.profession}>Captain</div>
               <div className={c.descriptionContainer}>
-                <p className="">
+                {/* <p className="">
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
                   eos id officiis hic tenetur quae quaerat ad velit ab hic
                   tenetur.
-                </p>
+                </p> */}
               </div>
             </motion.section>
           </div>

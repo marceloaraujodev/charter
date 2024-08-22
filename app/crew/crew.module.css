@@ -22,7 +22,7 @@
   padding-top: 15px;
   padding-bottom: 10px;
   background-color: rgb(225, 241, 252);
-  /* border-radius: 8px; */
+  border-radius: 8px;
   box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.1);
 }
 .descriptionContainer{
