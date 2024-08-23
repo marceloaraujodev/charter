@@ -18,17 +18,21 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+import { useGlobalContext } from '@/app/GlobalContext';
 import c from './Horizontal.module.css';
 
 export default function HorizontalCharts() {
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const { serviceData } = useGlobalContext();
+
+  const prices = serviceData.map(service => service.price)
 
   const data = {
     labels: labels,
     datasets: [
       {
         label: 'Expenses',
-        data: [100, 59, 80],
+        data: prices, // array of prices
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgb(255, 99, 132)',
         borderWidth: 1,

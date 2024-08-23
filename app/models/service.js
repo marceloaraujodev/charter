@@ -17,6 +17,11 @@ const ServiceSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  date: {
+    type: Date,
+    required: true,
+    default: Date.now
+  }
 }, { timestamps: true });
 
 const Service = mongoose.models?.Service || mongoose.model('Service', ServiceSchema);

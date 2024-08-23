@@ -258,10 +258,9 @@ export default function CheckList({ listView }) {
           <div className={c.lists}>
           {lists.map((list) => {
             return (
-              <div>
+              <div key={list._id}>
                 <span
                   className={c.square}
-                  key={list._id}
                   onClick={() => handleList(list._id)}
                 >
                   {/*  {' '} */}
