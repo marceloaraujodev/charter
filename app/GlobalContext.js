@@ -9,7 +9,8 @@ export const GlobalProvider = ({ children }) => {
   const [resetCheckList, setResetCheckList] = useState(false);
   const [listTileIsVisible, setListTileIsVisible] = useState(true);
   const [displayList, setDisplayList] = useState(false);
-  const [role, setRole] = useState(session?.user?.role)
+  const [role, setRole] = useState(session?.user?.role);
+  const [serviceData, setServiceData] = useState([]);
   
 
   const value = {
@@ -20,7 +21,9 @@ export const GlobalProvider = ({ children }) => {
     displayList, 
     setDisplayList,
     role, 
-    setRole
+    setRole,
+    serviceData, 
+    setServiceData
   }
 
   return (

@@ -38,6 +38,7 @@ export async function POST(req, res) {
 // get all services order 
 export async function GET(req, res) {
   const services = await Service.find();
+  console.log(services)
 
   if (!services.length) {
     return NextResponse.json({ message: 'No services found' });
@@ -57,4 +58,16 @@ export async function PUT(req, res){
     return NextResponse.json({ message: 'server error' });
   }
 
+}
+
+export async function DELETE(req, res){
+  const { id } = await req.json();
+  console.log(id )
+  try {
+    await Service.deleteOne({_id: id})
+    return NextResponse.json({ message: 'success' });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ message: 'error' });
+  }
 }

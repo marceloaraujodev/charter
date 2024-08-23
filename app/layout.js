@@ -21,9 +21,10 @@ const sourceSans3 = Source_Sans_3({
 });
 
 export const metadata = {
-  title: 'Aphrodite Yacht Charters',
-  description:
-    'Aphrodite Yacht Charters, Aventura-Fl. We offer luxury yachts, rentals, and charter services in north Miami, Florida. features the finest selection of professionally crewed Luxury Yacht Rentals and Yacht Charters in Miami, Miami Beach, Fort Lauderdale, West Palm Beach.',
+  title: 'Aphrodite Yacht Charters | Luxury Yacht Rentals in Miami',
+  description: 'Aphrodite Yacht Charters offers luxury yacht rentals and charter services in Aventura, Miami, Fort Lauderdale, and West Palm Beach. Experience the finest selection of professionally crewed yachts.',
+  keywords: 'yacht charter, luxury yacht rental, yacht rental Miami, private yacht charter, charter yacht Miami, Fort Lauderdale yacht rental, South Florida yacht charters, Miami Beach yacht rental, West Palm Beach yacht charter, crew yacht charter, sailing yacht rental, motor yacht charter, yacht charter with crew, event yacht rental, yacht rental for parties, luxury sailing experience, private yacht experience, exclusive yacht charter, yacht vacation Miami, luxury yacht holiday, corporate yacht charters, family yacht vacations, romantic yacht getaway, VIP yacht rental, yacht charter for events, yacht amenities, yacht charter services, charter yacht booking, yacht charter deals, best yacht charters Miami',
+
 };
 
 export default async function RootLayout({ children }) {

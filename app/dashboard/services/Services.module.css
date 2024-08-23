@@ -11,12 +11,14 @@
 .btn{
   margin-bottom: 15px;
 }
+
 .editBtnCont{
   display: flex;
   justify-content: center;
   align-items: center;
   /* padding: 5px 10px; */
 }
+
 .editBtn{
   padding: 0px 0px;
   font-size: 0.8rem;
