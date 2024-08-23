@@ -11,7 +11,6 @@ import Title from '@/app/components/Title';
 
 
 export default function CheckList({ listView }) {
-  // cons
   const { 
     resetCheckList,
     listTileIsVisible, 
@@ -197,7 +196,6 @@ export default function CheckList({ listView }) {
     setShowModal(false);
     setIsList(false);
     setInputListName('');
-    // setRole('');
   }
 
   async function deleteList(listId){
