@@ -18,9 +18,13 @@ const ServiceSchema = new mongoose.Schema({
     required: true
   },
   date: {
-    type: Date,
+    type: String,
     required: true,
-    default: Date.now
+  },
+  expense: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Expense', // Reference to the Expense model
+    required: true
   }
 }, { timestamps: true });
 

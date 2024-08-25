@@ -9,12 +9,17 @@ import axios from 'axios';
 import notify from '@/app/utils/notifications';
 import Dougnut from '../Graphics/Dougnut/Dougnut';
 import HorizontalCharts from '../Graphics/Horizontal/HorizontalCharts';
-import { format } from 'date-fns';
 import { useGlobalContext } from '@/app/GlobalContext';
+import { format, parseISO, formatISO, parse } from 'date-fns';
 // add graphics to the service order page
 
 function dateFormat(date) {
   return format(new Date(date), 'MM-dd-yyyy');
+}
+
+function formatToISO(dateString){
+  const parsedDate = parse(dateString, 'MM-dd-yyyy', new Date());
+  return formatISO(parsedDate);
 }
 
 const { Column, HeaderCell, Cell } = Table;
@@ -64,26 +69,27 @@ export default function Services() {
   const [price, setPrice] = useState('');
   const [date, setDate] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [graphicData, setGraphicData] = useState([]);
-
-  // const x = serviceData.map(service => service.price)
-  // console.log('x:', x)
 
   useEffect(() => {
     // fetch data from server
-    fetchData();
-  }, []);
+    fetchServiceOrders();
+  }, [serviceData]);
 
-  const fetchData = async () => {
+  const fetchServiceOrders = async () => {
     try {
       const res = await axios.get('/api/services');
-      // format the date
+
+      // console.log(res)
+      if(!res.data.services)return;
+
+      // Get Service Orders
       const services = res.data.services.map((service) => ({
         ...service,
         createdAt: dateFormat(service.createdAt),
       }));
       // I'm fetching the entire service orders.
       setServiceData(services);
+
     } catch (error) {
       console.log(error);
     }
@@ -100,26 +106,25 @@ export default function Services() {
     setServiceData(nextData);
   };
 
-  // creates the columns and its header contents - it gets the contents from the data variable and the key is the reference to the field in the data variable
-  const Col = [
-    { title: 'ID', label: 'id', key: 'id', width: 30, align: 'center' },
-    { title: 'Vendor', label: 'vendor', key: 'vendor', width: 180 },
-    { title: 'Service', label: 'service', key: 'service', width: 180 },
-    { title: 'Price', label: 'price', key: 'price', width: 100 },
-    { title: 'Edit', label: 'edit', key: 'edit', width: 130 },
-    { title: 'Date', label: 'date', key: 'createdAt', width: 100 },
-  ];
-
   // Edit Service order save when done
   async function editAndSaveServiceOrder(rowData) {
     console.log(rowData);
 
+    const newServiceOrder = {
+      vendor: rowData.vendor,
+      service: rowData.service,
+      price: +rowData.price,
+      date: formatToISO(rowData.date),
+    }
+
+    console.log(newServiceOrder)
     // send save data to the server
     const res = await axios.put('/api/services', rowData);
     if (res.status === 200) {
       // setData(prevData => prevData.map(item => item.id === rowData.id? rowData : item));
       notify('success', 'Service Order Updated Successfully');
       setIsEditing(false);
+      fetchServiceOrders();
     } else {
       notify('error', 'Failed to Update Service Order');
     }
@@ -132,8 +137,11 @@ export default function Services() {
       vendor: vendor,
       service: service,
       price: +price,
+      date: date
     };
-    // sende new service order to the server
+    console.log(serviceOrder);
+ 
+    // send new service order to the server
     const res = await axios.post('api/services', serviceOrder);
 
     if (res.status === 200) {
@@ -142,7 +150,9 @@ export default function Services() {
       setVendor('');
       setService('');
       setPrice('');
+      // setDate('');
       notify('success', 'New Service Order Added Successfully');
+      fetchServiceOrders();
     } else {
       notify('error', 'Failed to Add New Service Order');
     }
@@ -152,13 +162,55 @@ export default function Services() {
     setIsModalOpen(false);
   }
 
-  async function deleteServiceOrder(rowData){
-    console.log(rowData)
-    setServiceData(prev => prev.filter(item => item._id !== rowData._id))
+  async function deleteServiceOrder(rowData) {
+    setServiceData((prev) => prev.filter((item) => item._id !== rowData._id));
     await axios.delete('/api/services', {
-      data: { id: rowData._id }
-    })
+      data: { id: rowData._id },
+    });
   }
+
+  // creates the columns and its header contents - it gets the contents from the data variable and the key is the reference to the field in the data variable
+  const Col = [
+    {
+      title: 'ID',
+      label: 'id',
+      key: 'id',
+      width: 30,
+      align: 'center',
+      fixed: true,
+    },
+    {
+      title: 'Vendor',
+      label: 'vendor',
+      key: 'vendor',
+      flexGrow: 2,
+      fixed: true,
+      fullText: true,
+      wordWrap: 'break-word',
+    },
+    {
+      title: 'Service',
+      label: 'service',
+      key: 'service',
+      flexGrow: 2,
+      fullText: true,
+    },
+    {
+      title: 'Price',
+      label: 'price',
+      key: 'price',
+      flexGrow: 1,
+      fullText: true,
+    },
+    {
+      title: 'Date',
+      label: 'date',
+      key: 'createdAt',
+      flexGrow: 1,
+      fullText: true,
+    },
+    { title: 'Edit', label: 'edit', key: 'edit', width: 150, fullText: true },
+  ];
 
   return (
     <div>
@@ -186,6 +238,14 @@ export default function Services() {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
+          <Label htmlFor="date">Date:</Label>
+          <InputComponent 
+            placeholder='Date'
+            value={date}
+            type='date'
+            className={c.textarea}
+            onChange={(e) => setDate(e.target.value)}
+          />
         </ModalG>
       )}
 
@@ -196,74 +256,119 @@ export default function Services() {
       </div>
 
       <HorizontalCharts />
+      <div className={c.tableCont}>
+        <Table
+          // autoHeight={true}
+          data={serviceData}
+          bordered={true}
+          virtualized={true}
+          rowHeight={70}
+          wordWrap="break-word"
+        >
+          {Col.map((column) => {
+            const {
+              key,
+              label,
+              title,
+              flexGrow,
+              width,
+              fixed,
+              fullText,
+              wordWrap,
+            } = column;
 
-      <Table height={400} data={serviceData} bordered={true}>
-        {Col.map((column) => {
-          const { key, label, title, width } = column;
+            return (
+              <Column
+                key={key}
+                title={title}
+                flexGrow={flexGrow}
+                align="center"
+                width={width}
+                fixed={fixed}
+                // wordWrap={wordWrap}
 
-          return (
-            <Column key={key} title={title} width={width} align="center">
-              <HeaderCell>{label}</HeaderCell>
-              {/* Button - when editing is active */}
-              {title === 'Edit' ? (
-                <Cell
-                  className={c.editBtnCont}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    padding: '0',
-                  }}
-                >
-                  {(rowData) =>
-                    isEditing && rowData.id === currentRowData.id ? (
-                      <Button
-                        className={c.editBtn}
-                        onClick={() => editAndSaveServiceOrder(rowData)}
-                      >
-                        save
-                      </Button>
-                    ) : (
-                      <>
-                  
+                // fullText={fullText}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  padding: '0',
+                }}
+              >
+                <HeaderCell>{label}</HeaderCell>
+                {/* Button - when editing is active */}
+                {title === 'Edit' ? (
+                  <Cell
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-around',
+                      alignItems: 'center',
+                      padding: '0',
+                      height: '60px',
+                    }}
+                  >
+                    {(rowData) =>
+                      isEditing && rowData.id === currentRowData.id ? (
+                        <div className={c.editBtnCont}>
                           <Button
                             className={c.editBtn}
-                            onClick={() => {
-                              setCurrentRowData(rowData);
-                              setIsEditing(true);
-                            }}
+                            onClick={() => editAndSaveServiceOrder(rowData)}
                           >
-                            Edit
-                          </Button>               
-                          <Button
-                            color='red'
-                            className={c.editBtn}
-                            onClick={() => {
-                              // call delete function and pass rowData to delete
-                              deleteServiceOrder(rowData);
-                              // setIsEditing(false);
-                            }}
-                          >
-                            Delete
+                            save
                           </Button>
-                      </>
-                    )
-                  }
-                </Cell>
-              ) : (
-                // Edit button
-                <EditableCell
-                  dataKey={key}
-                  currentRowData={currentRowData}
-                  onChange={handleCellChange}
-                  setIsEditing={() => setIsEditing(true)}
-                  isEditing={isEditing}
-                />
-              )}
-            </Column>
-          );
-        })}
-      </Table>
+                          <Button
+                            // color="red"
+                            className={c.editBtn}
+                            onClick={() => {
+                              setIsEditing(false);
+                            }}
+                          >
+                            Close
+                          </Button>
+                        </div>
+                      ) : (
+                        <>
+                          <div className={c.editBtnCont}>
+                            <Button
+                              className={c.editBtn}
+                              onClick={() => {
+                                setCurrentRowData(rowData);
+                                setIsEditing(true);
+                              }}
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              color="red"
+                              className={c.editBtn}
+                              onClick={() => {
+                                // call delete function and pass rowData to delete
+                                deleteServiceOrder(rowData);
+                                // setIsEditing(false);
+                              }}
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </>
+                      )
+                    }
+                  </Cell>
+                ) : (
+                  // Edit button
+                  <EditableCell
+                    dataKey={key}
+                    currentRowData={currentRowData}
+                    onChange={handleCellChange}
+                    setIsEditing={() => setIsEditing(true)}
+                    isEditing={isEditing}
+                  />
+                )}
+              </Column>
+            );
+          })}
+        </Table>
+      </div>
     </div>
   );
 }

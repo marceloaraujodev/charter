@@ -1,4 +1,7 @@
+'use client'
+import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import axios from 'axios';
 import {
   Chart as ChartJS,
   BarController,
@@ -21,11 +24,44 @@ ChartJS.register(
 import { useGlobalContext } from '@/app/GlobalContext';
 import c from './Horizontal.module.css';
 
-export default function HorizontalCharts() {
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const { serviceData } = useGlobalContext();
 
-  const prices = serviceData.map(service => service.price)
+
+export default function HorizontalCharts() {
+  const { serviceData } = useGlobalContext();
+  const [expenses, setExpenses] = useState([]);
+  const [prices, setPrices] = useState(); //  [0, 0, 0, 0, 0, 0, 0, 355, 0, 0, 0, 0]
+  
+  useEffect(() => {
+    fetchExpenses();
+  }, []);
+
+  async function fetchExpenses() {
+    try {
+      const res = await axios.get('/api/service-orders-prices');
+      setExpenses(res.data.expenses);
+
+      const aggregatedPrices = aggregateExpensesByMonth(res.data.expenses);
+      setPrices(aggregatedPrices); // Set the prices state with the aggregated amounts
+    } catch (error) {
+      console.error('Error fetching expenses:', error);
+    }
+  }
+
+  const aggregateExpensesByMonth = (expenses) => {
+    // Initialize an array with 12 elements (one for each month), all set to 0
+    const monthlyTotals = new Array(12).fill(0);
+
+    // Loop through each expense and add its amount to the corresponding month
+    expenses.forEach(expense => {
+      const monthIndex = expense.month; // The month is already in the correct index format
+      monthlyTotals[monthIndex] += expense.amounts; // Directly add the amounts since it's now a number
+    });
+
+    return monthlyTotals;
+  };
+
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 
   const data = {
     labels: labels,
