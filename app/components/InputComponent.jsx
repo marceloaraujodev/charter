@@ -1,4 +1,4 @@
-export default function InputComponent({ type = "text", className, placeholder, value, onChange}) {
+export default function InputComponent({ type = "text", className, placeholder, value='', onChange}) {
 
   return (
     <input 

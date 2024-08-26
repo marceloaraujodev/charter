@@ -12,7 +12,14 @@ export default function Button({
 }) {
 
   const colorClass = color === 'red' ? c.delete : color === 'primary' ? c.btn : '';
-  const sizeClass = size === 'small' ? c.small : size === 'large' ? c.large : '';
+  // const sizeClass = size === 'small' ? c.small : size === 'large' ? c.large : '';
+
+  const sizeClass = {
+    small: c.small,
+    medium: c.medium,
+    large: c.large,
+    default: c.default
+  }[size];
 
 
   return (
