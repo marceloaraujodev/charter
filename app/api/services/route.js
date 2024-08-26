@@ -1,14 +1,18 @@
 import { NextResponse } from 'next/server';
 import Service from '@/app/models/service';
+import Expense from '@/app/models/expenses';
 import { mongooseConnect } from '@/app/lib/mongooseConnect';
 
 mongooseConnect();
 
-// create service order
+// create service order and adds price to the Expense model
 export async function POST(req, res) {
-  const { id, vendor, service, price } = await req.json();
+  console.log('create service')
+  const { id, vendor, service, price, date, status } = await req.json();
+  // const data = await req.json();
+  // console.log(data)
 
-  if ((!id, !vendor, !service, !price)) {
+  if ((!id, !vendor, !service, !price, !date)) {
     return NextResponse.json({
       error: 'All fields are required!',
     });
@@ -20,6 +24,8 @@ export async function POST(req, res) {
       vendor,
       service,
       price: Number(price),
+      date: date,
+      status: null, // for first items post will be firt item added, edits will be on put
     });
 
     await newService.save();
@@ -38,7 +44,8 @@ export async function POST(req, res) {
 // get all services order 
 export async function GET(req, res) {
   const services = await Service.find();
-  console.log(services)
+  // console.log(services)
+
 
   if (!services.length) {
     return NextResponse.json({ message: 'No services found' });
@@ -48,23 +55,54 @@ export async function GET(req, res) {
 
 // update service order by id, there is 2 ids, the frontend is mostly for displaying purposes. use _id for backend.
 export async function PUT(req, res){
-  const data = await req.json();
+  const { _id, vendor, service, price, date } = await req.json();
+  // const data = await req.json();
+  // console.log(data)
+  console.log(_id, vendor, service, price, date)
+  const newDate = new Date(date)
+
+  if (!_id || !vendor) {
+    return NextResponse.json({ message: 'All fields are required!' });
+  }
+
   try {
-    const updatedService = await Service.findByIdAndUpdate(data._id, data, { new: true });
-  
-    return NextResponse.json({ message: 'success'});
+    const updatedService = await Service.findByIdAndUpdate(
+      _id, 
+      { vendor, service, price: Number(price), date: newDate }, 
+      { new: true }
+    );
+
+    console.log('----', updatedService);
+
+    if(!updatedService){
+      return NextResponse.json({ message: 'No service found with that ID!' });
+    }
+
+      // await expense.save();
+      return NextResponse.json({ 
+        message: 'Service updated and expense record adjusted successfully!'
+      });
+    
+
   } catch (error) {
     console.log(error);
     return NextResponse.json({ message: 'server error' });
   }
-
 }
 
 export async function DELETE(req, res){
-  const { id } = await req.json();
-  console.log(id )
+  const { _id } = await req.json();
+  console.log(_id)
+
   try {
-    await Service.deleteOne({_id: id})
+    // get service doc and delete it
+    // const deletedService = await Service.findByIdAndDelete(id);
+    const serviceDoc = await Service.findByIdAndDelete(_id);
+  
+    if(!serviceDoc){
+      return NextResponse.json({ message: 'No service found with that ID!' });
+    }
+    
     return NextResponse.json({ message: 'success' });
   } catch (error) {
     console.log(error);

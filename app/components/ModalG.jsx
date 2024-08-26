@@ -12,11 +12,6 @@ export default function ModalG({
     onCloseModal();
   }
 
-  // function handleSubmit(e){
-  //   e.preventDefault();
-  //   console.log('click');
-  // }
-
   return (
     <>
       <dialog open className={c.modal}>

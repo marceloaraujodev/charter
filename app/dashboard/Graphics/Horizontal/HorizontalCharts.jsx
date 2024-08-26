@@ -1,4 +1,7 @@
+'use client'
+import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
+import axios from 'axios';
 import {
   Chart as ChartJS,
   BarController,
@@ -21,11 +24,39 @@ ChartJS.register(
 import { useGlobalContext } from '@/app/GlobalContext';
 import c from './Horizontal.module.css';
 
-export default function HorizontalCharts() {
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const { serviceData } = useGlobalContext();
 
-  const prices = serviceData.map(service => service.price)
+
+export default function HorizontalCharts({isUpdated}) {
+  const { serviceData } = useGlobalContext();
+  const [prices, setPrices] = useState(new Array(12).fill(0)); //  [0, 0, 0, 0, 0, 0, 0, 355, 0, 0, 0, 0]
+  
+  useEffect(() => {
+    fetchExpenses();
+  }, [isUpdated]);
+
+  async function fetchExpenses() {
+    try {
+      const res = await axios.get('/api/services');
+      const services = res.data.services;
+      if (!services) return 
+
+      const monthlyTotals = new Array(12).fill(0);
+
+      services.forEach(service => {
+        const date = new Date(service.date);
+        const monthIndex = date.getMonth();
+        const price = Number(service.price);
+        monthlyTotals[monthIndex] += price;
+      })
+      setPrices(monthlyTotals)
+    } catch (error) {
+      console.error('Error fetching expenses:', error);
+    }
+  }
+
+ 
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 
   const data = {
     labels: labels,
