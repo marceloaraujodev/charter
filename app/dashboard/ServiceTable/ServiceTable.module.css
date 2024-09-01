@@ -1,3 +1,8 @@
 .btnCont{
   margin-top: 50px;
 }
+.paginationContainer{
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+}

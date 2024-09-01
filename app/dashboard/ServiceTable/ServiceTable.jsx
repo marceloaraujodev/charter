@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Table, IconButton, Input, DatePicker, InputNumber } from 'rsuite';
+import { Table, IconButton, Input, DatePicker, InputNumber, Pagination } from 'rsuite';
 import { VscEdit, VscSave, VscRemove } from 'react-icons/vsc';
 import axios from 'axios';
 import Button from '../../components/Button';
@@ -21,10 +21,13 @@ const styles = `
 export default function ServiceTable({setIsUpdated, isUpdated}) {
 const [data, setData] = useState([]);
 const [isNewItem, setIsNewItem] = useState(false);
+const [page, setPage] = useState(1);
+const [limit, setLimit] = useState(10); // Items per page
+const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+useEffect(() => {
+  fetchData(page, limit);
+}, [page, limit, isUpdated]);
 
   // const handleSortColumn = (sortColumn, sortType) => {
   //   setSortColumn(sortColumn);
@@ -44,17 +47,23 @@ const [isNewItem, setIsNewItem] = useState(false);
   //   setData(sortedData);
   // };
 
-  async function fetchData() {
-    const res = await axios.get('/api/services');
+  async function fetchData(page=1, limit=10) {
+    const res = await axios.get('/api/services', {
+      params: {
+        page,
+        limit
+      }
+    });
     if(!res.data.services) return 
 
     const services = res.data.services.map(service => ({
       ...service,
       date: new Date(service.date), // Convert date string to Date object
     }));
-    const sortedServices = services.sort((a, b) => b.id - a.id);
-    setData(sortedServices);
-    // setData(services);
+    // const sortedServices = services.sort((a, b) => b.id - a.id);
+    // setData(sortedServices);
+    setData(services);
+    setTotalPages(Math.ceil(res.data.totalCount / limit));
   }
 
   const handleChange = (id, key, value) => {
@@ -130,6 +139,12 @@ const [isNewItem, setIsNewItem] = useState(false);
     }
 
   }
+
+  // handles any page change clickes from links etc.
+  const handleChangePage = (page) => {
+    setPage(page);
+  };
+
 
   return (
     <>
@@ -210,6 +225,21 @@ const [isNewItem, setIsNewItem] = useState(false);
           <ActionCell dataKey="id" onSave={saveItemOnServer} onEdit={handleEdit} onRemove={handleRemove} />
         </Column>
       </Table>
+      <div className={c.paginationContainer}>
+        <Pagination
+          prev 
+          next
+          // first
+          // last
+          ellipsis
+          boundaryLinks
+          pages={totalPages}
+          activePage={page}
+          onSelect={handleChangePage}
+          maxButtons={5}
+        />
+      </div>
+
     </>
   );
 };

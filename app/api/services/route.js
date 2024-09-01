@@ -3,6 +3,7 @@ import Service from '@/app/models/service';
 import Expense from '@/app/models/expenses';
 import { mongooseConnect } from '@/app/lib/mongooseConnect';
 
+
 mongooseConnect();
 
 // create service order and adds price to the Expense model
@@ -43,14 +44,31 @@ export async function POST(req, res) {
 
 // get all services order 
 export async function GET(req, res) {
-  const services = await Service.find();
-  // console.log(services)
+  const url = new URL(req.url);
+  const queryParams = url.searchParams
+  // console.log('this is the query string', query);
+
+  const page = queryParams.get('page') * 1 || 1; // multiple by 1 turns into an number
+  const limit = queryParams.get('limit') * 1; // limit of results per page
+
+  // const itemsPerPage = 10;
+  const start = (page - 1) * limit;
+  
+  // // page 1: 1 - 10, page 2: 11, 20, page 3: 21 -30
+  // console.log('Page:', page, 'Limit:', limit);
+  // console.log(`if page ${page} the results should start at, ${page * limit}`)
+
+  // Apply pagination to the database query
+  const services = await Service.find().skip(start).limit(limit);
+
+  // Calculate the total number of matching documents
+  const totalCount = await Service.countDocuments();
 
 
   if (!services.length) {
-    return NextResponse.json({ message: 'No services found' });
+    return NextResponse.json({ message: 'No services found', });
   }
-  return NextResponse.json({ message: 'success', services });
+  return NextResponse.json({ message: 'success', services, totalCount });
 }
 
 // update service order by id, there is 2 ids, the frontend is mostly for displaying purposes. use _id for backend.
