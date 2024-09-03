@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Table, IconButton, Input, DatePicker, InputNumber } from 'rsuite';
+import { Table, IconButton, Input, DatePicker, InputNumber, Pagination } from 'rsuite';
 import { VscEdit, VscSave, VscRemove } from 'react-icons/vsc';
 import axios from 'axios';
 import Button from '../../components/Button';
@@ -21,10 +21,13 @@ const styles = `
 export default function ServiceTable({setIsUpdated, isUpdated}) {
 const [data, setData] = useState([]);
 const [isNewItem, setIsNewItem] = useState(false);
+const [page, setPage] = useState(1);
+const [limit, setLimit] = useState(10); // Items per page
+const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+useEffect(() => {
+  fetchData(page, limit);
+}, [page, limit, isUpdated]);
 
   // const handleSortColumn = (sortColumn, sortType) => {
   //   setSortColumn(sortColumn);
@@ -44,28 +47,34 @@ const [isNewItem, setIsNewItem] = useState(false);
   //   setData(sortedData);
   // };
 
-  async function fetchData() {
-    const res = await axios.get('/api/services');
+  async function fetchData(page=1, limit=10) {
+    const res = await axios.get('/api/services', {
+      params: {
+        page,
+        limit
+      }
+    });
     if(!res.data.services) return 
 
     const services = res.data.services.map(service => ({
       ...service,
       date: new Date(service.date), // Convert date string to Date object
     }));
-    const sortedServices = services.sort((a, b) => b.id - a.id);
-    setData(sortedServices);
-    // setData(services);
+    // const sortedServices = services.sort((a, b) => b.id - a.id);
+    // setData(sortedServices);
+    setData(services);
+    setTotalPages(Math.ceil(res.data.totalCount / limit));
   }
 
-  const handleChange = (id, key, value) => {
+  const handleChange = (_id, key, value) => {
     const nextData = Object.assign([], data); // copies data to the empty array basically
-    nextData.find(item => item.id === id)[key] = value; // returns object and updates with [key] = value
+    nextData.find(item => item._id === _id)[key] = value; // returns object and updates with [key] = value
     setData(nextData);
   };
 
-  const handleEdit = async (id) => {
+  const handleEdit = async (_id) => {
     const nextData = Object.assign([], data);
-    const activeItem = nextData.find(item => item.id === id);
+    const activeItem = nextData.find(item => item._id === _id);
 
     activeItem.status = activeItem.status ? null : 'EDIT';
 
@@ -75,7 +84,6 @@ const [isNewItem, setIsNewItem] = useState(false);
   const handleRemove = async (_id) => {
     setData(data.filter(item => item._id !== _id));
     try {
-      // console.log('_id', _id)
       await axios.delete('/api/services', {
         data: { _id }
       })
@@ -131,6 +139,12 @@ const [isNewItem, setIsNewItem] = useState(false);
 
   }
 
+  // handles any page change clickes from links etc.
+  const handleChangePage = (page) => {
+    setPage(page);
+  };
+
+
   return (
     <>
       <style>{styles}</style>
@@ -148,6 +162,19 @@ const [isNewItem, setIsNewItem] = useState(false);
           Add Service Order
         </Button>
 
+        <Button
+          size='medium'
+          onClick={() => {
+            setData([
+              { id: data.length + 1, vendor: '', service: '', price: 0, date: new Date, status: 'EDIT' },
+              ...data
+            ]);
+            setIsNewItem(true);
+          }}
+        >
+          +Add Service
+        </Button>
+
       </div>
 
       <hr />
@@ -157,7 +184,7 @@ const [isNewItem, setIsNewItem] = useState(false);
       >
         <Column flexGrow={1} >
           <HeaderCell>id</HeaderCell>
-          <EditableCell
+          <Cell
             dataKey="id"
             dataType="number"
             onChange={handleChange}
@@ -210,6 +237,21 @@ const [isNewItem, setIsNewItem] = useState(false);
           <ActionCell dataKey="id" onSave={saveItemOnServer} onEdit={handleEdit} onRemove={handleRemove} />
         </Column>
       </Table>
+      <div className={c.paginationContainer}>
+        <Pagination
+          prev 
+          next
+          // first
+          // last
+          ellipsis
+          boundaryLinks
+          pages={totalPages}
+          activePage={page}
+          onSelect={handleChangePage}
+          maxButtons={5}
+        />
+      </div>
+
     </>
   );
 };
@@ -236,14 +278,14 @@ const EditableCell = ({ rowData, dataType, dataKey, onChange, onEdit, ...props }
       {...props}
       className={editing ? 'table-cell-editing' : ''}
       onDoubleClick={() => {
-        onEdit?.(rowData.id);
+        onEdit?.(rowData._id);
       }}
     >
       {editing ? (
         <Field
           defaultValue={value}
           onChange={value => {
-            onChange?.(rowData.id, dataKey, value);
+            onChange?.(rowData._id, dataKey, value);
           }}
         />
       ) : (
@@ -264,7 +306,7 @@ const ActionCell = ({ rowData, dataKey, onEdit, onRemove, onSave, ...props }) =>
             // console.log('saving...')
             onSave(rowData)
           }
-          onEdit(rowData.id);
+          onEdit(rowData._id);
         }}
       />
       <IconButton

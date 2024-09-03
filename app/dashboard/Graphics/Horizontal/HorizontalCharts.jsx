@@ -29,9 +29,11 @@ import c from './Horizontal.module.css';
 export default function HorizontalCharts({isUpdated}) {
   const { serviceData } = useGlobalContext();
   const [prices, setPrices] = useState(new Array(12).fill(0)); //  [0, 0, 0, 0, 0, 0, 0, 355, 0, 0, 0, 0]
+  const [income, setIncome] = useState(new Array(12).fill(0));
   
   useEffect(() => {
     fetchExpenses();
+    // fetchIncome();
   }, [isUpdated]);
 
   async function fetchExpenses() {
@@ -54,6 +56,26 @@ export default function HorizontalCharts({isUpdated}) {
     }
   }
 
+  async function fetchIncome() {
+    try {
+      const res = await axios.get('/api/services');
+      const services = res.data.services;
+      if (!services) return 
+
+      const monthlyTotals = new Array(12).fill(0);
+
+      services.forEach(service => {
+        const date = new Date(service.date);
+        const monthIndex = date.getMonth();
+        const income = Number(service.income);
+        monthlyTotals[monthIndex] += income;
+      })
+      setIncome(monthlyTotals)
+    } catch (error) {
+      console.error('Error fetching expenses:', error);
+    }
+  }
+
  
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -69,14 +91,14 @@ export default function HorizontalCharts({isUpdated}) {
         borderWidth: 1,
         stack: 'Stack 0',
       },
-      // {
-      //   label: 'Income',
-      //   data: [28, 48, 40],
-      //   backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      //   borderColor: 'rgb(54, 162, 235)',
-      //   borderWidth: 1,
-      //   stack: 'Stack 1',
-      // },
+      {
+        label: 'Income',
+        data: [0, 0, 0, 0, 0, 0,28, 48, 0, 0, 0, 0], // will change to income
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgb(54, 162, 235)',
+        borderWidth: 1,
+        stack: 'Stack 1',
+      },
       // {
       //   label: 'Dataset 3',
       //   data: [35, 72, 45],
@@ -116,7 +138,7 @@ export default function HorizontalCharts({isUpdated}) {
   return (
     <>
       <div className={c.container}>
-        <h4>Services Costs</h4>
+        <h4>Services</h4>
         <div className={c.graphicContainer}>
           <Bar data={data} options={options} className={c.bar}/>
         </div>

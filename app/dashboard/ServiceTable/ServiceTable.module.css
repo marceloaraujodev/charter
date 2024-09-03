@@ -1,3 +1,10 @@
 .btnCont{
   margin-top: 50px;
+  display: flex;
+  gap: 10px;
+}
+.paginationContainer{
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
 }

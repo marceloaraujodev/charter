@@ -15,7 +15,8 @@ export default function Users({ view }) {
 
   useEffect(() => {
     getUsers();
-  }, []);
+    // console.log()
+  }, []); 
 
   async function getUsers() {
     try {
@@ -61,10 +62,14 @@ export default function Users({ view }) {
       {!isEditing ? (
         <div className={c.container}>
           {users.map((user) => {
+            let longName;
+            if(user.name.length > 20){
+              longName = user.name.substring(0, 20) + '...';
+            }
             return (
               <div className={c.row} key={user._id}>
                 <div className={c.userNameContainer}>
-                  <span className={c.userName}>{user.name}</span>
+                  <span className={c.userName}>{user.name.length > 20 ? longName : user.name}</span>
                 </div>
                 <div className={c.btnContainer}>
                   <Button
@@ -94,6 +99,8 @@ export default function Users({ view }) {
               submitType="edit"
               onEditDone={handleEditDone}
               apiEndpoint='/api/users'
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
             />
             <div className={c.btnContBottom}>
               <Button
