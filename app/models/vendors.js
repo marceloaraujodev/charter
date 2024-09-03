@@ -11,7 +11,7 @@ const VendorSchema = new mongoose.Schema({
   email: {
     type: String,
   },
-  role: {
+  company: {
     type: String,
   },
   phone: String

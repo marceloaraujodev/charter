@@ -6,8 +6,7 @@ import User from '@/app/models/user';
 
 mongooseConnect();
 
-// this will also get the users since we need to send the session to the backend it becomes a post request
-
+// Handles user Session & Sends users back to the frontend
 export async function POST(req, res) {
   try {
     const {session} = await req.json();
@@ -19,7 +18,6 @@ export async function POST(req, res) {
       }, { status: 401 })
     }else{
       const users = await User.find();
-      console.log('this is users being returned',users)
       return NextResponse.json({
         message: 'success',
         users,
@@ -35,10 +33,10 @@ export async function POST(req, res) {
 
 }
 
-
+// Edit users 
 export async function PUT(req, res){
   const data = await req.json();
-  console.log(data)
+  console.log('should logg edit data from user form--------',data)
 
   const hashedPassword = await hashPassword(data.password);
   data.password = hashedPassword;

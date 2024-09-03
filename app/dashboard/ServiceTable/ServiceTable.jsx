@@ -66,15 +66,15 @@ useEffect(() => {
     setTotalPages(Math.ceil(res.data.totalCount / limit));
   }
 
-  const handleChange = (id, key, value) => {
+  const handleChange = (_id, key, value) => {
     const nextData = Object.assign([], data); // copies data to the empty array basically
-    nextData.find(item => item.id === id)[key] = value; // returns object and updates with [key] = value
+    nextData.find(item => item._id === _id)[key] = value; // returns object and updates with [key] = value
     setData(nextData);
   };
 
-  const handleEdit = async (id) => {
+  const handleEdit = async (_id) => {
     const nextData = Object.assign([], data);
-    const activeItem = nextData.find(item => item.id === id);
+    const activeItem = nextData.find(item => item._id === _id);
 
     activeItem.status = activeItem.status ? null : 'EDIT';
 
@@ -84,7 +84,6 @@ useEffect(() => {
   const handleRemove = async (_id) => {
     setData(data.filter(item => item._id !== _id));
     try {
-      // console.log('_id', _id)
       await axios.delete('/api/services', {
         data: { _id }
       })
@@ -163,6 +162,19 @@ useEffect(() => {
           Add Service Order
         </Button>
 
+        <Button
+          size='medium'
+          onClick={() => {
+            setData([
+              { id: data.length + 1, vendor: '', service: '', price: 0, date: new Date, status: 'EDIT' },
+              ...data
+            ]);
+            setIsNewItem(true);
+          }}
+        >
+          +Add Service
+        </Button>
+
       </div>
 
       <hr />
@@ -172,7 +184,7 @@ useEffect(() => {
       >
         <Column flexGrow={1} >
           <HeaderCell>id</HeaderCell>
-          <EditableCell
+          <Cell
             dataKey="id"
             dataType="number"
             onChange={handleChange}
@@ -266,14 +278,14 @@ const EditableCell = ({ rowData, dataType, dataKey, onChange, onEdit, ...props }
       {...props}
       className={editing ? 'table-cell-editing' : ''}
       onDoubleClick={() => {
-        onEdit?.(rowData.id);
+        onEdit?.(rowData._id);
       }}
     >
       {editing ? (
         <Field
           defaultValue={value}
           onChange={value => {
-            onChange?.(rowData.id, dataKey, value);
+            onChange?.(rowData._id, dataKey, value);
           }}
         />
       ) : (
@@ -294,7 +306,7 @@ const ActionCell = ({ rowData, dataKey, onEdit, onRemove, onSave, ...props }) =>
             // console.log('saving...')
             onSave(rowData)
           }
-          onEdit(rowData.id);
+          onEdit(rowData._id);
         }}
       />
       <IconButton

@@ -39,6 +39,12 @@ export default function IndexPage() {
     whileInView: { opacity: 1, transition: { duration: 1.7 } },
   };
 
+  function formatPhoneNumber(number) {
+    // console.log(number?.substring(0, 1))
+    const formattedNumber = `(${number.substring(0, 3)}) ${number.substring(3, 6)}-${number.substring(6, 10)}`;
+    return formattedNumber;
+  }
+ console.log(formatPhoneNumber('1111112233'))
   return (
     <>
     <div>
