@@ -18,6 +18,12 @@ export default function Users({ view }) {
     // console.log()
   }, []); 
 
+  useEffect(() => {
+    if (!isEditing) {
+      window.scrollTo(0, 0);
+    }
+  }, [isEditing]);
+
   async function getUsers() {
     try {
       if (!session) return;
