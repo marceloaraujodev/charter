@@ -5,8 +5,6 @@ export default function CreateVendor({view}) {
 
   return (
     <>
-    {/* <Users view={view} /> */}
-     {/* <Users view={view} /> */}
       <UserForm 
         submitType='register' 
         apiEndpoint='/api/vendors'
