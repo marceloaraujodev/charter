@@ -43,7 +43,8 @@ export default function Users({ view }) {
   }
 
   async function handleDelete(id) {
-   const res = await axios.delete(`/api/users?id=${id}`);
+    // view will be user or vendors here
+    const res = await axios.delete(`/api/${view}?id=${id}`);
     if(res.status !== 200){
       notify('error', 'Failed to delete user');
       return;
@@ -98,9 +99,10 @@ export default function Users({ view }) {
               user={selectedUser}
               submitType="edit"
               onEditDone={handleEditDone}
-              apiEndpoint='/api/users'
+              apiEndpoint={view === 'users' ? '/api/users' : '/api/vendors'}
               isEditing={isEditing}
               setIsEditing={setIsEditing}
+              view={view}
             />
             <div className={c.btnContBottom}>
               <Button

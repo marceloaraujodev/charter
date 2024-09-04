@@ -40,6 +40,7 @@ export async function PUT(req, res){
 
   const hashedPassword = await hashPassword(data.password);
   data.password = hashedPassword;
+  
 
   console.log('should display new pass hashed', data);
 

@@ -24,7 +24,7 @@ export default function UserForm({
   const [phone, setPhone] = useState('');
   const [company, setCompany] = useState('');
   const [id, setId] = useState(user ? user._id : null);
-  const [type, setType] = useState();
+  const [type, setType] = useState('admin');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -42,75 +42,106 @@ export default function UserForm({
     }
   }, [user]);
 
+  // handles responses
+  async function handleResponses(res, message) {
+    if (res.status === 200) {
+      console.log('success');
+      // if (onEditDone) onEditDone();
+      setIsLoading(false);
+      notify('success', message);
+    } else {
+      notify('error', 'Failed please try again.');
+    }
+  }
+
+  //handle fetch
+  async function fetch(method, data){
+    const res = await axios({
+      method: method,
+      url: apiEndpoint,
+      data: data,
+    });
+
+    return res
+  }
+
+  // creates or updates a user
+  async function handleCreateUser(){
+    const user = {
+      name,
+      lastName,
+      email,
+      password,
+      phone,
+      type,
+      company,
+    };
+    const res = await fetch('post', user);
+    handleResponses(res, 'New user created successfully!')
+  }
+
+  // updates a user
+  async function handleUpdateUser(){
+    const updatedUser = {
+      name,
+      lastName,
+      email,
+      phone,
+      password,
+      _id: id, 
+    };
+    console.log(updatedUser)
+    const res = await fetch('put', updatedUser)
+    handleResponses(res, 'User updated successfully!');
+  }
+
+  // creates vendor
+  async function handleCreateVendor(){
+    const vendor = {
+      name,
+      lastName,
+      email,
+      phone,
+      company,
+    };
+    const res = await fetch('post', vendor);
+    handleResponses(res, 'Vendor created successfully!')
+  }
+
+  // updates vendor
+  async function handleUpdateVendor(){
+    const updateVendor = {
+      name,
+      lastName,
+      email,
+      phone,
+      company,
+      _id: id,
+    };
+    const res = await fetch('put', updateVendor);
+    handleResponses(res, 'Vendor updated successfully!')
+  }
+
 
   async function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      if(submitType === 'submit') {
-        console.log('submit code here')
-        if (type === undefined || type === '') {
-          alert('Please select user type'); return;
-        }
-
-        const user = {
-          name,
-          lastName,
-          email,
-          password,
-          phone,
-          type,
-          company,
-          _id: id, // if is an edit, we pass the id
-        };
-        console.log('this is edit user', user);
-        const res = await axios({
-          method: method || (submitType === 'register' ? 'post' : 'put'),
-          url: apiEndpoint,
-          data: user,
-        });
-        console.log(res)
-        if (res.status === 200) {
-          console.log('success');
-          setName('');
-          setLastName('');
-          setEmail('');
-          setPassword('');
-          setPhone('');
-          setType('');
-          setCompany('');
-          if (onEditDone) onEditDone();
-          setIsLoading(false);
-          notify('success', 'New user created successfully!');
-        } else {
-          notify('error', 'Failed to register');
-        }
+      console.log('view: ->>>>>',view)
+      if(view === 'createuser'){
+        await handleCreateUser();
+      }else if(view === 'users'){
+        await handleUpdateUser();
+      }else if(view === 'createvendor'){
+        await handleCreateVendor();
+      }else if(view === 'vendors'){
+        await handleUpdateVendor();
       }else{
-        console.log('editing code here')
-          console.log('enter put condition for editing vendors')
-        const updatedUser = {
-          name,
-          lastName,
-          email,
-          phone,
-          company,
-          _id: id, // if is an edit, we pass the id
-        };
-        console.log('enter vendor', updatedUser);
-        const res = await axios.put(
-          'http://localhost:3000/api/vendors',
-          updatedUser
-        );
-        console.log(res)
-        if (res.status === 200) {
-          setIsLoading(false);
-          console.log('success');
-          notify('success', 'User updated successfully!');
-        } else {
-          notify('error', 'Failed to register');
-        }
+        notify('error', 'Please try again later');
+        setIsLoading(false);
+        return;
       }
-      
+            
     } catch (error) {
       notify('error', 'Failed to register, internal error');
       setIsLoading(false);
@@ -156,19 +187,7 @@ export default function UserForm({
             placeholder="Last Name"
           />
 
-          {/* {view === 'createvendor' && (
-            <>
-              <label>Company</label>
-              <input
-                type="text"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-                placeholder="Company"
-              />
-            </>
-            )} */}
-
-          {view === 'vendors' || isEditing || view === 'createvendor' ? (
+          {(view === 'vendors' && isEditing) || view === 'createvendor' ? (
             <>
               <label>Company</label>
               <input
@@ -212,8 +231,9 @@ export default function UserForm({
                 className={c.select}
                 onChange={(e) => setType(e.target.value)}
                 value={type}
+                required
               >
-                <option value="">Select</option>
+                <option value="" disabled>Select</option>
                 <option value="admin">Admin</option>
                 <option value="crew">Crew</option>
                 <option value="captain">Captain</option>
@@ -224,7 +244,6 @@ export default function UserForm({
 
           <label>Phone</label>
           <input
-            required
             type="text"
             value={phone}
             onChange={(e) => handlePhoneChange(e)}

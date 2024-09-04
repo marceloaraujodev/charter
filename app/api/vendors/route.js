@@ -57,3 +57,15 @@ export async function PUT(req, res){
     })
   }
 }
+
+export async function DELETE(req, res){
+  const url = new URL(req.url);
+  const searchParams = url.searchParams;
+  const id = searchParams.get('id');
+
+  await Vendor.findOneAndDelete({_id: id});
+
+  return NextResponse.json({
+    message:'success',
+  })
+}

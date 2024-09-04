@@ -153,7 +153,7 @@ export default function Settings() {
         </div>
 
         <div className={c.content}>
-          {view === 'createuser' && <CreateUser session={session} />}
+          {view === 'createuser' && <CreateUser session={session} view={view} />}
           {view === 'users' && <Users session={session} view={view} />}
           {view === 'vendors' && <Vendors session={session} view={view} />}
           {view === 'crew' && <CrewSettings session={session} />}
