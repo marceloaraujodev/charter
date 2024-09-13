@@ -1,3 +1,4 @@
+'use client'
 import { useEffect } from 'react';
 import c from './PageContent.module.css';
 export default function PageContent({children}) {
