@@ -44,7 +44,7 @@ export default function IndexPage() {
     const formattedNumber = `(${number.substring(0, 3)}) ${number.substring(3, 6)}-${number.substring(6, 10)}`;
     return formattedNumber;
   }
- console.log(formatPhoneNumber('1111112233'))
+//  console.log(formatPhoneNumber('1111112233'))
   return (
     <>
     <div>

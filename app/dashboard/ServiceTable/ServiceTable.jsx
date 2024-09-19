@@ -17,77 +17,99 @@ const styles = `
 }
 `;
 
+// need to set up the display of the incomes - 
+//set up the correct usage of the setIsIncome in the buttons and where it needs to change so it updates the data correctly.
+// on fetchdata and fetchIncome ensure that the isIncome is set correctly. 
+
 
 export default function ServiceTable({setIsUpdated, isUpdated}) {
-const [data, setData] = useState([]);
+const [serviceData, setServiceData] = useState([]);
 const [isNewItem, setIsNewItem] = useState(false);
 const [page, setPage] = useState(1);
 const [limit, setLimit] = useState(10); // Items per page
 const [totalPages, setTotalPages] = useState(1);
+const [incomeData, setIncomeData] = useState([])
+const [isIncome, setIsIncome] = useState(false);
+const [asc, setAsc] = useState(false)
 
 useEffect(() => {
   fetchData(page, limit);
 }, [page, limit, isUpdated]);
 
-  // const handleSortColumn = (sortColumn, sortType) => {
-  //   setSortColumn(sortColumn);
-  //   setSortType(sortType);
-
-  //   const sortedData = [...data].sort((a, b) => {
-  //     const valueA = a[sortColumn];
-  //     const valueB = b[sortColumn];
-
-  //     if (sortType === 'asc') {
-  //       return valueA > valueB ? 1 : -1;
-  //     } else {
-  //       return valueA < valueB ? 1 : -1;
-  //     }
-  //   });
-
-  //   setData(sortedData);
-  // };
-
+  // gets Services orders by default
   async function fetchData(page=1, limit=10) {
-    const res = await axios.get('/api/services', {
+   const res = await axios.get('/api/services', {
       params: {
         page,
         limit
       }
     });
+
+    const incomeRes = await axios.get('/api/income', {
+      params: {
+        page,
+        limit
+      }
+    });
+
     if(!res.data.services) return 
 
     const services = res.data.services.map(service => ({
       ...service,
       date: new Date(service.date), // Convert date string to Date object
     }));
-    // const sortedServices = services.sort((a, b) => b.id - a.id);
-    // setData(sortedServices);
-    setData(services);
-    setTotalPages(Math.ceil(res.data.totalCount / limit));
+
+    const income = incomeRes.data.incomes.map(income => ({
+      ...income,
+      date: new Date(income.date), // Convert date string to Date object
+    }));
+
+    // Sort by date in descending order
+    const sortedServices = services.sort((a, b) => b.date - a.date);
+    const sortedIncome = income.sort((a, b) => b.date - a.date);
+    setIncomeData(sortedIncome)
+    setServiceData(sortedServices);
+    setTotalPages(Math.ceil(res.data.totalCount / limit)); 
   }
 
   const handleChange = (_id, key, value) => {
-    const nextData = Object.assign([], data); // copies data to the empty array basically
+    // const nextData = Object.assign([], isIncome ? incomeData : serviceData); // copies data to the empty array basically
+    const nextData = [...(isIncome ? incomeData : serviceData)];
     nextData.find(item => item._id === _id)[key] = value; // returns object and updates with [key] = value
-    setData(nextData);
+    isIncome ? setIncomeData(nextData) : setServiceData(nextData);
+ 
   };
 
+  // refactored edit state
   const handleEdit = async (_id) => {
-    const nextData = Object.assign([], data);
+    // const nextData = Object.assign([], serviceData);
+    const nextData = [...(isIncome ? incomeData : serviceData)];
     const activeItem = nextData.find(item => item._id === _id);
 
+    if(!activeItem) {
+      console.log(`Item with _id${_id} not found`)
+      return;
+    }
     activeItem.status = activeItem.status ? null : 'EDIT';
 
-    setData(nextData); 
+    isIncome ? setIncomeData(nextData) : setServiceData(nextData);
   };
 
+  // refactored state and route
   const handleRemove = async (_id) => {
-    setData(data.filter(item => item._id !== _id));
+    const type = isIncome ? 'income' : 'services';
+    const updateData = (isIncome ? incomeData : serviceData).filter(item => item._id !== _id);
+
+    if(isIncome){
+      setIncomeData(updateData)
+    }else{
+      setServiceData(updateData)
+    }
     try {
-      await axios.delete('/api/services', {
+      await axios.delete(`/api/${type}`, {
         data: { _id }
       })
-      notify('success', 'Service order removed successfully!');
+      notify('success', isIncome ? 'Income entry removed successfully!' : 'Service order removed successfully!');
       setIsUpdated(!isUpdated);
     } catch (error) {
       console.log(error.message)
@@ -95,22 +117,26 @@ useEffect(() => {
     }
   };
 
-  // Saves new item and Edited item
+  // If new Saves if not New Updates, PUT, POST link to functions
   async function saveItemOnServer(item){
     if(isNewItem){
-      saveNewItemOnServer(item)
+      // saveNewItemOnServer(item)
+      saveOrderOnServer(item)
       console.log('saveNewItemOnServer')
     }else{
-      updateItemOnServer(item)
+      // updateItemOnServer(item)
+      updateOnServer(item)
       console.log('updateItemOnServer')
     }
     setIsNewItem(false)
+    setIsIncome(false);
   }
 
-  // Saves new item to the server POST
-  async function saveNewItemOnServer(item) {
+  // Saves order on server POST 
+  async function saveOrderOnServer(item){
+    const type = isIncome ? 'income' : 'services';
     try {
-      const res = await axios.post('/api/services', item)
+      const res = await axios.post(`/api/${type}`, item)
       console.log(res)
       if(res.status === 200){
         notify('success', 'Service order added successfully!');
@@ -122,13 +148,14 @@ useEffect(() => {
       console.log(error.message)
     }
   }
-  // PUT
-  async function updateItemOnServer(item) {
+
+  async function updateOnServer(item){
+    const type = isIncome ? 'income' : 'services';
     try {
-      const res = await axios.put('/api/services', item)
+      const res = await axios.put(`/api/${type}`, item)
       console.log(res)
       if(res.status === 200){
-        notify('success', 'Service order updated successfully!');
+        notify('success', isIncome ? 'Income entry updated successfully!' : 'Service order updated successfully!');
         setIsUpdated(!isUpdated);
       } else{
         notify('error', 'Something went wrong. Please Try again!');
@@ -136,8 +163,8 @@ useEffect(() => {
     } catch (error) {
       console.log(error.message)
     }
-
   }
+
 
   // handles any page change clickes from links etc.
   const handleChangePage = (page) => {
@@ -149,40 +176,50 @@ useEffect(() => {
     <>
       <style>{styles}</style>
       <div className={c.btnCont}>
-        <Button
-          size='medium'
-          onClick={() => {
-            setData([
-              { id: data.length + 1, vendor: '', service: '', price: 0, date: new Date, status: 'EDIT' },
-              ...data
-            ]);
-            setIsNewItem(true);
-          }}
-        >
-          Add Service Order
-        </Button>
+        <div className={c.leftBlock}>
+          <Button
+            size='medium'
+            onClick={() => {
+              setIsIncome(false);
+              setServiceData([
+                { id: serviceData.length + 1, vendor: '', service: '', price: 0, date: new Date, status: 'EDIT' },
+                ...serviceData
+              ]);
+              setIsNewItem(true);
+            }}
+          >
+            Add Service Order
+          </Button>
 
-        <Button
-          size='medium'
-          onClick={() => {
-            setData([
-              { id: data.length + 1, vendor: '', service: '', price: 0, date: new Date, status: 'EDIT' },
-              ...data
-            ]);
-            setIsNewItem(true);
-          }}
-        >
-          +Add Service
-        </Button>
+          <Button
+            size='medium'
+            onClick={async () => {
+              setIsIncome(true);
+              setIncomeData( [
+                { id: incomeData.length + 1, vendor: '', service: '', price: 0, date: new Date, status: 'EDIT' },
+                ...incomeData
+              ]);
+              setIsNewItem(true);
+            }}
+          >
+            +Add Income
+          </Button>
+        </div>
+
+        <div className={c.rightBlock}>
+          <Button size='medium' onClick={() => setIsIncome(false)}>Services</Button>
+          <Button size='medium' onClick={() => setIsIncome(true)}>Income</Button>
+        </div>
 
       </div>
 
       <hr />
       <Table 
         height={420} 
-        data={data}
-      >
-        <Column flexGrow={1} >
+        data={isIncome ? incomeData : serviceData}
+       >
+
+        {/* <Column flexGrow={1} >
           <HeaderCell>id</HeaderCell>
           <Cell
             dataKey="id"
@@ -190,7 +227,7 @@ useEffect(() => {
             onChange={handleChange}
             onEdit={handleEdit}
           />
-        </Column>
+        </Column> */}
 
         <Column width={200}>
           <HeaderCell>Vendor</HeaderCell>
@@ -219,6 +256,7 @@ useEffect(() => {
             dataType="number"
             onChange={handleChange}
             onEdit={handleEdit}
+            // className={c.expensePrices}
           />
         </Column>
 
@@ -266,7 +304,7 @@ const fieldMap = {
   date: DatePicker
 };
 
-const EditableCell = ({ rowData, dataType, dataKey, onChange, onEdit, ...props }) => {
+const EditableCell = ({ rowData, dataType, dataKey, onChange, onEdit, className, ...props }) => {
   const editing = rowData.status === 'EDIT';
 
   const Field = fieldMap[dataType];
@@ -276,9 +314,11 @@ const EditableCell = ({ rowData, dataType, dataKey, onChange, onEdit, ...props }
   return (
     <Cell
       {...props}
-      className={editing ? 'table-cell-editing' : ''}
+      className={editing ? 'table-cell-editing' : className}
+      datatype={dataType}
       onDoubleClick={() => {
         onEdit?.(rowData._id);
+        // console.log(rowData._id);
       }}
     >
       {editing ? (

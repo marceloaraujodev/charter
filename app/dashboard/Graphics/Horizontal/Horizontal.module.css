@@ -4,13 +4,11 @@
   margin-bottom: 15px;
 }
 .graphicContainer{
-  min-height: 400px;
+  /* min-height: 400px; */
   height: 100%;
   /* border: 1px solid red; */
 }
-/* .bar{
 
-} */
 /* @media screen and (max-width: 768px){
 
 } */

@@ -33,7 +33,7 @@ export default function HorizontalCharts({isUpdated}) {
   
   useEffect(() => {
     fetchExpenses();
-    // fetchIncome();
+    fetchIncome();
   }, [isUpdated]);
 
   async function fetchExpenses() {
@@ -56,18 +56,19 @@ export default function HorizontalCharts({isUpdated}) {
     }
   }
 
+  // // Income if created
   async function fetchIncome() {
     try {
-      const res = await axios.get('/api/services');
-      const services = res.data.services;
-      if (!services) return 
+      const res = await axios.get('/api/income');
+      const incomes = res.data.incomes;
+      if (!incomes) return 
 
       const monthlyTotals = new Array(12).fill(0);
 
-      services.forEach(service => {
+      incomes.forEach(service => {
         const date = new Date(service.date);
         const monthIndex = date.getMonth();
-        const income = Number(service.income);
+        const income = Number(service.price);
         monthlyTotals[monthIndex] += income;
       })
       setIncome(monthlyTotals)
@@ -91,9 +92,10 @@ export default function HorizontalCharts({isUpdated}) {
         borderWidth: 1,
         stack: 'Stack 0',
       },
+      // Income if created 
       {
         label: 'Income',
-        data: [0, 0, 0, 0, 0, 0,28, 48, 0, 0, 0, 0], // will change to income
+        data: income, // will change to income [0, 0, 0, 0, 0, 0,28, 48, 0, 0, 0, 0]
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgb(54, 162, 235)',
         borderWidth: 1,

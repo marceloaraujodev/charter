@@ -1,10 +1,20 @@
 .btnCont{
   margin-top: 50px;
   display: flex;
+  justify-content: space-between;
   gap: 10px;
 }
 .paginationContainer{
   margin-top: 15px;
   display: flex;
   justify-content: center;
+}
+.leftBlock,
+.rightBlock{
+  flex-wrap: wrap;
+  display: flex;
+  gap: 10px;
+}
+.expensePrices{
+  color: red;
 }
