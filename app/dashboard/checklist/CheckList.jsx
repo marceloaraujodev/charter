@@ -239,7 +239,7 @@ export default function CheckList({ listView }) {
         {listView === 'admin' && displayList === false ? (
           <div className={c.btnContainer}>
             <Button onClick={() => addNewList()}>New List</Button>
-            <Button onClick={() => setRemove(!remove)}>Remove List</Button>
+            <Button onClick={() => setRemove(!remove)}>{remove ? 'Close' : 'Remove List'}</Button>
           </div>
         ) : (
           <div className={c.btnContainer}>

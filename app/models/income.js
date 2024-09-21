@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ServiceSchema = new mongoose.Schema({
+const IncomeSchema = new mongoose.Schema({
   id: {
     type: Number,
     required: true
@@ -27,7 +27,7 @@ const ServiceSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-const Service = mongoose.models?.Service || mongoose.model('Service', ServiceSchema);
+const Income = mongoose.models?.Income || mongoose.model('Income', IncomeSchema);
 
-export default Service;
+export default Income;
 

@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import Service from '@/app/models/service';
-import Expense from '@/app/models/expenses';
 import { mongooseConnect } from '@/app/lib/mongooseConnect';
 
 

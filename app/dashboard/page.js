@@ -32,6 +32,11 @@ export default function page() {
     }
   }, [view]);
 
+   // Scroll to top on view change
+   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
+
   const handleNavClick = () => {
     setListTileIsVisible(true);
     setDisplayList(false);

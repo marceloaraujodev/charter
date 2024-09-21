@@ -12,14 +12,12 @@ import Button from './Button';
 import { useSession } from "next-auth/react"
 import c from './Calendar.module.css';
 
-
 function formatDateToYMD(date) {
   return date.toISOString().split('T')[0];
 }
 
 const url = 'https://www.aphroditecharters.com';
 // const url = 'http://localhost:3000';
-
 
 export default function Calendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -45,6 +43,8 @@ export default function Calendar() {
   const [viewIndex, setViewIndex] = useState(1)
   const calendarApiRef = useRef();
   const { data: session, status } = useSession();
+
+  // console.log(session)
 
   useEffect(() => {
     loadTasks();
@@ -234,7 +234,7 @@ export default function Calendar() {
       <div className={c.container}>
         <div className={c.contentContainer}>
           <div className={c.btnContainer}>
-          <Button className={c.btn} onClick={displayModal}>Add</Button>
+          {session && <Button className={c.btn} onClick={displayModal}>Add</Button> }
           <Button className={c.btn} onClick={toogleView}>Toogle View</Button>
           </div>
           <FullCalendar
