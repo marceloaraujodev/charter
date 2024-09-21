@@ -1,3 +1,4 @@
+
 'use client';
 import React from 'react';
 import { useState, useEffect } from 'react';
@@ -11,6 +12,7 @@ import Login from '../components/Login';
 import Settings from './settings/Settings';
 import GallerySettings from './gallery/GallerySettings';
 import PageContent from '../components/PageContent';
+import Spinner from '../components/Spinner';
 import c from './Dashboard.module.css';
 
 
@@ -20,12 +22,19 @@ export default function page() {
     setDisplayList, 
   } = useGlobalContext();
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [view, setView] = useState('dashboard');
   const [listView, setListView] = useState(session?.user?.role);
+  const [loading, setLoading] = useState(true);
+  console.log('this is session', session)
+  console.log('this is status', status)
 
+  useEffect(() => {
+    if(status === 'authenticated' || status === 'unauthenticated') {
+      setLoading(false)
+    }
+  }, [status])
 
- 
   useEffect(() => {
     if (view === 'signout') {
       signOut();
@@ -37,58 +46,71 @@ export default function page() {
     window.scrollTo(0, 0);
   }, [view]);
 
+
   const handleNavClick = () => {
     setListTileIsVisible(true);
     setDisplayList(false);
   };
 
+  const renderContent = () => {
+    if(!session){
+      return <Login />
+    }
+
+    if(session.user.role === 'admin'){
+      return(
+        <> 
+        <div className={c.container}>
+          <Nav 
+          setView={setView} 
+          resetView={() => setListView(session?.user?.role)}
+          onNavClick={handleNavClick}
+         />
+          <div className={c.rowRight}>
+            {view === 'dashboard' && <Calendar />}
+            {view === 'services' && <Services />}
+            {view === 'settings' && <Settings />}
+            {view === 'gallery' && <GallerySettings />}
+            {view === 'checklist' && <CheckList
+             setListView={setListView} 
+             listView={listView}
+            />}
+          </div>
+        </div>
+        </>
+      )
+    }else{
+      // return regular authorized user
+      return (
+        <>
+        <div className={c.container}>
+        <Nav 
+        setView={setView} 
+        resetView={() => setListView(session?.user?.role)}
+        onNavClick={handleNavClick}
+       />
+        <div className={c.rowRight}>
+          {view === 'dashboard' && <Calendar />}
+          {view === 'checklist' && <CheckList
+           setListView={setListView} 
+           />}
+           {/* below only admins */}
+           {view === 'services' && <Services />}
+           {view === 'settings' && <Settings />}
+           {view === 'gallery' && <GallerySettings />}
+        </div>
+      </div>
+      </>
+      )
+    }
+  }
+
+
   return (
     <>
     <PageContent>
-      {!session?.user?.role ? <Login /> : (
-              session?.user?.role === 'admin' ? (
-                <> 
-                <div className={c.container}>
-                  <Nav 
-                  setView={setView} 
-                  resetView={() => setListView(session?.user?.role)}
-                  onNavClick={handleNavClick}
-                 />
-                  <div className={c.rowRight}>
-                    {view === 'dashboard' && <Calendar />}
-                    {view === 'services' && <Services />}
-                    {view === 'settings' && <Settings />}
-                    {view === 'gallery' && <GallerySettings />}
-                    {view === 'checklist' && <CheckList
-                     setListView={setListView} 
-                     listView={listView}
-                    />}
-                  </div>
-                </div>
-                </>
-              ) : (
-                <>
-                <div className={c.container}>
-                <Nav 
-                setView={setView} 
-                resetView={() => setListView(session?.user?.role)}
-                onNavClick={handleNavClick}
-               />
-                <div className={c.rowRight}>
-                  {view === 'dashboard' && <Calendar />}
-                  {view === 'services' && <Services />}
-                  {view === 'settings' && <Settings />}
-                  {view === 'gallery' && <GallerySettings />}
-                  {view === 'checklist' && <CheckList
-                   setListView={setListView} 
-                  />}
-                </div>
-              </div>
-              </>
-              )
-      )}
+      {loading ? <Spinner /> : renderContent()}
 
-      
     </PageContent>
     </>
   );
